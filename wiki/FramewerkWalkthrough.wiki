@@ -133,6 +133,7 @@ If you wanted to add another script to the project you could create a file like
 #! /bin/sh
 
 echo "awesome"
+%
 }}}
 and then edit {{{bin/Makefile.am.local}}} to look like:
 {{{
@@ -145,6 +146,16 @@ dist_bin_SCRIPTS =              \
 }}}
 Framewerk uses {{{make install}}} to determine the contents of your package.  This means that a package made from this project will want to install {{{mynewscript}}} in {{{/usr/bin}}}.[[#9 9]] 
 
+You should also make a test for your new script:
+{{{
+% cat > tests/test-mynewscript
+#! /bin/sh
+
+output=`../src/mynewscript`
+
+test "x$output" = "xawesome\n"
+%
+}}}
 = Footnotes =
 
 == 1 ==
