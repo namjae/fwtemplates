@@ -48,7 +48,7 @@ A tests/.cvsignore
 A tests/Makefile.am.local
 A tests/testmyscript
 }}}
-Notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method. [[Footnote_2 2]]
+Notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method. [[#Footnote_2 2]]
 
 = Build the project =
 
