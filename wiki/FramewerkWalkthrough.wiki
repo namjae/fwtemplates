@@ -55,7 +55,24 @@ A tests/testmyscript
 }}}
 notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method. [[#2 2]]
 
-= Configure the project =
+== Anatomy of the top level ==
+
+The root directory of the project now looks like:
+{{{
+% ls
+AUTHORS                 NEWS                    configure.ac.local
+CVS/                    README                  fw@
+ChangeLog               bin/                    fw-pkgin/
+Makefile.am.local       bootstrap*              tests/
+}}}
+Here's a breakdown:
+  * {{{AUTHORS, ChangeLog, NEWS, README}}}: these are files inherited from the conventions of automake.  By default framewerk gets the long package description from the README, but otherwise these files are ignored by framewerk.
+  * {{{CVS}}}: revision control specific
+  * {{{bootstrap}}}: framewerk generally tries not to check in important scripts into your project, so that the project's behaviour can be easily changed by upgrading framewerk.  however bootstrap is installed and checked-in to get things going.[[#5 5]] 
+  * {{{Makefile.am.local}}}: 
+
+
+== Configure the project ==
 
 Edit {{{fw-pkgin/config}}} in your favorite editor.  It consists of some shell variable assignments.
 {{{
@@ -87,7 +104,7 @@ These variables affect how packages (and dist tarballs) are built.  For instance
 
 Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case. [[#3 3]]
 
-= Build the project =
+== Build the project ==
 
 All framewerk projects build the same way.
 {{{
@@ -123,3 +140,6 @@ in the root directory of the project.
 
 == 4 ==
 Technically speaking this only required for templates which use automake to build.  Right now, however, that is all of them.
+
+== 5 ==
+It does pass a version number to fw-bootstrap so that, in theory, framewerk has a chance to upgrade it when it is run.
