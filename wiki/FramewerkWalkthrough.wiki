@@ -143,7 +143,7 @@ dist_bin_SCRIPTS =              \
   myscript                      \
   mynewscript
 }}}
-...
+Framewerk uses {{{make install}}} to determine the contents of your package.  This means that a package made from this project will want to install {{{mynewscript}}} in {{{/usr/bin}}}.[[#9 9]] 
 
 = Footnotes =
 
@@ -178,3 +178,6 @@ The framewerk philosophy is to try to do the right thing by default but be able 
 
 == 8 ==
 Which is weird because that's what automake said about autoconf, and what autoconf said about make.  Oh well.
+
+== 9 ==
+Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewerk projects, but can be overridden, e.g. via the {{{--prefix}}} argument to {{{configure}}}.
