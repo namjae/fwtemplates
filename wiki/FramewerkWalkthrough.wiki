@@ -125,7 +125,7 @@ All templates should initialize a project in a state which passes {{{make check}
 
 == Modify the project ==
 
-Generally working with framewerk is like working with automake but with the common bits done for you already.[[#8 8]]  So to add stuff to the project you're going to have know some automake.  
+Generally working with framewerk is like working with automake but with the common bits done for you already.[[#8 8]]  So to add stuff to the project you're going to have to know some automake.  
 
 If you wanted to add another script to the project you could create a file like
 {{{
