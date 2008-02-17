@@ -85,7 +85,7 @@ FW_PACKAGE_BUILD_CONFLICTS=""
 }}}
 These variables affect how packages (and dist tarballs) are built.  For instance currently {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"}}} so binary packages will be built for the host architecture.  If {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"}}} then binary packages will be built for all architectures.
 
-Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case.
+Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case. [[#3 3]]
 
 = Build the project =
 
@@ -105,3 +105,10 @@ Alternatively, if you are too young to remember cvs, you can initialize the proj
 
 == 2 ==
 In practice, the only other revision control system to be ported to the framewerk API is subversion, which is not that different than cvs.  So maybe the abstraction is not abstract enough.
+
+== 3 ==
+For the truly curious, you can see how the template is modifying the config file by running
+{{{
+% fw-exec "template/script/load-config"
+}}}
+in the root directory of the project.
