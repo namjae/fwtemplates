@@ -19,7 +19,7 @@ Framewerk installed.
 
 = Initialize the project =
 
-First, set up the project with fw-init.
+First, set up the project with fw-init [#Footnote_1 1].
 {{{
 % env CVSROOT="YOURCVSROOT" fw-init --name myproject --template script --revision cvs
 % cd myproject
@@ -48,40 +48,10 @@ A tests/.cvsignore
 A tests/Makefile.am.local
 A tests/testmyscript
 }}}
-Alternatively, if you are too young to remember cvs, you can do the walkthrough without revision control.
-{{{
-% fw-init --name mynorevproject --template script --revision none
-% cd mynorevproject
-% find .
-.
-./fw
-./bootstrap
-./fw-pkgin
-./fw-pkgin/config
-./fw-pkgin/post-install
-./fw-pkgin/post-remove
-./fw-pkgin/pre-install
-./fw-pkgin/pre-remove
-./fw-pkgin/start
-./fw-pkgin/stop
-./fw-pkgin/Makefile.am.local
-./AUTHORS
-./NEWS
-./README
-./ChangeLog
-./Makefile.am.local
-./configure.ac.local
-./bin
-./bin/Makefile.am.local
-./bin/myscript
-./tests
-./tests/Makefile.am.local
-./tests/testmyscript
-}}}
 
 = Build the project =
 
-All framewerk projects build the same way [[#Footnote_1 1]].
+All framewerk projects build the same way [#Footnote_2 2].
 {{{
 % ./bootstrap && ./build && make check 
 }}}
@@ -90,5 +60,11 @@ The template should have created a working project which can be built in
 = Footnotes =
 
 == Footnote 1 ==
+Alternatively, if you are too young to remember cvs, you can initialize the project without revision control.
+{{{
+% fw-init --name mynorevproject --template script --revision none
+}}}
+
+== Footnote 2 ==
 
 More precisely, all automake build based framewerk projects build this way, but I haven't made any other build system support yet.
