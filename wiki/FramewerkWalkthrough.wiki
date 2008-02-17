@@ -95,6 +95,8 @@ All framewerk projects build the same way.
 }}}
 The template should have created a working project which can be built in this way or the template has a bug.  Also there should be no new non-ignored files according the revision control system or the template has a bug.
 
+Maintainer mode is used such that if {{{fw-pkgin/config}}} is modified, bootstrap and build are essentially re-run, so there is typically no need to run bootstrap at any time other than project check-out (although, bootstrap is useful to escape from snafus).
+
 = Footnotes =
 
 == 1 ==
