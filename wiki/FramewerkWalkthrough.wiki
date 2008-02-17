@@ -48,14 +48,15 @@ A tests/.cvsignore
 A tests/Makefile.am.local
 A tests/testmyscript
 }}}
+Notice {{{.cvsignore}}} files have been made by the template.  When using other revision control systems the appropriate actions are taken to ignore files that the template feels should not be in revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).
 
 = Build the project =
 
-All framewerk projects build the same way [[#Footnote_2 2]].
+All framewerk projects build the same way.
 {{{
-% ./bootstrap && ./build && make check 
+% ./bootstrap && ./build
 }}}
-The template should have created a working project which can be built in 
+The template should have created a working project which can be built in this way or the template has a bug.
 
 = Footnotes =
 
@@ -64,7 +65,3 @@ Alternatively, if you are too young to remember cvs, you can initialize the proj
 {{{
 % fw-init --name mynorevproject --template script --revision none
 }}}
-
-== Footnote 2 ==
-
-More precisely, all automake build based framewerk projects build this way, but I haven't made any other build system support yet.
