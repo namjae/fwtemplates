@@ -17,6 +17,8 @@ Framewerk installed.
 
 = Details =
 
+= Initialize the project =
+
 First, set up the project with fw-init.
 {{{
 % env CVSROOT="YOURCVSROOT" fw-init --name myproject --template script --revision cvs
@@ -46,7 +48,7 @@ A tests/.cvsignore
 A tests/Makefile.am.local
 A tests/testmyscript
 }}}
-If you are too young to remember cvs, you can do the walkthrough without revision control.
+Alternatively, if you are too young to remember cvs, you can do the walkthrough without revision control.
 {{{
 % fw-init --name mynorevproject --template script --revision none
 % cd mynorevproject
@@ -76,3 +78,11 @@ If you are too young to remember cvs, you can do the walkthrough without revisio
 ./tests/Makefile.am.local
 ./tests/testmyscript
 }}}
+
+= Build the project =
+
+All framewerk projects build the same way [[#footnote1 1]].
+{{{
+% ./bootstrap && ./build && make check 
+}}}
+The template should have created a working project which can be built in 
