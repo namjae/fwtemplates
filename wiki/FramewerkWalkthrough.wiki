@@ -123,7 +123,7 @@ You can also test the project via
 }}}
 All templates should initialize a project in a state which passes {{{make check}}} or the template has a bug.[[#4 4]]
 
-= Modify the project =
+== Modify the project ==
 
 Generally working with framewerk is like working with automake but with the common bits done for you already.[[#8 8]]  So to add stuff to the project you're going to have know some automake.  
 
