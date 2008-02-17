@@ -55,6 +55,38 @@ A tests/testmyscript
 }}}
 notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method. [[#2 2]]
 
+= Configure the project =
+
+Edit {{{fw-pkgin/config}}} in your favorite editor.  It consists of some shell variable assignments.
+{{{
+# The FW_PACKAGE_MAINTAINER field is populated with the 
+# environment variable FW_PACKAGE_DEFAULT_MAINTAINER if non-empty
+
+FW_PACKAGE_NAME="myproject"
+FW_PACKAGE_VERSION="0.0.0"
+FW_PACKAGE_MAINTAINER="Paul Mineiro <paul-fw@mineiro.com>"
+FW_PACKAGE_SHORT_DESCRIPTION="A short description."
+FW_PACKAGE_DESCRIPTION="`cat README`"
+FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"
+
+# Dependency information.  The native syntax corresponds to Debian,
+# http://www.debian.org/doc/debian-policy/ch-relationships.html
+# Section 7.1 "Syntax of Relationship Fields"
+# 
+# For other packaging systems, the syntax is translated for you.
+
+FW_PACKAGE_DEPENDS=""
+FW_PACKAGE_CONFLICTS=""
+FW_PACKAGE_PROVIDES=""
+FW_PACKAGE_REPLACES=""
+
+FW_PACKAGE_BUILD_DEPENDS=""
+FW_PACKAGE_BUILD_CONFLICTS=""
+}}}
+These variables affect how packages (and dist tarballs) are built.  For instance currently {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"}}} so binary packages will be built for the host architecture.  If {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"}}} then binary packages will be built for all architectures.
+
+Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case.
+
 = Build the project =
 
 All framewerk projects build the same way.
