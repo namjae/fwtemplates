@@ -66,11 +66,14 @@ ChangeLog               bin/                    fw-pkgin/
 Makefile.am.local       bootstrap*              tests/
 }}}
 Here's a breakdown:
-  * {{{AUTHORS, ChangeLog, NEWS, README}}}: these are files inherited from the conventions of automake.  By default framewerk gets the long package description from the README, but otherwise these files are ignored by framewerk.
+  * {{{AUTHORS, ChangeLog, NEWS, README}}}: these are files inherited from the conventions of automake.  By default framewerk gets the long package description from the {{{README}}}, but otherwise these files are ignored by framewerk.
   * {{{CVS}}}: revision control specific
   * {{{bootstrap}}}: framewerk generally tries not to check in important scripts into your project, so that the project's behaviour can be easily changed by upgrading framewerk.  however bootstrap is installed and checked-in to get things going.[[#5 5]] 
-  * {{{Makefile.am.local}}}: 
-
+  * {{{Makefile.am.local}}}: this is where you can put any additional (auto)make commands beyond what is supplied by the template.  the template will link in a {{Makefile.am}}} which contains a directive to include your {{{Makefile.am.local}}}.
+  * {{{configure.ac.local}}}: this is where you can put any additional autoconf commands beyond what is supplied by the template.  the template will link in a {{configure.ac}}} which contains a directive to include your {{{configure.ac.local}}}.
+  * {{{bin, tests}}}: the script template creates a {{bin}}} directory to contain your scripts, and {{{tests}}} directory to contain the tests for those scripts.  different templates will create additional directories.
+  * {{{fw}}}: this is a link to the installation of framewerk on the local system (or, in a dist tarball, it is a copy of the installation of framewerk at {{{make dist}}} time).  generally you shouldn't have to look in here but it can be useful to inspect where stuff is for [#overrides overrides].
+  * {{{fw-pkgin}}}: this directory contains files that configure how framewerk builds packages.
 
 == Configure the project ==
 
