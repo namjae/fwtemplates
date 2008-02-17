@@ -117,7 +117,7 @@ In practice, the only other revision control system to be ported to the framewer
 == 3 ==
 For the truly curious, you can see how the template is modifying the config file by running
 {{{
-% fw-exec "template/script/load-config"
+% fw-exec template/script/load-config
 }}}
 in the root directory of the project.
 
