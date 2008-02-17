@@ -56,7 +56,33 @@ All framewerk projects build the same way.
 {{{
 % ./bootstrap && ./build
 }}}
-The template should have created a working project which can be built in this way or the template has a bug.
+The template should have created a working project which can be built in this way or the template has a bug.  Also there should be no new non-ignored files according the revision control system or the template has a bug.
+{{{
+% cvs -n -q up
+A .cvsignore
+A AUTHORS
+A ChangeLog
+A Makefile.am.local
+A NEWS
+A README
+A bootstrap
+A configure.ac.local
+A bin/.cvsignore
+A bin/Makefile.am.local
+A bin/myscript
+A fw-pkgin/.cvsignore
+A fw-pkgin/Makefile.am.local
+A fw-pkgin/config
+A fw-pkgin/post-install
+A fw-pkgin/post-remove
+A fw-pkgin/pre-install
+A fw-pkgin/pre-remove
+A fw-pkgin/start
+A fw-pkgin/stop
+A tests/.cvsignore
+A tests/Makefile.am.local
+A tests/testmyscript
+}}}
 
 = Footnotes =
 
