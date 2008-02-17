@@ -81,7 +81,7 @@ Alternatively, if you are too young to remember cvs, you can do the walkthrough 
 
 = Build the project =
 
-All framewerk projects build the same way [[#footnote1 1]].
+All framewerk projects build the same way [[#Footnotes 1]].
 {{{
 % ./bootstrap && ./build && make check 
 }}}
@@ -89,4 +89,5 @@ The template should have created a working project which can be built in
 
 = Footnotes =
 
-[1] More precisely, all automake build based framewerk projects build this way, but I haven't made any other build system support yet.
+  1. wazzup
+  1. More precisely, all automake build based framewerk projects build this way, but I haven't made any other build system support yet.
