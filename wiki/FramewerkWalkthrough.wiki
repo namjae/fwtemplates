@@ -86,3 +86,7 @@ All framewerk projects build the same way [[#footnote1 1]].
 % ./bootstrap && ./build && make check 
 }}}
 The template should have created a working project which can be built in 
+
+= Footnotes =
+
+[1] More precisely, all automake build based framewerk projects build this way, but I haven't made any other build system support yet.
