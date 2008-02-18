@@ -261,6 +261,7 @@ The result should be two packages in {{{fw-pkgout/}}},
 % ls fw-pkgout/
 myproject-build_0.0.0-TEST1_i386.deb  myproject_0.0.0-TEST1_i386.deb
 }}}
+You can inspect these with {{{dpkg --info}}} and {{{dpkg --contents}}}, or install them for testing with {{{sudo dpkg -i}}}, etc.
 
 == Releasing a package ==
 
