@@ -264,6 +264,18 @@ myproject-build_0.0.0-TEST1_i386.deb  myproject_0.0.0-TEST1_i386.deb
 
 == Releasing a package ==
 
+Releasing a package is very similar to making a test package, but less forgiving.  First we must bring the project up to date
+{{{
+% cvs add bin/mynewscript tests/testmynewscript
+% cvs ci -m ''
+...
+}}}
+After that we can release a package.  For deb packages, dupload is used to transfer the package to the repository, so generally you need to configure a [http://www.debian.org/doc/maint-guide/ch-upload.en.html dupload.conf] to upload packages.  The environment variable {{{FW_DUPLOAD_ARGS}}} is passed to dupload, so we'll use that to make dupload do a dry-run.
+{{{
+% env FW_DUPLOAD_ARGS="-no" make release
+...
+}}} 
+
 = Footnotes =
 
 == 1 ==
