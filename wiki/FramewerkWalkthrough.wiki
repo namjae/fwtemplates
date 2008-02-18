@@ -254,7 +254,7 @@ to have a test package made.[[#11 11]]  So a couple of things happened here:
   1. A package was built and placed into {{{fw-pkgout/}}} at the root directory of the project.  Since this is a test build, TEST1 is appended to the version number.
   1. A build package was built and placed into {{{fw-pkgout/}}}.  A build package is a exact dependency-clousure snapshot of the build environment at package creation time.  It is used to recreate the conditions under which the package was generated (along with the revision control tag generated at [#Releasing_a_package release time]).
 
-The exact sequence of what happens when a package is made is under the control of the template.  The script template doesn't do anything additional beyond the vanilla automake build hooks but other templates do.  For instance, the C template checks the objects in the project for coverage symbols and emits an error if any are found.  Generally templates are expected to ``derive'' from their parent template so you can expect all templates to do at least the above steps.[[#13 13]]
+The exact sequence of what happens when a package is made is under the control of the template.  The script template doesn't do anything additional beyond the vanilla automake build hooks but other templates do.  For instance, the C template checks the objects in the project for coverage symbols and emits an error if any are found.  Generally templates are expected to extend their parent template's methods so you can expect all templates to do at least the above steps.[[#13 13]]
 
 The result should be two packages in {{{fw-pkgout/}}},
 {{{
