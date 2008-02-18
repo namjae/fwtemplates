@@ -242,4 +242,6 @@ Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewe
 == 10 ==
 I haven't actually written a package to support any other package type, so it's probable that the abstraction is not good enough.
 
-If for some reason you think framewerk is autodetecting your package type incorrectly you can force it via the {{{FW_NATIVE_PACKAGE_TYPE}}} environment variable when running configure, e.g., {{{FW_NATIVE_PACKAGE_TYPE="deb" ./configure}}}.
+If for some reason you think framewerk is autodetecting your package type incorrectly you can force it via the {{{FW_NATIVE_PACKAGE_TYPE}}} environment variable when running configure, e.g., {{{
+% FW_NATIVE_PACKAGE_TYPE="deb" ./configure
+}}}
