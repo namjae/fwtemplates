@@ -103,7 +103,7 @@ FW_PACKAGE_REPLACES=""
 FW_PACKAGE_BUILD_DEPENDS=""
 FW_PACKAGE_BUILD_CONFLICTS=""
 }}}
-These variables affect how packages (and dist tarballs) are built.  For instance currently {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"}}} so binary packages will be built for the host architecture.  If {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"}}} then binary packages will be built for all architectures.
+These variables affect how packages (and dist tarballs) are built.  For instance currently {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"}}} so a binary package will be built for the host architecture.  If {{{FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"}}} then a binary package will be built for the "all" architecture.
 
 Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case. [[#3 3]]
 
