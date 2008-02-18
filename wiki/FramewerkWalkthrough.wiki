@@ -241,7 +241,6 @@ PASS: testmynewscript
 ==================
 All 2 tests passed
 ==================
-usage: /root/myproject/fw/package/deb/dependency-range depends (<- *** wtf? bug)
 package/deb/make-package: warning: start hook not supported
 package/deb/make-package: warning: stop hook not supported
 dpkg-deb: building package `myproject' in `/root/myproject/fw-pkgout/myproject_0.0.0-TEST1_i386.deb'.
