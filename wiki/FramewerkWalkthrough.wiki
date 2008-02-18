@@ -153,7 +153,7 @@ You should also make a test for your new script:
 
 output=`../bin/mynewscript`
 
-test "x$output" = "xawesome\n"
+test "x$output" = "xawesome"
 % chmod +x tests/testmynewscript
 }}}
 and add it to the list of tests
@@ -165,6 +165,26 @@ TESTS =         \
   testmyscript  \
   testmynewscript
 }}}
+
+Now re-run the tests.
+{{{
+% make -s check
+Making check in fw-pkgin
+Making check in bin
+ cd .. && /usr/local/bin/bash /usr/home/pmineiro/src/myproject/missing --run automake-1.10 --foreign  bin/Makefile
+ cd .. && /usr/local/bin/bash ./config.status bin/Makefile 
+config.status: creating bin/Makefile
+Making check in tests
+ cd .. && /usr/local/bin/bash /usr/home/pmineiro/src/myproject/missing --run automake-1.10 --foreign  tests/Makefile
+ cd .. && /usr/local/bin/bash ./config.status tests/Makefile 
+config.status: creating tests/Makefile
+PASS: testmyscript
+PASS: testmynewscript
+==================
+All 2 tests passed
+==================
+}}}
+
 = Footnotes =
 
 == 1 ==
