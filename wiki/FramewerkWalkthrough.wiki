@@ -195,7 +195,7 @@ If you installed framewerk as a debian package on your system (as opposed to {{{
 {{{
 checking for native package type... deb (autodetected)
 }}}
-in the output of {{{configure}}}.  If you see
+in the output of {{{./build}}}.  If you see
 {{{
 checking for native package type... none (autodetected)
 }}}
