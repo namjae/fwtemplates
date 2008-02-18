@@ -110,7 +110,7 @@ Note some dependencies are added for you automatically by the template and are n
 
 == Build the project ==
 
-All framewerk projects build the same way.
+All framewerk projects build the same way.[[#15 15]]
 {{{
 % ./bootstrap && ./build
 }}}
@@ -359,3 +359,10 @@ At least for all templates based upon the automake build system, which is curren
 
 == 14 ==
 At our company we have a package which installs an {{{/etc/dupload.conf}}} which knows how to talk to our package repository and makes that repository the default, and then we list that package in our build dependencies.  In addition for my personal work I put a {{{.dupload.conf}}} in my home directory which contains a definition for my personal package archive called 'myarchive', and then I use {{{FW_DUPLOAD_ARGS="-t myarchive"}}} in {{{fw-pkgin/config}}} to cause that entry to be used by dupload.
+
+== 15 ==
+When building from the source code repository, that is.  {{{make dist}}} tarballs are tweaked so that they build just like vanilla automake projects, that is
+{{{
+% ./configure && make
+}}}
+This way you can release a dist tarball of a framewerk project and your users do not have to install or know about framewerk in order to build. 
