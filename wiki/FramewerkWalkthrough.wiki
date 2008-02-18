@@ -148,13 +148,22 @@ Framewerk uses {{{make install}}} to determine the contents of your package.  Th
 
 You should also make a test for your new script:
 {{{
-% cat > tests/test-mynewscript
+% cat > tests/testmynewscript
 #! /bin/sh
 
 output=`../src/mynewscript`
 
 test "x$output" = "xawesome\n"
 %
+}}}
+and add it to the list of tests
+{{{
+% cat tests/Makefile.am.local
+# put whatever (auto)make commands here, they will be included from Makefile.am
+
+TESTS =         \
+  testmyscript  \
+  testmynewscript
 }}}
 = Footnotes =
 
