@@ -203,15 +203,65 @@ then either you didn't install framewerk as a package or else you're using a pac
  
 If everything's working then you can type
 {{{
-% make package
+% make -s package
+Making all in fw-pkgin
+Making all in bin
+Making all in tests
+A .cvsignore
+A AUTHORS
+A ChangeLog
+A Makefile.am.local
+A NEWS
+A README
+A bootstrap
+A configure.ac.local
+A bin/.cvsignore
+A bin/Makefile.am.local
+A bin/myscript
+? bin/mynewscript
+A fw-pkgin/.cvsignore
+A fw-pkgin/Makefile.am.local
+A fw-pkgin/config
+A fw-pkgin/post-install
+A fw-pkgin/post-remove
+A fw-pkgin/pre-install
+A fw-pkgin/pre-remove
+A fw-pkgin/start
+A fw-pkgin/stop
+A tests/.cvsignore
+A tests/Makefile.am.local
+A tests/testmyscript
+? tests/testmynewscript
+fw-package: warning: local project is not up to date
+Making check in fw-pkgin
+Making check in bin
+Making check in tests
+PASS: testmyscript
+PASS: testmynewscript
+==================
+All 2 tests passed
+==================
+usage: /root/myproject/fw/package/deb/dependency-range depends (<- *** wtf? bug)
+package/deb/make-package: warning: start hook not supported
+package/deb/make-package: warning: stop hook not supported
+dpkg-deb: building package `myproject' in `/root/myproject/fw-pkgout/myproject_0.0.0-TEST1_i386.deb'.
+dpkg-deb: building package `myproject-build' in `/root/myproject/fw-pkgout/myproject-build_0.0.0-TEST1_i386.deb'.
+%
 }}}
-to have a test package made.[[#11 11]]  The result should be a package in {{{fw-pkgout/}}}
-with a version number which includes TEST1, e.g.,
+to have a test package made.[[#11 11]]  So a couple of things happened here:
+
+  1. Revision control was queried to see if the project was up to date.  It is not, but since this is a test package the build was allowed to continue.  If this were a release version than the package build would've bailed out at this point.
+  1. Tests were run.  They passed, but if they had failed it would've been ok because this is a test package build.  If this were a release version and the tests did not pass then the build would've bailed out at this point.[[#12 12]]
+  1. A package was built and placed into {{{fw-pkgout/}}} at the root directory of the project.  Since this is a test build, TEST1 is appended to the version number.
+  1. A build package was built and placed into {{{fw-pkgout/}}}.  A build package is a exact dependency-clousure snapshot of the build environment at package creation time.  It is used to recreate the conditions under which the package was generated (along with the revision control tag generated at [#Releasing_a_package release time]).
+
+The result should be two packages in {{{fw-pkgout/}}},
 {{{
-% ls fw-pkgout
-...
+% ls fw-pkgout/
+myproject-build_0.0.0-TEST1_i386.deb  myproject_0.0.0-TEST1_i386.deb
 }}}
 
+== Releasing a package ==
 
 = Footnotes =
 
@@ -260,3 +310,10 @@ If for some reason you think framewerk is autodetecting your package type incorr
 
 == 11 ==
 If you try this when the native package type is 'none', it just does nothing.
+
+== 12 ==
+It is possible to skip running {{{make check}}} by setting the environment variable {{{FW_SKIP_TESTS}}}, e.g.,
+{{{
+% env FW_SKIP_TESTS="1" make package
+}}}
+but this can be a nasty habit.
