@@ -250,9 +250,11 @@ dpkg-deb: building package `myproject-build' in `/root/myproject/fw-pkgout/mypro
 to have a test package made.[[#11 11]]  So a couple of things happened here:
 
   1. Revision control was queried to see if the project was up to date.  It is not, but since this is a test package the build was allowed to continue.  If this were a release version than the package build would've bailed out at this point.
-  1. Tests were run.  They passed, but if they had failed it would've been ok because this is a test package build.  If this were a release version and the tests did not pass then the build would've bailed out at this point.[[#12 12]]
+  1. Tests were run[[#12 12]].  They passed, but if they had failed it would've been ok because this is a test package build.  If this were a release version and the tests did not pass then the build would've bailed out at this point.
   1. A package was built and placed into {{{fw-pkgout/}}} at the root directory of the project.  Since this is a test build, TEST1 is appended to the version number.
   1. A build package was built and placed into {{{fw-pkgout/}}}.  A build package is a exact dependency-clousure snapshot of the build environment at package creation time.  It is used to recreate the conditions under which the package was generated (along with the revision control tag generated at [#Releasing_a_package release time]).
+
+The exact sequence of what happens when a package is made is under the control of the template.  The script template doesn't do anything additional beyond the vanilla automake build hooks but other templates do.  For instance, the C template checks the objects in the project for coverage symbols and emits an error if any are found.  Generally templates are expected to ``derive'' from their parent template so you can expect all templates to do at least the above steps.[[#13 13]]
 
 The result should be two packages in {{{fw-pkgout/}}},
 {{{
@@ -316,3 +318,6 @@ It is possible to skip running {{{make check}}} by setting the environment varia
 % env FW_SKIP_TESTS="1" make package
 }}}
 but this can be a nasty habit.
+
+== 13 ==
+At least for all templates based upon the automake build system, which is currently all of them.
