@@ -19,7 +19,7 @@ Framewerk installed.
 
 == Initialize the project ==
 
-First, set up the project with fw-init [[#1 1]].  *Warning*: this modifies your source code repository, so create a temporary one if that bothers you.[[#2 2]]
+First, set up the project with fw-init.  *Warning*: this modifies your source code repository, so create a temporary one if that bothers you. [[#1 1]]
 {{{
 % env CVSROOT="YOURCVSROOT" fw-init --name myproject --template script --revision cvs
 }}}
@@ -53,7 +53,7 @@ A tests/.cvsignore
 A tests/Makefile.am.local
 A tests/testmyscript
 }}}
-notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method.
+notice {{{.cvsignore}}} files have been made by the template corresponding to files the template feels should not be under revision control (e.g., for automake build based templates, Makefiles are generated and therefore not checked in).  Framewerk interacts with the revision control system via an abstraction layer so when using other revision control systems the template will indicate files should be ignored using the appropriate method.[[#2 2]]
 
 == Anatomy of the top level ==
 
