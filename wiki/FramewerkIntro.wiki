@@ -48,7 +48,7 @@ Templates might define processes which involve interacting with the packaging sy
    * make a package, or
    * upload a package to an archive.
 
-The interface to the packaging system is abstracted out so that it can be made to work with debian, rpm, etc.  In practice right now only debian is supported (using [[http://packages.debian.org/unstable/devel/dupload][dupload]] to interact with the archive), so probably the abstraction is not sufficient.
+The interface to the packaging system is abstracted out so that it can be made to work with debian, rpm, etc.  In practice right now only debian is supported (using [http://packages.debian.org/unstable/devel/dupload dupload] to interact with the archive), so probably the abstraction is not sufficient.
 
 = Packages =
 
@@ -82,7 +82,7 @@ This is derived from fw-template-C.  It doesn't do much more, except set up the 
 
 == fw-template-erlang ==
 
-This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [[http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html][eunit]], [[http://www.erlang.org/doc/man/cover.html][cover]], and [[http://www.erlang.org/doc/apps/edoc/index.html][edoc]] integration now; the template also generates an OTP compliant [[http://www.erlang.org/doc/design_principles/applications.html#7.3][application resource file]] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in this template.
+This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html eunit], [http://www.erlang.org/doc/man/cover.html cover], and [http://www.erlang.org/doc/apps/edoc/index.html edoc] integration now; the template also generates an OTP compliant [[http://www.erlang.org/doc/design_principles/applications.html#7.3][application resource file]] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in this template.
 
 == fw-template-revision ==
 
