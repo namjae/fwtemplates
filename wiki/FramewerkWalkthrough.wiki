@@ -271,7 +271,7 @@ Releasing a package is very similar to making a test package, but less forgiving
 % cvs ci -m ''
 ...
 }}}
-After that we can release a package.  For deb packages, dupload is used to transfer the package to the repository, so generally you need to configure a [http://www.debian.org/doc/maint-guide/ch-upload.en.html dupload.conf] to upload packages.  The environment variable {{{FW_DUPLOAD_ARGS}}} is passed to dupload, so we'll use that to make dupload do a dry-run.
+After that we can release a package.  For deb packages, dupload is used to transfer the package to the repository, so generally you need to configure a [http://www.debian.org/doc/maint-guide/ch-upload.en.html dupload.conf] to upload packages.[[#14 14]]  The environment variable {{{FW_DUPLOAD_ARGS}}} is passed to dupload, so we'll use that to make dupload do a dry-run.
 {{{
 % env FW_DUPLOAD_ARGS="-no" make release
 ...
@@ -352,3 +352,6 @@ but this can be a nasty habit.
 
 == 13 ==
 At least for all templates based upon the automake build system, which is currently all of them.
+
+== 14 ==
+At our company we have a package which installs an {{{/etc/dupload.conf}}} which knows how to talk to our package repository and makes that repository the default, and then we list that package in our build dependencies.  In addition for my personal work I put a {{{.dupload.conf}}} in my home directory which contains a definition for my personal package archive called 'myarchive', and then I use {{{FW_DUPLOAD_ARGS="-t myarchive"}}} in {{{fw-pkgin/config}}} to cause that entry to be used by dupload.
