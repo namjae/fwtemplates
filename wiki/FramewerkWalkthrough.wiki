@@ -201,6 +201,17 @@ checking for native package type... none (autodetected)
 }}}
 then either you didn't install framewerk as a package or else you're using a packaging system that framewerk doesn't recognize.  Right now it only recognizes debian package format (which includes fink on OS/X), but new package types can be provided via additional packages.[[#10 10]]
  
+If everything's working then you can type
+{{{
+% make package
+}}}
+to have a test package made.[[#11 11]]  The result should be a package in {{{fw-pkgout/}}}
+with a version number which includes TEST1, e.g.,
+{{{
+% ls fw-pkgout
+...
+}}}
+
 
 = Footnotes =
 
@@ -246,3 +257,6 @@ If for some reason you think framewerk is autodetecting your package type incorr
 {{{
 % FW_NATIVE_PACKAGE_TYPE="deb" ./configure
 }}}
+
+== 11 ==
+If you try this when the native package type is 'none', it just does nothing.
