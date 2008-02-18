@@ -277,6 +277,24 @@ After that we can release a package.  For deb packages, dupload is used to trans
 ...
 }}} 
 
+The process is similar to {{{make package}}}, excepts that warnings are now errors.  In addition a side-effect is that the repository is tagged with a {{{PACKAGETYPE-VERSION-ARCH}}}, e.g.,
+{{{
+% cvs status -v configure.ac.local                                                  
+===================================================================
+File: configure.ac.local        Status: Up-to-date
+
+   Working revision:    1.1     Mon Feb 18 05:14:35 2008
+   Repository revision: 1.1     /Users/pmineiro/tmp/dild/myproject/configure.ac.local,v
+   Sticky Tag:          (none)
+   Sticky Date:         (none)
+   Sticky Options:      (none)
+
+   Existing Tags:
+        deb-0_0_0-darwin_i386           (revision: 1.1)
+}}}
+
+
+
 = Footnotes =
 
 == 1 ==
