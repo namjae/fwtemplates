@@ -197,7 +197,7 @@ Any file located in {{{fw/path/basename}}} relative to the root directory of you
 The framewerk philosophy is to try to do the right thing by default but be able to be overridden if necessary.  So for {{{Makefile.am.local}}} and {{{configure.ac.local}}} files, if you for some reason can't work with the installed {{{Makefile.am}}} and {{{configure.ac}}} files and their include strategy, you can create your own {{{Makefile.am}}} and/or {{{configure.ac}}} and check them into your project.  If framewerk sees that you have these files, it will not link against the installed versions.  Note the disadvantage of doing this is that you no longer get your project automatically updated when framewerk is upgraded, so it should only be done when necessary.
 
 == 8 ==
-Which is weird because that's what automake said about autoconf, and what autoconf said about make.  Oh well.
+Which is weird because that's what automake said about make and autoconf.
 
 == 9 ==
 Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewerk projects, but can be overridden, e.g. via the {{{--prefix}}} argument to {{{configure}}}.
