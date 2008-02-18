@@ -156,12 +156,16 @@ output=`../bin/mynewscript`
 test "x$output" = "xawesome"
 % chmod +x tests/testmynewscript
 }}}
-and add it to the list of tests
+and add then edit {{{tests/Makefile.am.local}}} to make it look like
 {{{
 % cat tests/Makefile.am.local
 # put whatever (auto)make commands here, they will be included from Makefile.am
 
 TESTS =         \
+  testmyscript  \
+  testmynewscript
+
+EXTRA_DIST +=   \
   testmyscript  \
   testmynewscript
 }}}
@@ -184,6 +188,18 @@ PASS: testmynewscript
 All 2 tests passed
 ==================
 }}}
+
+== Making a package ==
+
+If you installed framewerk as a debian package on your system (as opposed to {{{make install}}} from a source package) then you should've seen a line like
+{{{
+checking for native package type... deb (autodetected)
+}}}
+in the output of {{{configure}}}.  If you see
+{{{
+checking for native package type... none (autodetected)
+}}}
+then either you didn't install framewerk as a package or else you're using a packaging system that framewerk doesn't recognize.  Right now it only recognizes debian package format (which includes fink on OS/X), but new package types can be provided via additional packages.[[#10 10]]
 
 = Footnotes =
 
@@ -221,3 +237,6 @@ Which is weird because that's what automake said about make and autoconf.
 
 == 9 ==
 Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewerk projects, but can be overridden, e.g. via the {{{--prefix}}} argument to {{{configure}}}.
+
+== 10 ==
+I haven't actually written a package to support any other package type.
