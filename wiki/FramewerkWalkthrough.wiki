@@ -133,7 +133,7 @@ If you wanted to add another script to the project you could create a file like
 #! /bin/sh
 
 echo "awesome"
-%
+% chmod +x bin/mynewscript
 }}}
 and then edit {{{bin/Makefile.am.local}}} to look like:
 {{{
@@ -151,10 +151,10 @@ You should also make a test for your new script:
 % cat > tests/testmynewscript
 #! /bin/sh
 
-output=`../src/mynewscript`
+output=`../bin/mynewscript`
 
 test "x$output" = "xawesome\n"
-%
+% chmod +x tests/testmynewscript
 }}}
 and add it to the list of tests
 {{{
