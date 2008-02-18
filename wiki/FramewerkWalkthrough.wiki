@@ -297,7 +297,7 @@ Combining the repository tag and the build package, it's possible to recreate th
 
 == Releasing a tarball ==
 
-Framewerk supports the {{{make dist}}} family of targets.  The distribution tarball is augemented with portions of framewerk so that end user of the tarball need not install framewerk.  Additionally dist tarballs build like vanilla automake projects, i.e.,
+Framewerk supports the {{{make dist}}} family of targets.  The distribution tarball is augmented with portions of framewerk so that end user of the tarball need not install framewerk.  Additionally dist tarballs build like vanilla automake projects, i.e.,
 {{{
 % ./configure && make
 }}}
