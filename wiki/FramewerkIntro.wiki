@@ -1,0 +1,94 @@
+#summary History and Design Goals
+#labels Featured,Phase-Design
+
+= Introduction =
+
+Back in the day, every time I would start a new project, I would copy around a wad of automake.  That got pretty unwieldly, and they would all diverge.  When I learned something new about automake, I had to try some find-xargs-perl trick to change everything over.
+
+At Idealab I worked with and hacked on [[http://www.wigwam-framework.org/][wigwam]], which provided a standard layout for projects, standard build commands, standard deployment commands, a (proprietary) packaging system, and chroot-like localization; the packaging system effectively allowed the specification of build environments, although sometimes things were provided by the "base system" which was not well tracked.  The wigwam machinery was itself a wigwam package so that made upgrading processes straightforward.  However, one thing wigwam never made very easy was publishing new packages.
+
+At Yahoo I worked on a system which was starting to create wads of automake everywhere.  Yahoo had a packaging system already (yinst), a nice localization strategy (yroot), and a very nice package archive with easy upload (dist-release) and management tools.  In particular, the easy package release feature greatly increased productivity over wigwam.  However their "build system" was a bunch of serious hacked up and specialized makefiles (not automake: straight make), so this new project was using automake.  There was room for improvement.  We still needed to enforce a standard project layout, standard build and release commands, build environment specification for reproducibility, and business processes associated with development activities (e.g., tag cvs in a particular way when releasing a package, or don't allow released packaged compiled with coverage symbols).  So we made a system called skeletor that worked pretty well.  Like wigwam, skeletor was itself a skeletor package and we could release new developer processes by upgrading skeletor (except that skeletor had to drop some automake files into a project when initializing and we discovered that sometimes that caused some work to need to be done to upgrade a project).  Unlike wigwam, skeletor leveraged yinst, yroot, and dist-release and was therefore more effective.
+
+So I was pretty happy with skeletor, except that: 
+
+   * it was locked into one type of build system (automake), revision control (cvs), packaging (yinst), package archive (dist-release), etc., while the open source community was innovating in all these areas;
+   * it put too much stuff into the project; in retrospect more could be abstracted so that only project specific stuff was in there, making upgrading easier; and
+   * new project templates were added to skeletor itself, not provided by other packages.
+
+So now framewerk is my third go at a build system, and this time around I'm heavily emphasizing template-ability. Basically, a framewerk template defines how to do the following things:
+
+   1. Initialize a new project
+   1. Bootstrap an existing project
+   1. Build an existing project
+   1. Release a package from an existing project
+
+The template will typically define processes around these events, to ensure uniformity among your developers (or, for yourself, uniformity across your projects).
+
+These things are done while abstracting the following out:
+
+== Build system ==
+
+In theory, the project could be based on [[http://ant.apache.org/manual/index.html][ant]] or [[http://sources.redhat.com/automake/][automake]] and it wouldn't matter for these tasks: the commands to run would be the same.  In practice, I have only implemented the build interface for automake, so probably the abstraction isn't sufficient.
+
+== Revision control system ==
+
+Templates might define processes which involve interacting with the revision control system; for instance, my templates
+
+   * make sure I am up-to-date with the repository if I am releasing a non-test package, and
+   * tag the repository with a tag generated from the package name, architecture, and package version.
+
+The interface to the revision control system is abstracted out so that it can be made to work with cvs, subversion, perforce, etc.  In practice right now only cvs and subversion are supported, so probably the abstraction is not sufficient.
+
+== Packaging system ==
+
+Templates might define processes which involve interacting with the packaging system, for instance
+
+   * compute the dependency closure of a set of packages, or
+   * find all the packages in the dependency closure of our build package set which contain pkgconfig files so I can auto-configure the C compiler as much as possible, or
+   * make a package, or
+   * upload a package to an archive.
+
+The interface to the packaging system is abstracted out so that it can be made to work with debian, rpm, etc.  In practice right now only debian is supported (using [[http://packages.debian.org/unstable/devel/dupload][dupload]] to interact with the archive), so probably the abstraction is not sufficient.
+
+= Packages =
+
+== framewerk ==
+
+This is the base of the system.  It provides several key components: build/automake, package/deb, revision/cvs, template/fw-template, template/fw-build, and template/script.  It also provides the key executables that define the framework: fw-init, fw-bootstrap, fw-exec, and fw-package.
+
+template/fw-template is a template for making new templates.  I used it to make all the templates listed here, so I'm gaining confidence in it.
+
+template/fw-build is a template for making new build plugins.  I haven't used it for anything real yet, so it's probably broken.
+
+template/fw-script is a template for "shell script" projects.  They don't happen that often.  The real purpose of this template is to allow framewerk to bootstrap itself.  One can use this template to make a perl project, but only if you're the kind of person who'd rather use automake than makemaker (I happen to be this type of person).  I think most people would be better served by defining makemaker as a build type and then using a perl template based off on that, so that's on my todo list.
+
+== fw-template-C ==
+
+This is a C development template for framewerk.  It provides:
+
+   * automake setup: libtool and compiler setup done for you.
+
+   * pkg-config integration: pkg-config files for your project are made for you.  In addition, if any dependencies provide pkg-config files they are used, generally eliminating the need for AC_CHECK_LIBS and AC_CHECK_HEADERS.
+
+   * valgrind integration: standard targets for running make check with valgrind.
+
+   * coverage integration: standard configure and make check support for enabling coverage analysis.  guards against releasing packages with coverage enabled.
+
+I've done a couple of projects with it (e.g., [http://code.google.com/p/fuserl fuserl]), so I feel pretty good about it.
+
+== fw-template-C++ ==
+
+This is derived from fw-template-C.  It doesn't do much more, except set up the C++ compiler.  There is more that could be done here; I know there are alot of autoconf macros that try to get around the various differences in C++ installations (e.g., std::cout or just cout?; iostream.h or iostream?).  However I mostly use an up-to-date g++, because I can't stand to read about crazy advanced techniques and then try them out only to have them fail.  (Also I've given up on C++ in favor of Erlang).
+
+== fw-template-erlang ==
+
+This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [[http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html][eunit]], [[http://www.erlang.org/doc/man/cover.html][cover]], and [[http://www.erlang.org/doc/apps/edoc/index.html][edoc]] integration now; the template also generates an OTP compliant [[http://www.erlang.org/doc/design_principles/applications.html#7.3][application resource file]] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in this template.
+
+== fw-template-revision ==
+
+This is a template for revision control plugins for framewerk.  I used it to develop fw-revision-svn.  
+
+== fw-revision-svn ==
+
+Installing this package instructs framewerk on how to use subversion for version control.
+I use this all the time because google code is subversion based, so I have high confidence in subversion support.
