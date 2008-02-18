@@ -295,6 +295,14 @@ File: configure.ac.local        Status: Up-to-date
 }}}
 Combining the repository tag and the build package, it's possible to recreate the conditions under which the package was built.  This is useful for trying to find difficult-to-reproduce bugs.
 
+== Releasing a tarball ==
+
+Framewerk supports the {{{make dist}}} family of targets.  The distribution tarball is augemented with portions of framewerk so that end user of the tarball need not install framewerk.  Additionally dist tarballs build like vanilla automake projects, i.e.,
+{{{
+% ./configure && make
+}}}
+so that consumers of dist tarballs remain blissfully aware of framewerk.  Templates initialize the project in a state such that dist tarballs build correctly otherwise the template has a bug.  However for files added to the project sometimes [http://www.delorie.com/gnu/docs/automake/automake_91.html autoconf dist directives] are required to ensure placement in the dist tarball.
+
 = Conclusion =
 
 Congratulations, you've made it through the framewerk walkthrough.  Hopefully you found it pedagogical.
@@ -361,8 +369,4 @@ At least for all templates based upon the automake build system, which is curren
 At our company we have a package which installs an {{{/etc/dupload.conf}}} which knows how to talk to our package repository and makes that repository the default, and then we list that package in our build dependencies.  In addition for my personal work I put a {{{.dupload.conf}}} in my home directory which contains a definition for my personal package archive called 'myarchive', and then I use {{{FW_DUPLOAD_ARGS="-t myarchive"}}} in {{{fw-pkgin/config}}} to cause that entry to be used by dupload.
 
 == 15 ==
-When building from the source code repository, that is.  {{{make dist}}} tarballs are tweaked so that they build just like vanilla automake projects, that is
-{{{
-% ./configure && make
-}}}
-This way you can release a dist tarball of a framewerk project and your users do not have to install or know about framewerk in order to build. 
+When building from the source code repository, that is.  {{{make dist}}} tarballs are tweaked so that they [#Releasing_a_tarball build just like vanilla automake projects].
