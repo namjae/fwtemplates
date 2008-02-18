@@ -28,7 +28,7 @@ These things are done while abstracting the following out:
 
 == Build system ==
 
-In theory, the project could be based on [[http://ant.apache.org/manual/index.html][ant]] or [[http://sources.redhat.com/automake/][automake]] and it wouldn't matter for these tasks: the commands to run would be the same.  In practice, I have only implemented the build interface for automake, so probably the abstraction isn't sufficient.
+In theory, the project could be based on [http://ant.apache.org/manual/index.html ant] or [http://sources.redhat.com/automake/ automake] and it wouldn't matter for these tasks: the commands to run would be the same.  In practice, I have only implemented the build interface for automake, so probably the abstraction isn't sufficient.
 
 == Revision control system ==
 
