@@ -200,6 +200,7 @@ in the output of {{{configure}}}.  If you see
 checking for native package type... none (autodetected)
 }}}
 then either you didn't install framewerk as a package or else you're using a packaging system that framewerk doesn't recognize.  Right now it only recognizes debian package format (which includes fink on OS/X), but new package types can be provided via additional packages.[[#10 10]]
+ 
 
 = Footnotes =
 
@@ -239,4 +240,6 @@ Which is weird because that's what automake said about make and autoconf.
 Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewerk projects, but can be overridden, e.g. via the {{{--prefix}}} argument to {{{configure}}}.
 
 == 10 ==
-I haven't actually written a package to support any other package type.
+I haven't actually written a package to support any other package type, so it's probable that the abstraction is not good enough.
+
+If for some reason you think framewerk is autodetecting your package type incorrectly you can force it via the {{{FW_NATIVE_PACKAGE_TYPE}}} environment variable when running configure, e.g., {{{FW_NATIVE_PACKAGE_TYPE="deb" ./configure}}}.
