@@ -119,7 +119,7 @@ Maintainer mode is used such that if {{{fw-pkgin/config}}} is modified, bootstra
 
 You can also test the project via
 {{{
-% make check
+% make -s check
 }}}
 All templates should initialize a project in a state which passes {{{make check}}} or the template has a bug.[[#4 4]]
 
