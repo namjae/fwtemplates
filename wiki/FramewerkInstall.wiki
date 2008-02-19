@@ -38,6 +38,30 @@ All 4 tests passed
 ==================
 }}}
 
+Now you can either {{{make install}}} to just stick stuff on your system, or you can build your own debian package if you are on a debian based system. To do the latter type
+{{{
+# env FW_DUPLOAD_ARGS="-no" make release
+...
+}}}
+which should run the tests again and ultimately produce a {{{.deb}}} in {{{fw-pkgout/}}} in the root directory of the project which you can install.[[#3 3]]
+{{{
+# ls fw-pkgout/
+framewerk-build_0.1.15_i386.deb  framewerk_0.1.15_all.deb
+# sudo dpkg -i fw-pkgout/framewerk_0.1.15_all.deb 
+Selecting previously deselected package framewerk.
+(Reading database ... 17065 files and directories currently installed.)
+Unpacking framewerk (from .../framewerk_0.1.15_all.deb) ...
+Setting up framewerk (0.1.15) ...
+
+#
+}}}
+
+That's it.
+
+= Next steps =
+
+Check out the FramewerkWalkthrough.
+
 = Footnotes =
 
 == 1 ==
@@ -52,3 +76,6 @@ fw requires GNU make to build, you are using bsd make
 Stop.
 }}}
 Then you are using bsd make which will not work.  Try again with gnu make.
+
+== 3 ==
+The FW_DUPLOAD_ARGS="-no" stuff is to cause dupload to do a dry run.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one.  If you do you can use FW_DUPLOAD_ARGS="-t name_of_my_archive".  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
