@@ -53,6 +53,10 @@ Setting up fw-template-erlang (0.1.21) ...
 
 That's it.
 
+= Next steps =
+
+Check out the [FwTemplateErlangWalkthrough fw-template-erlang walkthrough].
+
 = Footnotes =
 
 == 1 ==
