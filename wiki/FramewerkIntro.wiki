@@ -1,9 +1,9 @@
 #summary History and Design Goals
 #labels Featured,Phase-Design
 
-= Introduction =
+Want to just start installing?  Check out the [FramewerkInstall install howto].
 
-[FramewerkInstall (Skip straight to install)]
+= Introduction =
 
 Back in the day, every time I would start a new project, I would copy around a wad of automake.  That got pretty unwieldly, and they would all diverge.  When I learned something new about automake, I had to try some find-xargs-perl trick to change everything over.
 
