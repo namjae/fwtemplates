@@ -95,7 +95,7 @@ I use this all the time because google code is subversion based, so I have high 
 
 = Next Steps =
 
-[Install Framewerk FramewerkInstall]
+[FramewerkInstall Install framewerk].
 
 = Footnotes =
 
