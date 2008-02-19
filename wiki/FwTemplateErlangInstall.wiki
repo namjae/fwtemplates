@@ -58,4 +58,4 @@ That's it.
 == 1 ==
 You might see some errors here if dupload is not installed.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one, hence the FW_DUPLOAD_ARGS="-no" (in case you do have dupload installed, this causes it to do a dry run).
 
-If you have dupload installed and your own repository than you can set FW_DUPLOAD_ARGS to "do the right thing".  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
+If you have dupload installed and your own repository than you can set FW_DUPLOAD_ARGS as desired.  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
