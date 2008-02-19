@@ -60,7 +60,7 @@ That's it.
 
 = Next steps =
 
-Check out the FramewerkWalkthrough.
+Check out the [FramewerkWalkthrough framewerk walkthrough].
 
 = Footnotes =
 
