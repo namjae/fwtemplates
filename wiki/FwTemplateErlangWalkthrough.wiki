@@ -65,8 +65,7 @@ AUTHORS  ChangeLog          NEWS    bootstrap           doc  fw-pkgin  tests
 CVS      Makefile.am.local  README  configure.ac.local  fw   src
 }}}
 Here's a breakdown:
-  * {{{AUTHORS, ChangeLog, NEWS, README, bootstrap, fw, fw-pkgin, configure.ac.local, Makefile.am.local}}}: these have the same meanings as in [FramewerkWalkthrough#Anatomy_of_the_top_level other framewerk templates].
-  * {{{CVS}}}: revision control specific
+  * {{{AUTHORS, CVS, ChangeLog, NEWS, README, bootstrap, fw, fw-pkgin, configure.ac.local, Makefile.am.local}}}: these have the same meanings as in [FramewerkWalkthrough#Anatomy_of_the_top_level other framewerk templates].
   * {{{src, tests}}}: Erlang source code (.erl, .hrl) is placed in {{{src/}}}, and unit tests in {{{tests/}}}.
 
 == Configure the project ==
