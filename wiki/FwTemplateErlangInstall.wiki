@@ -4,8 +4,6 @@
 
 This page will assist you in installing fw-template-erlang.
 
-You should have already [FramewerkInstall installed framewerk].
-
 = The Easy Way =
 
 If you are running a debian package based system (Debian, Ubuntu, [http://www.finkproject.org/ Mac OS/X with fink], etc.), just go to the 
