@@ -21,8 +21,16 @@ Prerequisites:
 
 Unpack the tarball, then run configure and make check.
 {{{
-# tar -zxf fw-template-erlang-0.1.20.tar.gz 
-# cd fw-template-erlang-0.1.20
+# tar -zxf fw-template-erlang-0.1.21.tar.gz 
+# cd fw-template-erlang-0.1.21
 # ./configure --prefix=/usr/local && make -s check
 }}}
-The default prefix is {{{/usr}}} so if you are ok with that then you can omit the prefix argument.
+The default prefix is {{{/usr}}} so if you are ok with that then you can omit the prefix argument.  Hopefully you will see something like
+{{{
+...
+PASS: test-template
+==================
+All 1 tests passed
+==================
+}}}
+If not, the test output is in {{{tests/test-template.out}}}; perhaps it is informative.
