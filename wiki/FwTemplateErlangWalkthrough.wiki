@@ -21,7 +21,7 @@ It's very helpful to have done the [FramewerkWalkthrough framewerk walkthrough].
 
 == Initialize the project ==
 
-First, set up the project with fw-init.  *Warning*: this modifies your source code repository, so create a temporary one if that bothers you. [[#1 1]]
+First, set up the project with fw-init [FramewerkWalkthrough#Initialize_the_project in the usual way].
 {{{
 % env CVSROOT="YOURCVSROOT" fw-init --name myproject --template erlang --revision cvs
 }}}
@@ -207,11 +207,3 @@ Here's the breakdown:
   * {{{myproject.app}}}: the automatically generated otp compliant application file.
   * {{{myapp.erl}}}: simple example application installed with the template
   * {{{myapp.beam}}}: compiled version of myapp.erl
-
-= Footnotes =
-
-== 1 ==
-Alternatively, if you are too young to remember cvs, you can initialize the project without revision control.
-{{{
-% fw-init --name mynorevproject --template script --revision none
-}}}
