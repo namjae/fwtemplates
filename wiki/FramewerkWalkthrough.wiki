@@ -13,7 +13,7 @@ This walkthrough demonstrates framewerk via the script template.
 
 = Prerequisites =
 
-FramewerkInstall
+[FramewerkInstall framewerk installed]
 
 = Details =
 
