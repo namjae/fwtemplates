@@ -5,6 +5,8 @@
 
 This page will assist you in installing framewerk.
 
+If you're wondering "what is framewerk?", check out the [FramewerkIntro introduction].
+
 = The Easy Way =
 
 If you are running a debian package based system (Debian, Ubuntu, [http://www.finkproject.org/ Mac OS/X with fink], etc.), just go to the 
