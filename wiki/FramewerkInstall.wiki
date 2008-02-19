@@ -24,7 +24,7 @@ go to the [http://code.google.com/p/fwtemplates/downloads/list downloads section
 {{{
 # tar -zxf framewerk-0.1.15.tar.gz
 # cd framewerk-0.1.15
-# ./bootstrap && ./build --prefix=/usr/local && make -s check
+# ./bootstrap && ./build --prefix=/usr/local && gmake -s check
 ...
 }}}
 The default prefix is {{{/usr}}} so if you are ok with that you can omit the prefix argument.  Hopefully what you see is something like
