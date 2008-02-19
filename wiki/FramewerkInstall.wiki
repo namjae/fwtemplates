@@ -19,6 +19,8 @@ Prerequisites:
     1. autoconf, preferable 2.5 or better.
     1. (gnu) make
     1. cvs [[#1 1]]
+    1. posix compliant /bin/sh
+    1. perl
 
 If you are not running a debian based system, or you just like to kick the tires, 
 go to the [http://code.google.com/p/fwtemplates/downloads/list downloads section] and grab the latest {{{.tar.gz}}} file.
