@@ -24,10 +24,10 @@ go to the [http://code.google.com/p/fwtemplates/downloads/list downloads section
 {{{
 # tar -zxf framewerk-0.1.15.tar.gz
 # cd framewerk-0.1.15
-# ./bootstrap && ./build --prefix=/usr/local && gmake -s check
+# ./bootstrap && ./build --prefix=/usr/local && make -s check
 ...
 }}}
-The default prefix is {{{/usr}}} so if you are ok with that you can omit the prefix argument.  Hopefully what you see is something like
+The default prefix is {{{/usr}}} so if you are ok with that you can omit the prefix argument.  Hopefully what you see[[#2 2]] is something like
 {{{
 PASS: test-template-fw-build
 PASS: test-template-fw-template
@@ -42,3 +42,13 @@ All 4 tests passed
 
 == 1 ==
 Not strictly required but test-cvs will fail 'make check' since it exercises the cvs revision control hooks.
+
+== 2 ==
+If you see something like:
+{{{
+fw requires GNU make to build, you are using bsd make
+*** Error code 1
+
+Stop.
+}}}
+Then you are using bsd make which will not work.  Try again with gnu make.
