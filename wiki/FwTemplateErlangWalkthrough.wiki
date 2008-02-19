@@ -182,7 +182,7 @@ include $(top_srcdir)/fw/build/automake/gnu-make-check.am
 
 Notes:
   * The standard directory targets erlappsrc, erlappebin, erlapppriv, and erlappinclude are defined, corresponding to the [http://www.erlang.org/doc/design_principles/applications.html#7.4 otp application directory structure].
-  * Automatic rules for building a {{{.beam}}} (or a {{{.P}}}) from the corresponding {{{.erl}}} file.  These are parametrized by ${ERLCFLAGS} globally and ${$*_ERLCFLAGS} per target.  In other words, foo.beam can be built from foo.erl, and the compilation line would be
+  * Automatic rules for building a {{{.beam}}} (or a {{{.P}}}) from the corresponding {{{.erl}}} file.  These are parametrized by ${ERLCFLAGS} globally and ${${{{*}}}_ERLCFLAGS} per target.  In other words, foo.beam can be built from foo.erl, and the compilation line would be
 {{{
 erlc ${ERLCFLAGS} ${foo_ERLCFLAGS} foo.erl
 }}}
