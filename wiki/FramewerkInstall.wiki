@@ -41,7 +41,7 @@ PASS: test-cvs
 All 4 tests passed
 ==================
 }}}
-If not, the test output for test-FOO is in tests/test-FOO.out; perhaps it is informative.
+If not, the test output for {{{test-FOO}}} is in {{{tests/test-FOO.out}}}; perhaps it is informative.
 
 Now you can either {{{make install}}} to just stick stuff on your system, or you can build your own debian package if you are on a debian based system. To do the latter type
 {{{
