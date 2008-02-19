@@ -34,3 +34,26 @@ All 1 tests passed
 ==================
 }}}
 If not, the test output is in {{{tests/test-template.out}}}; perhaps it is informative.
+
+Now you can either {{{make install}}} to just stick stuff on your system, or you can build your own debian package if you are on a debian based system. To do the latter type
+{{{
+# env FW_DUPLOAD_ARGS="-no" make release
+...
+}}}
+which should run the tests again and ultimately produce a {{{.deb}}} in {{{fw-pkgout/}}} in the root directory of the project which you can install.[[#1 1]]
+{{{
+# ls fw-pkgout/
+fw-template-erlang-build_0.1.21_i386.deb  fw-template-erlang_0.1.21_all.deb
+# sudo dpkg -i fw-pkgout/fw-template-erlang_0.1.21_all.deb 
+Selecting previously deselected package fw-template-erlang.
+(Reading database ... 19755 files and directories currently installed.)
+Unpacking fw-template-erlang (from .../fw-template-erlang_0.1.21_all.deb) ...
+Setting up fw-template-erlang (0.1.21) ...
+}}}
+
+That's it.
+
+= Footnotes =
+
+== 1 ==
+The FW_DUPLOAD_ARGS="-no" stuff is to cause dupload to do a dry run.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one.  If you do you can use FW_DUPLOAD_ARGS="-t name_of_my_archive".  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
