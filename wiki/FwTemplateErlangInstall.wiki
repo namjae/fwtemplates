@@ -18,3 +18,11 @@ Prerequisites:
      * os/x: apt-get install erlang-otp
      * freebsd: pkg_add -r erlang
      * others: ???
+
+Unpack the tarball, then run configure and make check.
+{{{
+# tar -zxf fw-template-erlang-0.1.20.tar.gz 
+# cd fw-template-erlang-0.1.20
+# ./configure --prefix=/usr/local && make -s check
+}}}
+The default prefix is {{{/usr}}} so if you are ok with that then you can omit the prefix argument.
