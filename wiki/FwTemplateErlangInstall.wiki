@@ -14,7 +14,7 @@ If you are running a debian package based system (Debian, Ubuntu, [http://www.fi
 Prerequisites:
   1. [FramewerkInstall framewerk]
   1. working erlang installation.
-     * debian: aptitude install erlang
+     * debian: aptitude install erlang-dev
      * os/x: apt-get install erlang-otp
      * freebsd: pkg_add -r erlang
      * others: ???
