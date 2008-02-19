@@ -83,4 +83,6 @@ Stop.
 Then you are using bsd make which will not work.  Try again with gnu make.
 
 == 3 ==
-The FW_DUPLOAD_ARGS="-no" stuff is to cause dupload to do a dry run.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one.  If you do you can use FW_DUPLOAD_ARGS="-t name_of_my_archive".  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
+You might see some errors here if dupload is not installed.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one, hence the FW_DUPLOAD_ARGS="-no" (in case you do have dupload installed, this causes it to do a dry run).
+
+If you have dupload installed and your own repository than you can set FW_DUPLOAD_ARGS to "do the right thing".  For your own projects you can even hard code this in.  Check out {{{fw-pkgin/config}}} if you are interested.
