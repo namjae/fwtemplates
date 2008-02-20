@@ -1,4 +1,4 @@
-#summary Basic introduction to fw-template-erlang (under construction).
+#summary Basic introduction to fw-template-erlang.
 
 = Introduction =
 
@@ -314,6 +314,15 @@ runs myapp:test/0 and outputs coverage information.  Tests not of the form
 module-foo are executed directly, although artifacts of cover analysis 
 generated from such tests are attempted to be detected.  Check out
 {{{tests/otp-test-wrapper.sh}}} if you're curious.
+
+== Making a package ==
+
+Making a package is done [FramewerkWalkthrough#Making_a_package the usual way], as is [FramewerkWalkthrough#Releasing_a_package releasing a package].  
+
+= Conclusion =
+
+Congratulations!  You've made it through the fw-template-erlang walkthrough. 
+Hopefully you found it helpful.
 
 = Footnotes =
 
