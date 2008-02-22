@@ -80,7 +80,10 @@ fw requires GNU make to build, you are using bsd make
 
 Stop.
 }}}
-Then you are using bsd make which will not work.  Try again with gnu make.
+Then you are using bsd make which will not work.  Try again with gnu make, e.g.,
+{{{
+# ./bootstrap && ./build --prefix=/usr/local && gmake -s check
+}}}
 
 == 3 ==
 You might see some errors here if dupload is not installed.  Framewerk wants to upload the package it makes to a repository and I'm assuming you don't have one, hence the FW_DUPLOAD_ARGS="-no" (in case you do have dupload installed, this causes it to do a dry run).

@@ -117,7 +117,7 @@ The template should have created a working project which can be built in this wa
 
 Maintainer mode is used such that if {{{fw-pkgin/config}}} is modified, bootstrap and build are essentially re-run, so there is typically no need to run bootstrap at any time other than project check-out (although, bootstrap is useful to escape from snafus).
 
-You can also test the project via
+You can also test the project via[[#16 16]]
 {{{
 % make -s check
 }}}
@@ -373,3 +373,16 @@ At our company we have a package which installs an {{{/etc/dupload.conf}}} which
 
 == 15 ==
 When building from the source code repository, that is.  {{{make dist}}} tarballs are tweaked so that they [#Releasing_a_tarball build just like vanilla automake projects].
+
+== 16 ==
+If you see something like:
+{{{
+fw requires GNU make to build, you are using bsd make
+*** Error code 1
+
+Stop.
+}}}
+Then you are using bsd make which will not work.  Try again with gnu make, e.g.,
+{{{
+% gmake -s check
+}}}
