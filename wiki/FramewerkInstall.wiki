@@ -10,7 +10,7 @@ If you're wondering "what is framewerk?", check out the [FramewerkIntro introduc
 = The Easy Way =
 
 If you are running a debian package based system (Debian, Ubuntu, [http://www.finkproject.org/ Mac OS/X with fink], etc.), just go to the 
-[http://code.google.com/p/fwtemplates/downloads/list downloads section] and grab the latest {{{.deb}}} files.
+[http://code.google.com/p/fwtemplates/downloads/list?can=2&q=framewerk*.deb&colspec=Filename+Summary+Uploaded+Size+DownloadCount downloads section] and grab the latest {{{.deb}}} files.
 
 = The Less Easy Way =
 
