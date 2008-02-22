@@ -1,4 +1,4 @@
-#summary How to install framewerk
+#summary Install howto for framewerk
 #labels Phase-Deploy
 
 = Introduction =
