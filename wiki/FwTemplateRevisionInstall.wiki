@@ -7,7 +7,7 @@ This page will assist you in installing fw-template-revision.
 = The Easy Way =
 
 If you are running a debian package based system (Debian, Ubuntu, [http://www.finkproject.org/ Mac OS/X with fink], etc.), just go to the 
-[http://code.google.com/p/fwtemplates/downloads/list downloads section] and grab the latest {{{.deb}}} files.
+[http://code.google.com/p/fwtemplates/downloads/list?can=2&q=*.deb&colspec=Filename+Summary+Uploaded+Size+DownloadCount downloads section] and grab the latest {{{.deb}}} files.
 
 = The Less Easy Way =
 
