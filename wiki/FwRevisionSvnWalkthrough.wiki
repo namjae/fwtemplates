@@ -64,7 +64,7 @@ FW_SUBVERSION_TAG_ROOT must be set in order to release packages, since releasing
 
 = Conclusion =
 
-Well that's it.  Generally Framewerk is trying to do the same thing no 
+Well that's it.  Generally framewerk is trying to do the same thing no 
 matter what revision control system you use so if this were a big 
 walkthrough that would be a red flag.
 
