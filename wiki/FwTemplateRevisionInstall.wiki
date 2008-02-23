@@ -14,6 +14,9 @@ If you are running a debian package based system (Debian, Ubuntu, [http://www.fi
 Prerequisites:
   1. [FramewerkInstall framewerk]
 
+If you are not running a debian based system, or you just like to kick the tires, 
+go to the [http://code.google.com/p/fwtemplates/downloads/list?can=2&q=*.tar.gz&colspec=Filename+Summary+Uploaded+Size+DownloadCount downloads section] and grab the latest {{{.tar.gz}}} file.
+
 Unpack the tarball, then run configure and make check.
 {{{
 # tar -zxf fw-template-revision-0.0.3.tar.gz 
