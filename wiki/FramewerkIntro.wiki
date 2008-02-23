@@ -84,7 +84,7 @@ This is derived from fw-template-C.  It doesn't do much more, except set up the 
 
 == fw-template-erlang ==
 
-This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html eunit], [http://www.erlang.org/doc/man/cover.html cover], and [http://www.erlang.org/doc/apps/edoc/index.html edoc] integration now; the template also generates an OTP compliant [http://www.erlang.org/doc/design_principles/applications.html#7.3 application resource file] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in this template.
+This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html eunit], [http://www.erlang.org/doc/man/cover.html cover], and [http://www.erlang.org/doc/apps/edoc/index.html edoc] integration now; the template also generates an OTP compliant [http://www.erlang.org/doc/design_principles/applications.html#7.3 application resource file] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in the stability of this template, if not the strategies it prescribes.
 
 == fw-template-revision ==
 
