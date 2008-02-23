@@ -309,6 +309,7 @@ Congratulations, you've made it through the framewerk walkthrough.  Hopefully yo
 Now you can install templates to extend the power of framewerk.
 
   * [FwTemplateErlangInstall fw-template-erlang]: for Erlang development.
+  * [FwRevisionSvnInstall fw-revision-svn]: for subversion support.
 
 = Footnotes =
 
