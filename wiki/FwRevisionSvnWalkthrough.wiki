@@ -59,6 +59,7 @@ fw-revision-svn responds to the following configurable variables in
 {{{
 FW_SUBVERSION_TAG_ROOT="https://walkenfs.googlecode.com/svn/tags/"
 }}}
+This must be set in order to release packages, since releasing involves tagging.
 
 = Next steps =
 
