@@ -70,7 +70,7 @@ This is a C development template for framewerk.  It provides:
 
    * automake setup: libtool and compiler setup done for you.
 
-   * pkg-config integration: pkg-config files for your project are made for you.  In addition, if any dependencies provide pkg-config files they are used, generally eliminating the need for AC_CHECK_LIBS and AC_CHECK_HEADERS.
+   * pkg-config integration: pkg-config files for your project are made for you.  In addition, if any dependencies provide pkg-config files they are used, generally eliminating the need for AC_CHECK_LIBS and AC_CHECK_HEADERS.[[#2 2]]
 
    * valgrind integration: standard targets for running make check with valgrind.
 
@@ -104,3 +104,7 @@ I use this all the time because google code is subversion based, so I have high 
 == 1 ==
 
 This particular point cannot be overemphasized.  One developer spent a week trying to  build a particularly complicated piece of software we had.  When we moved it over to skeletor with build environment snapshotting, it became a single command to reproduce the build environment and another single command to build the project; and these two commands were the same for every skeletor project.  Sometimes people forgot to specify build dependencies and then the resulting build snapshot was incomplete, but mostly it worked great.
+
+== 2 ==
+
+So I've discovered this is true *if* you and all your consumers are using a packaging format (because pkg-config files are found by querying the package system for files ending in .pc provided by a dependency).  Once you start making dist tarballs that you want to work anywhere, you have to start manually finding the .pc files again. :(
