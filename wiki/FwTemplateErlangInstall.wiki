@@ -15,7 +15,7 @@ Prerequisites:
   1. [FramewerkInstall framewerk]
   1. working erlang installation.
      * debian: aptitude install erlang-dev
-     * os/x: apt-get install erlang-otp
+     * os/x (with [http://www.finkproject.org/ fink]): apt-get install erlang-otp
      * freebsd: pkg_add -r erlang
      * others: ???
 
