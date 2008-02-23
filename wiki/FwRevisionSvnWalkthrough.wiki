@@ -8,8 +8,8 @@ This walkthrough demonstrates fw-revision-svn via the script template.
 
 = Prerequisites =
 
-[FramewerkInstall framewerk installed]
-[FwRevisionSvnInstall fw-revision-svn installed]
+  1 [FramewerkInstall framewerk installed]
+  1 [FwRevisionSvnInstall fw-revision-svn installed]
 
 = Details =
 
