@@ -16,7 +16,7 @@ Prerequisites:
   1. working C development setup with libtool and pkg-config.
      * debian: aptitude install build-essential pkg-config libtool
      * os/x: install [http://developer.apple.com/tools/xcode/ xcode]; apt-get install pkgconfig
-       * yes, no dash, (unfortunately) it's not a typo.  
+       * it is pkgconfig, *not* pkg-config
      * freebsd: pkg_add -r libtool; pkg_add -r pkg-config
      * others: ???
 
