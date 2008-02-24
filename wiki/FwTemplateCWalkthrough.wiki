@@ -164,9 +164,8 @@ MAINTAINERCLEANFILES += 				\
   pkgconfig-template.pc.in
 }}}
 
-The memcheck and leakcheck family of targets run 
-[#valgrind unit tests using valgrind]
-(if installed).  These basically proxy to the versions in the [#Anatomy_of_tests/ tests] directory for your convenience.
+The memcheck and leakcheck family of targets run unit tests using valgrind
+(if installed).  These basically proxy to the versions in the [#Anatomy_of_tests tests] directory for your convenience.
 
 The other rules are related to pkg-config file generation.
 
@@ -203,7 +202,7 @@ PROJECTNAME.h, in this case {{{src/myproject.h}}}.  It and the other
 $(includedir)/PACKAGE_NAME-MAJOR_VERSION, e.g. $(includedir)/myproject-0
 for this project.
 
-== Anatomy of tests/ ==
+== Anatomy of tests ==
 
 {{{
 % ls tests/
