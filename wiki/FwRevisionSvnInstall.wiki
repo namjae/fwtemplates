@@ -2,7 +2,10 @@
 
 = Introduction =
 
-This page will assist you in installing fw-revision-svn
+This page will assist you in installing fw-revision-svn.
+
+If you've already installed fw-revision-svn and want to know how
+to use it, check out the [FwRevisionSvnWalkthrough walkthrough].
 
 = The Easy Way =
 

@@ -4,6 +4,9 @@
 
 This page will assist you in installing fw-template-revision.
 
+If you've already installed fw-template-revision and want to know how to use 
+it, check out the [FwTemplateRevisionWalkthrough walkthrough].
+
 = The Easy Way =
 
 If you are running a debian package based system (Debian, Ubuntu, [http://www.finkproject.org/ Mac OS/X with fink], etc.), just go to the 

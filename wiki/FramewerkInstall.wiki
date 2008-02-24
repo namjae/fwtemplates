@@ -5,6 +5,9 @@
 
 This page will assist you in installing framewerk.
 
+If you've already installed Framewerk and want to know how to use it, check out
+the [FramewerkWalkthrough walkthrough].
+
 If you're wondering "what is framewerk?", check out the [FramewerkIntro introduction].
 
 = The Easy Way =
