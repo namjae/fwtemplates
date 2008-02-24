@@ -224,7 +224,7 @@ Some notes:
   * Packages listed as build dependency that contain .pc files in their manifest will have entries added to Requires: corresponding to their .pc files . Additional Requires data can be added via FW_PKGCONFIG_REQUIRES_EXTRA.
   * Libraries listed in a Makefile.am or Makefile.am.local under {{{src/}}} via LTLIBRARIES will have entries added to the Libs: line.  Additional Libs data can be added via FW_PKGCONFIG_LIBS_EXTRA.
   * The Cflags: line is automatically populated with an include line corresponding to the location of installed headers.  Additional Cflags data can be added via FW_PKGCONFIG_CFLAGS_EXTRA.
-  * The contents of the FW_PKGCONFIG_EXTRA variable is appended verbatim to this file.[[#1 1]]
+  * The contents of the FW_PKGCONFIG_EXTRA variable is appended verbatim to this file.[[#2 2]]
 
 === src/myproject.h ===
 
@@ -298,6 +298,10 @@ Hopefully you found it helpful.
 = Footnotes =
 
 == 1 ==
+
+So I've discovered this is true *if* you and all your consumers are using a packaging format (because pkg-config files are found by querying the package system for files ending in .pc provided by a dependency).  Once you start making dist tarballs that you want to work anywhere, you have to start manually finding the .pc files again. :(
+
+== 2 ==
 
 In case of need for extreme customization, you can create a file
 {{{fw.local/template/C/make-pkgconfig-template}}} in your project
