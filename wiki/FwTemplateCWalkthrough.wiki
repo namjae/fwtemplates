@@ -248,7 +248,8 @@ the (reasonable) default arguments to valgrind, e.g.,
 ==4386== For counts of detected errors, rerun with: -v
 ==4386== All heap blocks were freed -- no leaks are possible.
 }}}
-Note in the second run the "-q" option to VALGRIND_OPTS was eliminated.
+Note in the second run the "-q" option to VALGRIND_OPTS was eliminated, thus
+valgrind output a banner and summary.
 
 Look at {{{tests/Makefile.am}}} for a complete understanding of what 
 the template provides.
