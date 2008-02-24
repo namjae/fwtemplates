@@ -78,7 +78,7 @@ This is a C development template for framewerk.  It provides:
 
 I've done a couple of projects with it (e.g., [http://code.google.com/p/fuserl fuserl]), so I feel pretty good about it.
 
-== fw-template-C++ ==
+== fw-template-Cxx ==
 
 This is derived from fw-template-C.  It doesn't do much more, except set up the C++ compiler.  There is more that could be done here; I know there are alot of autoconf macros that try to get around the various differences in C++ installations (e.g., std::cout or just cout?; iostream.h or iostream?).  However I mostly use an up-to-date g++, because I can't stand to read about crazy advanced techniques and then try them out only to have them fail.  (Also I've given up on C++ in favor of Erlang).
 
