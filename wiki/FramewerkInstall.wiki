@@ -67,6 +67,12 @@ That's it.
 
 Check out the [FramewerkWalkthrough framewerk walkthrough].
 
+Or you can install templates to extend the power of framewerk.
+
+  * [FwTemplateCInstall fw-template-c]: for C development.
+  * [FwTemplateErlangInstall fw-template-erlang]: for Erlang development.
+  * [FwRevisionSvnInstall fw-revision-svn]: for subversion support.
+
 = Footnotes =
 
 == 1 ==
