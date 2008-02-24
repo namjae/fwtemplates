@@ -113,7 +113,7 @@ FW_PACKAGE_BUILD_CONFLICTS=""
 # generated .pc file
 # FW_PKGCONFIG_EXTRA=""
 }}}
-The extra variables are related to the [#pkg-config_file_generation creation of a pkg-config file].
+The extra variables are related to the [#pkgconfig_file_generation creation of a pkg-config file].
 This mostly just works (via scanning your source code directory) but in case 
 it doesn't you have additional control via these variables.  
 
@@ -170,7 +170,7 @@ The memcheck and leakcheck family of targets run
 
 The other rules are related to pkg-config file generation.
 
-=== pkg-config file generation ===
+=== pkgconfig file generation ===
 
 There should now be a {{{myproject-0.0.pc}}} file in the root directory of the 
 project.  
