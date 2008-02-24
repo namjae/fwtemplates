@@ -124,6 +124,38 @@ Build the project [FramewerkWalkthrough#Build_the_project the usual way],
 % ./bootstrap && ./build
 }}}
 
+=== Hardcore ===
+
+fw-template-c supports "hardcore" compilation mode, wherein a bunch of 
+warnings are enabled and warnings are treated as errors.  These are basically
+the warnings that I have noticed over the years to take seriously.  
+Unfortunately setting warnings as errors causes alot of configure tests to 
+fail; fortunately, framewerk is smart enough to set the compiler options
+at the very end so it doesn't cause problems during configure.
+
+hardcore mode is enabled by default, but you can disable it by passing --disable-hardcore to build, e.g.,
+{{{
+% ./bootstrap && ./build --disable-hardcore
+}}}
+
+=== Coverage ===
+
+fw-template-c supports coverage testing compilation mode.  Basically,
+a bunch of compiler flags are set and compiler optimization flags are
+unset (these can frustrate coverage analysis).  The test driver in
+coverage testing mode will run gcov for you and output coverage summaries
+during 'make check'.
+
+coverage mode is disabled by default, but you can enable it by passing --enable-coverage to build, e.g.,
+{{{
+% ./bootstrap && ./build --enable-coverage
+}}}
+
+fw-template-c will detect whether a package is being created with coverage
+compiled code in it.  It is an error to release a package in this state 
+so 'make release' will error out; in that case 'make clean' and rerun build
+without the --enable-coverage argument.
+
 === Makefile.am ===
 
 The top level Makefile.am has some useful rules in it:
