@@ -324,6 +324,13 @@ Making a package is done [FramewerkWalkthrough#Making_a_package the usual way], 
 Congratulations!  You've made it through the fw-template-erlang walkthrough. 
 Hopefully you found it helpful.
 
+= Addendum =
+
+Here's a summary of interesting changes since this walkthrough was written.
+
+  1. There's a parse transform that is run by default during compilation that adds a -vsn attribute to files that lack one (using FW_PACKAGE_VERSION).  This is useful for hot code upgrade.  See Makefile.otp for details.
+  1. escript is now [FramewerkWalkthrough#Checking_scripts a recognized interpreter] and causes 'escript -s' to be run.
+
 = Footnotes =
 
 == 1 ==

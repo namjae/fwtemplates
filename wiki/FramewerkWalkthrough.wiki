@@ -302,6 +302,76 @@ Framewerk supports the {{{make dist}}} family of targets.  The distribution tarb
 }}}
 so that consumers of dist tarballs remain blissfully aware of framewerk.  Templates initialize the project in a state such that dist tarballs build correctly otherwise the template has a bug.  However for files added to the project sometimes [http://www.delorie.com/gnu/docs/automake/automake_91.html autoconf dist directives] are required to ensure placement in the dist tarball.
 
+= Bells and whistles =
+
+This section describes interesting bits and bobs of framewerk.
+
+== Checking scripts ==
+
+For automake the file fw/build/automake/check-shell.am defines a scheme for
+checking interpreted files.
+
+{{{
+% cat fw/build/automake/check-shell.am
+find_shell = $(shell perl -ne 'if (m%\043!\s*/usr/bin/env\s*([^/]+)%) { print $$1; } elsif (m%\043!\s*\S*?/([^/\s]+)\s*$$%) { print $$1; }; exit' $(1))
+
+.PHONY: check-script-perl-%
+check-script-perl-%:
+        perl -cw $*
+
+.PHONY: check-script-sh-%
+check-script-sh-%:
+        @CHECK_SHELL@ -n $*
+
+.PHONY: unknown-script-%
+unknown-script-%:
+        @echo "warning: cant check $* : unknown interpreter '$(shell head -1 $*)'" 1>&2
+        @echo "warning: try defining make target 'check-script-$(call find_shell,$*)-%'" 1>&2
+        @echo "warning: to instruct make on how to check scripts of type $(call find_shell,$*)" 1>&2
+
+.%.script_ok: %
+        @$(MAKE) -q -s check-script-$(call find_shell,$<)-$< 2>/dev/null ; \
+                                                                           \
+        if test $$? = 2 ;                                                  \
+          then                                                             \
+            $(MAKE) --no-print-directory unknown-script-$< ;               \
+          else                                                             \
+            $(MAKE) -s --no-print-directory                                \
+              check-script-$(call find_shell,$<)-$< &&                     \
+            touch $@ ;                                                     \
+          fi
+
+CLEANFILES +=                                   \
+  $(wildcard .*.script_ok)
+}}}
+
+The idea is that by defining the target {{{.foo.script_ok}}}, the 
+interpreted script {{{foo}}} will be syntax checked.  Knowledge about
+additional interpreters can be provided by templates, e.g., 
+in [FwTemplateErlangWalkthrough#Makefile.otp Makefile.otp] from 
+fw-template-erlang the rule
+{{{
+.PHONY: check-script-escript-%
+check-script-escript-%:
+        escript -s $*
+}}}
+informs the system about [http://www.erlang.org/doc/man/escript.html escript].
+
+Many templates will by default pass foo_SCRIPTS target sets through 
+.script_ok, e.g., in the {{{bin/Makefile.am}}} provided by the script
+template the lines
+{{{
+noinst_DATA =                           \
+  $(dist_bin_SCRIPTS:%=.%.script_ok)    \
+  $(bin_SCRIPTS:%=.%.script_ok)
+...
+include $(top_srcdir)/fw/build/automake/check-shell.am
+}}}
+cause the scripts to be installed in $(prefix)/bin to be checked.
+
+You can use this in your own Makefiles as well by just including 
+check-shell.am as above.
+
 = Next steps =
 
 Congratulations, you've made it through the framewerk walkthrough.  Hopefully you found it pedagogical.
