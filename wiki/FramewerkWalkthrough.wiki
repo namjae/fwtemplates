@@ -348,7 +348,7 @@ CLEANFILES +=                                   \
 The idea is that by defining the target {{{.foo.script_ok}}}, the 
 interpreted script {{{foo}}} will be syntax checked.  Knowledge about
 additional interpreters can be provided by templates, e.g., 
-in [FwTemplateErlangWalkthrough#Makefile.otp Makefile.otp] from 
+in [FwTemplateErlangWalkthrough#Build_the_project Makefile.otp] from 
 fw-template-erlang the rule
 {{{
 .PHONY: check-script-escript-%
