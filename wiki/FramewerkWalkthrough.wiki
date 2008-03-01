@@ -308,8 +308,8 @@ This section describes interesting bits and bobs of framewerk.
 
 == Checking scripts ==
 
-For automake the file fw/build/automake/check-shell.am defines a scheme for
-checking interpreted files.
+For automake the file {{{fw/build/automake/check-shell.am}}} defines a 
+scheme for checking interpreted files.
 
 {{{
 % cat fw/build/automake/check-shell.am
