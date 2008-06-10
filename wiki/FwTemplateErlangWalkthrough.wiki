@@ -8,6 +8,7 @@ fw-template-erlang is the framewerk Erlang template.  It features:
   * [http://svn.process-one.net/contribs/trunk/eunit/doc/index.html eunit] integration with 'make check'
   * generates an [http://www.erlang.org/doc/design_principles/applications.html#7.3 otp compliant application file] by scanning the source code
   * standard make rules to drive the erlang compiler
+  * [http://code.google.com/p/erlrc erlrc] integration
 
 This walkthrough demonstrates fw-template-erlang.
 
