@@ -1,2 +1,6 @@
 # put whatever (auto)make commands here, they will be included from Makefile.am
 
+TESTS = \
+test-1
+
+check_SCRIPTS = dpkg-query
