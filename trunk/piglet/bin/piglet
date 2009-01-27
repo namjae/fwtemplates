@@ -1,0 +1,317 @@
+#! perl
+
+use strict;
+use Storable qw(nstore retrieve);
+use Getopt::Long;
+use Digest::MD5 qw(md5_hex);
+
+#
+# parse command line
+#
+
+my $help;
+my $installed_plt = $ENV{'HOME'} . '/.dialyzer_plt';
+my $dot_d_dir     = '/etc/piglet.d';
+my $cache_dir     = '/var/n54data-cached/dialyzer-cache';
+
+GetOptions ('help'         => \$help,
+	    'cache-dir=s'  => \$cache_dir,
+	    'config-dir=s' => \$dot_d_dir,
+	    'plt=s'        => \$installed_plt)
+  and !$help or usage ();
+
+sub usage
+{
+  print STDERR <<"END";
+usage: piglet [OPTION ...]
+
+Efficiently maintain dialyzer initial PLT using a shared cache.
+
+Options:
+  --help            Display this help message
+  --cache-dir DIR   Use cache directory DIR (default $cache_dir)
+  --config-dir DIR  Read configuration from DIR (default $dot_d_dir)
+  --plt FILE        Build PLT in FILE (default \$HOME/.dialyzer_plt)
+END
+  exit (1);
+}
+
+#
+# figure out erlang code path
+#
+
+my %code_path;
+open (E, q(erl -noshell -noinput -eval 'lists:foreach (fun (D) -> io:format ("~s~n", [D]) end, code:get_path ())' -s erlang halt |))
+  or die "error getting code path: $!";
+while (defined ($_ = <E>))
+  {
+    chomp;
+    next unless my ($app) = (m{/([^/-]+)-[^/]+/ebin$});
+    $code_path{$app} ||= $_;
+  }
+close (E);
+
+#
+# helpers
+#
+
+sub system_or_die (@)
+{
+  system (@_) == 0 or die ('command ' . join (' ', @_) . ' failed');
+}
+
+# return [name, version] of debian package owning file
+sub file_to_package_version ($)
+{
+  my ($file) = @_;
+  # to get package and version:
+  #   dpkg-query --search [any beam file]
+  #   if exit status 0, name of package is before 1st colon in output
+  # version is output of:
+  #   dpkg-query -W --showformat '${Version} ' PACKAGE
+  my $output = qx(dpkg-query --search "$file");
+  return undef if $?;
+  return undef unless my ($pkg) = ($output =~ /^([^:]+):/);
+  my $version = qx(dpkg-query -W --showformat '\${Version}' "$pkg");
+  return undef if $?;
+  [$pkg, $version];
+}
+
+sub file_md5_hex ($)
+{
+  my ($file) = @_;
+  my $fh;
+  open ($fh, $file) or die "error opening $file: $!";
+  my $data = do { local ($/) ; <$fh> };
+  close ($fh);
+  md5_hex ($data);
+}
+
+# return a list of applications that should be included in the PLT
+# read filenames in /etc/dialyzer.d
+# APP means we want APP (can be installed by package or local)
+# APP.exclude means we don't want APP (local override only)
+sub compute_apps ()
+{
+  opendir (D, $dot_d_dir) or die "error opening $dot_d_dir: $!";
+  my %files = map { $_ => 1 } readdir (D);
+  closedir (D);
+  grep { /^\w+$/ && !files{"$_.exclude"} } keys %files;
+}
+
+# compute desired "spec" for PLT:
+# $spec->{APP}->{pkg} = PACKAGE
+# $spec->{APP}->{version} = VERSION
+# $spec->{APP}->{code_path} = APP's ebin directory
+# $spec->{APP}->{beams} = list of beam files
+# $spec->{APP}->{beam_bytes} = total size of application beams
+sub compute_spec ()
+{
+  my %spec;
+  foreach my $app (compute_apps ())
+    {
+      my $path = $code_path{$app};
+      if (!$path)
+	{
+	  warn "could not determine ebin path for $app (skipping)";
+	  next;
+	}
+      opendir (D, $path) or die "error opening $path: $!";
+      my @beams = map { "$path/$_" } grep { /\.beam$/ } readdir (D);
+      closedir (D);
+
+      my $pkg_version = file_to_package_version ($beams[0]);
+      if (!defined ($pkg_version))
+	{
+	  warn "could not determine package owning $app (skipping)";
+	  next;
+	}
+
+      my $beam_bytes = 0;
+      foreach my $beam (@beams)
+	{
+	  $beam_bytes += (-s $beam);
+	}
+      $spec{$app} = { pkg        => $pkg_version->[0],
+		      version    => $pkg_version->[1],
+		      code_path  => $path,
+		      beams      => [ sort @beams ],
+		      beam_bytes => $beam_bytes };
+    }
+  \%spec;
+}
+
+# spec_write (SPEC, FILENAME) -> successs or die
+sub spec_write ($$)
+{
+  my ($spec, $filename) = @_;
+  nstore ($spec, $filename) or die "error writing to $filename";
+}
+
+# spec_read (FILENAME) -> SPEC or die
+sub spec_read ($)
+{
+  my ($filename) = @_;
+  retrieve ($filename) or die "error reading from $filename";
+}
+
+#
+# distance between one PLT and another
+#
+
+# spec_distance (FROM, TO) -> DIST (steps needed to go from FROM to TO)
+sub spec_distance ($$)
+{
+  my ($from, $to) = @_;
+  my @analyze_dirs;
+  my $analyze_n_files = 0;
+  my $analyze_n_bytes = 0;
+  my @intersection_apps;
+  foreach my $app (sort keys %$to)
+    {
+      my $from_app = $from->{$app};
+      my $to_app = $to->{$app};
+      if (!$from_app || grep { $from_app->{$_} ne $to_app->{$_} }
+			     qw(pkg version code_path beams beam_bytes))
+	{
+	  push (@analyze_dirs, $to_app->{code_path});
+	  $analyze_n_files += scalar (@{ $to_app->{beams} });
+	  $analyze_n_bytes += $to_app->{beam_bytes};
+	}
+      else
+	{
+	  push (@intersection_apps, $app);
+	}
+    }
+  my @remove_files;
+  foreach my $app (sort keys %$from)
+    {
+      my $from_app = $from->{$app};
+      my $to_app = $to->{$app};
+      if (!$to_app || grep { $to_app->{$_} ne $from_app->{$_} }
+			   qw(pkg version code_path beams beam_bytes))
+	{
+	  push (@remove_files, @{ $from_app->{beams} });
+	}
+    }
+  { analyze_dirs => \@analyze_dirs,
+    analyze_n_files => $analyze_n_files,
+    analyze_n_bytes => $analyze_n_bytes,
+    intersection_apps => \@intersection_apps,
+    remove_files => \@remove_files };
+}
+
+# distance_zero (DIST) -> is the distance zero (i.e., nothing to do?)
+sub distance_zero ($)
+{
+  my ($dist) = @_;
+     scalar (@{ $dist->{analyze_dirs} }) == 0
+  && scalar (@{ $dist->{remove_files} }) == 0;
+}
+
+# distance_less (A, B) -> is the distance A less than B?
+# NB: we ignore removals here, since presumably those cost much less
+# than analysis (?)
+sub distance_less ($$)
+{
+  my ($a, $b) = @_;
+  scalar (@{ $a->{analyze_dirs} }) < scalar (@{ $b->{analyze_dirs} })
+  || $a->{analyze_n_files} < $b->{analyze_n_files}
+  || $a->{analyze_n_bytes} < $b->{analyze_n_bytes};
+}
+
+# distance_has_intersection (DIST) -> are there any unchanged applications
+#   -> is the distance less than the distance from the empty spec?
+sub distance_has_intersection ($)
+{
+  my ($dist) = @_;
+  scalar (@{ $dist->{intersection_apps} }) > 0;
+}
+
+# actually perform the steps to go from one PLT to another 
+# (does not check that the distance was actually computed from the given PLTs)
+sub distance_execute ($$$)
+{
+  my ($dist, $in_plt, $out_plt) = @_;
+  if (distance_zero ($dist))
+    {
+      # found exactly the PLT we want; just copy it
+      my $tmp_plt = "$out_plt.tmp.$$";
+      system_or_die ('cp', $in_plt, $tmp_plt);
+      system_or_die ('mv', $tmp_plt, $out_plt);
+    }
+  elsif (distance_has_intersection ($dist))
+    {
+      # remove files no longer in PLT
+      my $tmp_plt_1 = "$out_plt.tmp1.$$";
+      system_or_die ('dialyzer', '--remove_from_plt',
+		     '--plt', $in_plt,
+		     '--output_plt', $tmp_plt_1,
+		     (map { ('-c', $_) } @{ $dist->{remove_files} }));
+      # add new files
+      my $tmp_plt_2 = "$out_plt.tmp2.$$";
+      system_or_die ('dialyzer', '--add_to_plt',
+		     '--plt', $tmp_plt_1,
+		     '--output_plt', $tmp_plt_2,
+		     (map { ('-r', $_) } @{ $dist->{analyze_dirs} }));
+      system_or_die ('mv', $tmp_plt_2, $out_plt);
+      unlink ($tmp_plt_1);
+    }
+  else
+    {
+      # no intersection, build from scratch
+      my $tmp_plt = "$out_plt.tmp.$$";
+      system_or_die ('dialyzer', '--build_plt',
+		     '--output_plt', $tmp_plt,
+		     (map { ('-r', $_) } @{ $dist->{analyze_dirs} }));
+      system_or_die ('mv', $tmp_plt, $out_plt);
+    }
+}
+
+#
+# main
+#
+
+my $installed_spec_file = "$installed_plt.spec";
+my $installed_spec =
+  (-f $installed_spec_file) ? spec_read ($installed_spec_file) : {};
+my $desired_spec = compute_spec ();
+my $installed_dist = spec_distance ($installed_spec, $desired_spec);
+if (!distance_zero ($installed_dist))
+  {
+    # desired spec is not same as installed; have to find or build a new PLT
+
+    opendir (D, $cache_dir) or die "error opening $cache_dir: $!";
+    my @cached_plts = grep { /\.plt$/ } readdir (D);
+    closedir (D);
+
+    my $closest_plt = $installed_plt;
+    my $closest_spec = $installed_spec;
+    my $closest_dist = $installed_dist;
+    foreach my $plt (@cached_plts)
+      {
+	my $spec = spec_read ("$cache_dir/$plt.spec");
+	my $dist = spec_distance ($spec, $desired_spec);
+	if (distance_less ($dist, $closest_dist))
+	  {
+	    $closest_plt = "$cache_dir/$plt";
+	    $closest_spec = $spec;
+	    $closest_dist = $dist;
+	    last if distance_zero ($dist);
+	  }
+      }
+    distance_execute ($closest_dist, $closest_plt, $installed_plt);
+    spec_write ($closest_spec, $installed_spec_file);
+
+    # cache the new PLT if necessary
+    if (!distance_zero ($closest_dist))
+      {
+	my $md5 = file_md5_hex ($installed_plt);
+	my $time = time ();
+	my $cached_plt = "$cache_dir/$md5-$time.plt";
+	system_or_die ('cp', $installed_plt, $cached_plt);
+	system_or_die ('cp', $installed_spec_file, "$cached_plt.spec");
+      }
+  }
+
+0;

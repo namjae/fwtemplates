@@ -1,0 +1,17 @@
+#! /bin/sh
+
+if test -d fw/bin
+  then
+    PATH="`pwd`/fw/bin:$PATH"
+    export PATH
+  fi
+
+fwb=`which fw-bootstrap`
+
+if test -z "$fwb"
+  then
+    echo "bootstrap: fatal: fw-bootstrap not installed or not in PATH" 1>&2
+    exit 1
+  fi
+
+"$fwb" --fw_version "0.1.30" --name piglet --template script --revision svn --svn_project_path https://fwtemplates.googlecode.com/svn/trunk/piglet --svn_tag_root https://fwtemplates.googlecode.com/svn/tags/piglet "$@"
