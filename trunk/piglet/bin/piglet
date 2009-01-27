@@ -12,7 +12,7 @@ use Digest::MD5 qw(md5_hex);
 my $help;
 my $installed_plt = $ENV{'HOME'} . '/.dialyzer_plt';
 my $dot_d_dir     = '/etc/piglet.d';
-my $cache_dir     = '/var/n54data-cached/dialyzer-cache';
+my $cache_dir     = '/var/cache/piglet';
 
 GetOptions ('help'         => \$help,
 	    'cache-dir=s'  => \$cache_dir,
