@@ -132,7 +132,7 @@ Build the project [FramewerkWalkthrough#Build_the_project the usual way],
 
 === Makefile.otp ===
 
-Now there should be a {{{Makefile.otp}}} in the root directory of the project.[[#2]]
+Now there should be a {{{Makefile.otp}}} in the root directory of the project.[[#2 2]]
 {{{
 % cat Makefile.otp
 erlappdir="@ERLAPPDIR@"
