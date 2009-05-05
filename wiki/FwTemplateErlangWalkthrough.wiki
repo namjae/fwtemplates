@@ -341,4 +341,4 @@ eunit integration (and [http://erlang.org/doc/man/cover.html cover] integration)
 
 == 2 ==
 
-You do not edit =Makefile.otp= directly; it is included in the Makefiles in =src/= and =tests/=, and you can include it in other Makefiles as necessary.
+You do not edit {{{Makefile.otp}}} directly; it is included in the Makefiles in {{{src/}}} and {{{tests/}}}, and you can include it in other Makefiles as necessary.
