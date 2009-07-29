@@ -255,9 +255,7 @@ Some notes:
   * FW_ERL_APP_MOD_LINE defaults to { mod, { @FW_ERL_APP_START_MODULE@, @FW_ERL_APP_START_ARGS@ } }, both of which are individually overridden by values in {{{fw-pkgin/config}}}.  in addition if the situation is totally borked, you can set FW_ERL_APP_MOD_LINE in {{{fw-pkgin/config}}} and that takes precedence.
   * FW_ERL_APP_ENVIRONMENT defaults to [] but can be set in {{{fw-pkgin/config}}}.
   * FW_ERL_APP_EXTRA can be anything you want.  this is a good place to put [http://www.erlang.org/doc/design_principles/included_applications.html#8 included applications directives].
-  * to override everything, rm the {{{src/fw-erl-app-template.app.in}}} link,
-    write your own file in it's place, and check into revision control.  the
-    template will not link over something that already exists.
+  * to override everything, rm the {{{src/fw-erl-app-template.app.in}}} link, write your own file in it's place, and check into revision control.  the template will not link over something that already exists.
 
 === src/Makefile.am.local ===
 
@@ -290,7 +288,7 @@ Basically:
   * run the dialyzer on all the source files during 'make check'
 
 This last rule is usually the one that requires customization.  DIALYZERFLAGS
-can be set to p pass flags to the dialyzer.  Sometimes
+can be set to pass flags to the dialyzer.  Sometimes
 a custom rule which only analyzes some of the source code is necessary.
 Look to Makefile.otp for inspiration.
 
