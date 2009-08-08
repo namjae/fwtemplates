@@ -2,7 +2,7 @@
 
 = Introduction =
 
-fw-template-javascript is the framewerk javascript development template.  It provides a few extras above the bare-bones fw-template-script that are useful for javascript development:
+fw-template-javascript is the framewerk javascript development template.  It provides a few extras above the bare-bones script template that are useful for javascript development:
   * [http://www.jslint.com/lint.html jslint] integration
   * [http://developer.yahoo.com/yui/compressor/ yuicompressor] integration
   * rules to drive the javascript shell for writing tests
