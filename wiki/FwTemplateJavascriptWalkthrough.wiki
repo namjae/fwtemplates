@@ -227,9 +227,12 @@ $(document).ready (function () {
   });
 });
 }}}
-In this case we are asserting that return value of {{{MyLib.dude (0)}}} is {{{"my car"}}}.  This test runs in the browsers indicated by the [#Configure_the_project configuration variable] FW_TEMPLATE_JAVASCRIPT_BROWSER, optionally under Xvfb, and reports the pass/fail status via a jsonp request to a netcat invoked by the test driver.  Check out {{{js-test-driver.sh}}} for details.
+In this case we are asserting that return value of {{{MyLib.dude (0)}}} is {{{"my car"}}}.  This test runs in the browsers indicated by the [#Configure_the_project configuration settings], optionally under Xvfb, and reports the pass/fail status via a jsonp request to a netcat invoked by the test driver.  Check out {{{js-test-driver.sh}}} for details.
 
-If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} contains an X window dump which might prove useful in analyzing test failures.
+If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} contains an X window dump which might prove useful in analyzing test failures.  You can view it under X windows via
+{{{
+% xwud -in qunit-testmylib.js-firefox.xwd.test.out
+}}}
 
 === JsTestDriver Test ===
 
