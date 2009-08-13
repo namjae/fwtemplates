@@ -201,14 +201,50 @@ Basically:
 
 {{{
 % ls tests/
-CVS/      Makefile.am@       Makefile.in          testmylib.js
-Makefile  Makefile.am.local  js-test-wrapper.sh@
+CVS/          Makefile.am.local  js-test-wrapper.sh@  testmylib.jstestdriver.js
+Makefile      Makefile.in        qunit-testmylib.js   testrunner-2009-09-13.js@
+Makefile.am@  jquery-1.3.2.js@   testmylib.js
 }}}
 
 {{{tests/js-test-wrapper.sh}}} is used to run the tests.  It
-recognizes tests of the form {{{something.js}}} and interprets that
-as a directive to invoke the javascript shell on that file; other tests are 
-just invoked directly.
+recognizes the following special test types:
+  1. {{{qunit-*.js}}}: a qunit test that should be run in a browser harness.
+  1. {{{jstestdriver-TESTSET}}}: a jstestdriver set of tests
+  1. {{{something.js}}}: an ordinary javascript test to be invoked in the javascript shell
+
+An example of each type of test is provided in the {{{tests/}}} directory.
+
+=== QUnit Test ===
+
+{{{qunit-testmylib.js}}} is an example QUnit test.
+{{{
+% cat tests/qunit-testmylib.js
+$(document).ready (function () { 
+  test ("mytestcase", function () { 
+     expect (1);
+     equals (MyLib.dude (0), "my car");
+  });
+});
+}}}
+In this case we are asserting that return value of {{{MyLib.dude (0)}}} is {{{"my car"}}}.  This test runs in the browsers indicated by the [#configure_the_project configuration variable] FW_TEMPLATE_JAVASCRIPT_BROWSER, optionally under Xvfb, and reports the pass/fail status via a jsonp request to a netcat invoked by the test driver.  Check out {{{js-test-driver.sh}}} for details.
+
+If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} contains an X window dump which might prove useful in analyzing test failures.
+
+=== JsTestDriver Test ===
+
+JsTestDriver cannot perform asynchronous testing, which limits its utility.  However it is included here because I did the work to integrate it before realizing that it doesn't support asynchronous testing.  {{{testmylib.jstestdriver.js}}} is the example test
+{{{
+% cat tests/testmylib.jstestdriver.js
+MyTestCase = TestCase ("MyTestCase");
+
+MyTestCase.prototype.testA = function () {
+  expectAsserts (1);
+  assertSame ("my car", MyLib.dude (0));
+};
+}}}
+In this case the TESTS entry in the Makefile.am is actually {{{jstestdriver-all}}}, which means "invoke all jstestdriver tests".  If more granular reporting is desired, a [http://code.google.com/p/js-test-driver/wiki/CommandLineFlags#--tests test specification] like {{{jstestdriver-MyTestCase}}} would invoke only the {{{MyTestCase}}} cases, or even {{{jstestdriver-MyTestCase.testA}}} for more granular specification.
+
+=== Rhino Test ===
 
 {{{testmylib.js}}} is an example test.  It leverages [https://developer.mozilla.org/en/Rhino_Shell rhino's load() function] to import the code being tested and then exercises it.
 {{{
