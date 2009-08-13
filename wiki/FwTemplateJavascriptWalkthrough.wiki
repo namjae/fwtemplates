@@ -245,7 +245,15 @@ recognizes the following special test types:
   1. {{{jstestdriver-TESTSET}}}: a jstestdriver set of tests
   1. {{{something.js}}}: an ordinary javascript test to be invoked in the javascript shell
 
-An example of each type of test is provided in the {{{tests/}}} directory.
+An example of each type of test is provided in the {{{tests/}}} directory.  They are invoked via elements in the {{{TESTS}}} variable in {{{tests/Makefile.am.local}}}.
+
+{{{
+% cat tests/Makefile.am.local
+TESTS =                 \
+  jstestdriver-all      \
+  testmylib.js          \
+  qunit-testmylib.js
+}}}
 
 === QUnit Test ===
 
