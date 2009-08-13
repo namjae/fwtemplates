@@ -215,7 +215,7 @@ recognizes the following special test types:
 
 An example of each type of test is provided in the {{{tests/}}} directory.
 
-=== QUnit Test ===
+=== !QUnit Test ===
 
 {{{qunit-testmylib.js}}} is an example QUnit test.
 {{{
@@ -234,9 +234,9 @@ If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} co
 % xwud -in qunit-testmylib.js-firefox.xwd.test.out
 }}}
 
-=== JsTestDriver Test ===
+=== !JsTestDriver Test ===
 
-JsTestDriver cannot perform asynchronous testing, which limits its utility.  However it is included here because I did the work to integrate it before realizing that it doesn't support asynchronous testing.  {{{testmylib.jstestdriver.js}}} is the example test
+!JsTestDriver cannot perform asynchronous testing, which limits its utility.  However it is included here because I did the work to integrate it before realizing that it doesn't support asynchronous testing.  {{{testmylib.jstestdriver.js}}} is the example test
 {{{
 % cat tests/testmylib.jstestdriver.js
 MyTestCase = TestCase ("MyTestCase");
