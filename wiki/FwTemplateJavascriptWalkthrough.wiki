@@ -69,7 +69,7 @@ Here's a breakdown:
 
 == Configure the project ==
 
-As with [FramewerkWalkthrough#Configure_the_project other framewerk templates], {{{fw-pkgin/config}}} is used to configure the project.  There are no new variables associated with this template beyond the defaults.
+As with [FramewerkWalkthrough#Configure_the_project other framewerk templates], {{{fw-pkgin/config}}} is used to configure the project.
 {{{
 % cat fw-pkgin/config
 # The FW_PACKAGE_MAINTAINER field is populated with the 
@@ -96,7 +96,39 @@ FW_PACKAGE_SUGGESTS=""
 
 FW_PACKAGE_BUILD_DEPENDS=""
 FW_PACKAGE_BUILD_CONFLICTS=""
+
+# whether js-test-wrapper.sh should use Xvfb to provide X-windows to 
+# browsers invoked by jstestdriver.  valid choices are yes, no, or auto.
+# auto will start Xvfb if the DISPLAY environment variable is not set.
+FW_TEMPLATE_JAVASCRIPT_USE_XVFB="auto"
+
+# if Xvfb is invoked, what display number should be used
+FW_TEMPLATE_JAVASCRIPT_XVFB_DISPLAY=":1"
+
+# if jstestdriver is invoked, what port number should be used
+# should either be an integer, or auto.  auto attempts to guess an
+# unused port.
+FW_TEMPLATE_JAVASCRIPT_PORT="auto"
+
+# if jstestdriver is invoked, what browsers should be used.  
+# should be a list of comma seperated list of browser executable names.
+FW_TEMPLATE_JAVASCRIPT_BROWSER="firefox"
+
+# if jstestdriver is invoked, a jsTestDriver.conf is created by
+# js-test-wrapper.sh which loads src/@FW_PACKAGE_NAME@-uncompressed.js 
+# and tests/*.jstestdriver.js .  you can load additional files by indicating 
+# a comma-prefixed, comma-seperated list of JSON strings 
+# (so you should single quote the entire variable and then 
+# double-quote the individual paths)
+FW_TEMPLATE_JAVASCRIPT_CONF_EXTRA=''
 }}}
+
+The extra configuration variables above the basic template are related to controlling the testing process:
+  * {{{FW_TEMPLATE_JAVASCRIPT_USE_XVFB}}}: whether or not to start a [http://en.wikipedia.org/wiki/Xvfb Xvfb] server when invoking browsers for testing.  The default is "auto", which will start Xvfb if the {{{DISPLAY}}} environment variable is not set.
+  * {{{FW_TEMPLATE_JAVASCRIPT_XVFB_DISPLAY}}}: what display to use if invoking Xvfb.
+  * {{{FW_TEMPLATE_JAVASCRIPT_PORT}}}: what port to use if invoking jstestdriver or netcat.  The default is "auto", which will attempt to find an unused port.
+  * {{{FW_TEMPLATE_JAVASCRIPT_BROWSER}}}: a comma separated list of browser executables to invoke for testing.  these have to be accessible to the local machine.
+  * {{{FW_TEMPLATE_JAVASCRIPT_CONF_EXTRA}}}: additional JSON appended to the generated [http://code.google.com/p/js-test-driver/wiki/ConfigurationFile jsTestDriver.conf] file.
 
 == Build the project ==
 
