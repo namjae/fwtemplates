@@ -6,6 +6,9 @@ fw-template-javascript is the framewerk javascript development template.  It pro
   * [http://www.jslint.com/lint.html jslint] integration
   * [http://developer.yahoo.com/yui/compressor/ yuicompressor] integration
   * rules to drive the javascript shell for writing tests
+    * [http://www.mozilla.org/rhino/ rhino] tests
+    * [http://code.google.com/p/js-test-driver/ jstestdriver] tests
+    * [http://docs.jquery.com/QUnit qunit] tests
 
 This walkthrough demonstrates fw-template-javascript.
 
@@ -104,7 +107,7 @@ Build the project [FramewerkWalkthrough#Build_the_project the usual way],
 
 === jslint integration ===
 
-fw-template-javascript expects a binary called {{{jslint}}} to be in the path, otherwise it prints a warning message and skips jslint checks.  If you are using the [http://www.jslint.com/rhino/index.html rhino command line version] then a script like
+fw-template-javascript expects an executable called {{{jslint}}} to be in the path, otherwise it prints a warning message and skips jslint checks.  If you are using the [http://www.jslint.com/rhino/index.html rhino command line version] then a script like
 {{{
 #! /bin/sh
 
@@ -114,7 +117,7 @@ is sufficient.
 
 === yuicompressor integration ===
 
-fw-template-javascript expects a binary called {{{yuicompressor}}} to be in the path, otherwise it prints a warning message and does identity (i.e., no) compression of javascript.  A script like
+fw-template-javascript expects an executable called {{{yuicompressor}}} to be in the path, otherwise it prints a warning message and does identity (i.e., no) compression of javascript.  A script like
 {{{
 #! /bin/sh
 
@@ -129,6 +132,16 @@ fw-template-javascript expects to be able to invoke a javascript shell via the f
 java org.mozilla.javascript.tools.shell.Main FILENAME
 }}}
 [http://www.mozilla.org/rhino/ rhino] is what I use to satisfy this requirement.
+
+=== jstestdriver integration ===
+
+fw-template-javascript expects an executable called {{{jstestdriver}}} to be in the path, otherwise it prints a warning message and skips any jstestdriver based tests.  A script like
+{{{
+#! /bin/sh
+
+java -jar /PATH/TO/JsTestDriver-1.0b.jar "$@" 
+}}}
+is sufficient.
 
 == Anatomy of src/ ==
 
