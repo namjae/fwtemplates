@@ -215,7 +215,7 @@ recognizes the following special test types:
 
 An example of each type of test is provided in the {{{tests/}}} directory.
 
-=== !QUnit Test ===
+=== QUnit Test ===
 
 {{{qunit-testmylib.js}}} is an example QUnit test.
 {{{
