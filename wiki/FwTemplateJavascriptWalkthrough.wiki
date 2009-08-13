@@ -188,7 +188,8 @@ CLEANFILES +=                           \
   $(pkglib_DATA)
 
 EXTRA_DIST +=                           \
-  $(jsfiles)
+  $(jsfiles)                            \
+  $(pkglib_DATA)
 }}}
 
 Basically:
