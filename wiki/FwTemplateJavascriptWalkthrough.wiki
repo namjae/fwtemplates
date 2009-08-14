@@ -219,7 +219,7 @@ pkglib_DATA =                           \
 jsfiles := $(filter-out $(pkglib_DATA), $(wildcard *.js))
 
 @FW_PACKAGE_NAME@-uncompressed.js: $(jsfiles)
-        cat $^ > $@
+        @cat /dev/null $^ > $@
 
 check_DATA =                            \
   $(patsubst %.js, .%.js_ok, $(jsfiles))
