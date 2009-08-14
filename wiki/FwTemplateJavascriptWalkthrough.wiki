@@ -52,7 +52,9 @@ A src/Makefile.am.local
 A src/mylib.js
 A tests/.cvsignore
 A tests/Makefile.am.local
+A tests/qunit-testmylib.js
 A tests/testmylib.js
+A tests/testmylib.jstestdriver.js
 }}}
 
 == Anatomy of the top level ==
