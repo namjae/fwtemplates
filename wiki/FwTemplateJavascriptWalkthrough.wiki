@@ -98,19 +98,19 @@ FW_PACKAGE_BUILD_DEPENDS=""
 FW_PACKAGE_BUILD_CONFLICTS=""
 
 # whether js-test-wrapper.sh should use Xvfb to provide X-windows to 
-# browsers invoked by jstestdriver.  valid choices are yes, no, or auto.
+# browsers invoked during testing.  valid choices are yes, no, or auto.
 # auto will start Xvfb if the DISPLAY environment variable is not set.
 FW_TEMPLATE_JAVASCRIPT_USE_XVFB="auto"
 
 # if Xvfb is invoked, what display number should be used
 FW_TEMPLATE_JAVASCRIPT_XVFB_DISPLAY=":1"
 
-# if jstestdriver is invoked, what port number should be used
+# if jstestdriver or netcat is invoked, what port number should be used
 # should either be an integer, or auto.  auto attempts to guess an
 # unused port.
 FW_TEMPLATE_JAVASCRIPT_PORT="auto"
 
-# if jstestdriver is invoked, what browsers should be used.  
+# if jstestdriver or qunit is invoked, what browsers should be used.  
 # should be a list of comma seperated list of browser executable names.
 FW_TEMPLATE_JAVASCRIPT_BROWSER="firefox"
 
