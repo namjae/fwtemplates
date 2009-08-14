@@ -114,6 +114,11 @@ FW_TEMPLATE_JAVASCRIPT_PORT="auto"
 # should be a list of comma seperated list of browser executable names.
 FW_TEMPLATE_JAVASCRIPT_BROWSER="firefox"
 
+# extra per-browser arguments.  for example, uncomment to instruct firefox 
+# to use the profile called testing, which you should have previously
+# set up with the profile manager
+#FW_TEMPLATE_JAVASCRIPT_BROWSER_ARGS_firefox="-P testing"
+
 # if jstestdriver is invoked, a jsTestDriver.conf is created by
 # js-test-wrapper.sh which loads src/@FW_PACKAGE_NAME@-uncompressed.js 
 # and tests/*.jstestdriver.js .  you can load additional files by indicating 
@@ -129,6 +134,7 @@ The extra configuration variables above the basic template are related to contro
   * {{{FW_TEMPLATE_JAVASCRIPT_PORT}}}: what port to use if invoking jstestdriver or netcat.  The default is "auto", which will attempt to find an unused port.
   * {{{FW_TEMPLATE_JAVASCRIPT_BROWSER}}}: a comma separated list of browser executables to invoke for testing.  these have to be accessible to the local machine.
   * {{{FW_TEMPLATE_JAVASCRIPT_CONF_EXTRA}}}: additional JSON appended to the generated [http://code.google.com/p/js-test-driver/wiki/ConfigurationFile jsTestDriver.conf] file.
+  * {{{FW_TEMPLATE_JAVASCRIPT_BROWSER_ARGS_firefox}}}, {{{FW_TEMPLATE_JAVASCRIPT_BROWSER_ARGS_Safari}}}, etc.: per-browser command line arguments for qunit testing
 
 == Build the project ==
 
