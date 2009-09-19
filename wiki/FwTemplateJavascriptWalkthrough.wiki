@@ -146,6 +146,17 @@ Build the project [FramewerkWalkthrough#Build_the_project the usual way],
 % ./bootstrap && ./build
 }}}
 
+=== javascript shell integration ===
+
+fw-template-javascript expects to be able to invoke a javascript shell via the following command
+{{{
+java org.mozilla.javascript.tools.shell.Main FILENAME
+}}}
+[http://www.mozilla.org/rhino/ rhino] is what I use to satisfy this requirement.  Fink OS/X users will have to set the CLASSPATH environment variable to find their installed rhino, e.g.,
+{{{
+CLASSPATH=$(cat /sw/share/java/classpath); export CLASSPATH
+}}}
+
 === jslint integration ===
 
 fw-template-javascript expects an executable called {{{jslint}}} to be in the path, otherwise it prints a warning message and skips jslint checks.  If you are using the [http://www.jslint.com/rhino/index.html rhino command line version] then a script like
@@ -165,14 +176,6 @@ fw-template-javascript expects an executable called {{{yuicompressor}}} to be in
 java -jar /PATH/TO/yuicompressor-2.4.2.jar "$@"
 }}}
 is sufficient.
-
-=== javascript shell integration ===
-
-fw-template-javascript expects to be able to invoke a javascript shell via the following command
-{{{
-java org.mozilla.javascript.tools.shell.Main FILENAME
-}}}
-[http://www.mozilla.org/rhino/ rhino] is what I use to satisfy this requirement.
 
 === jstestdriver integration ===
 
