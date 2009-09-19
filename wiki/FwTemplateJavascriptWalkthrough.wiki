@@ -9,6 +9,7 @@ fw-template-javascript is the framewerk javascript development template.  It pro
     * [http://www.mozilla.org/rhino/ rhino] tests
     * [http://code.google.com/p/js-test-driver/ jstestdriver] tests
     * [http://docs.jquery.com/QUnit qunit] tests
+       * with [http://siliconforks.com/jscoverage/ jscoverage] coverage analysis
 
 This walkthrough demonstrates fw-template-javascript.
 
@@ -183,6 +184,10 @@ java -jar /PATH/TO/JsTestDriver-1.0b.jar "$@"
 }}}
 is sufficient.
 
+=== jscoverage integration ===
+
+fw-template-javascript expects an executable called {{{jscoverage-server}}} to be in the path, otherwise it will not generate coverage reports for qunit tests.
+
 == Anatomy of src/ ==
 
 The {{{src/}}} directory should contain something like
@@ -281,6 +286,8 @@ If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} co
 {{{
 % xwud -in qunit-testmylib.js-firefox.xwd.test.out
 }}}
+
+If jscoverage-server is present, the directory {{{qunit-testmylib.js-BROWSERNAME}}} will contain a coverage report for the code exercised by the browser BROWSERNAME.
 
 === !JsTestDriver Test ===
 
