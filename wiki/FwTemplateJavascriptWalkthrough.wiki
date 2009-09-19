@@ -287,7 +287,7 @@ If xwd is present, the file {{{qunit-testmylib.js-BROWSERNAME.xwd.test.out}}} co
 % xwud -in qunit-testmylib.js-firefox.xwd.test.out
 }}}
 
-If jscoverage-server is present, the directory {{{qunit-testmylib.js-BROWSERNAME}}} will contain a coverage report for the code exercised by the browser BROWSERNAME.
+If jscoverage-server is present, the directory {{{jscoverage-qunit-testmylib.js-BROWSERNAME}}} will contain a coverage report.
 
 === !JsTestDriver Test ===
 
