@@ -2,14 +2,15 @@
 
 = Introduction =
 
-fw-revision-svn teaches framewerk how to use subversion for revision control.
+~~fw-revision-svn teaches framewerk how to use subversion for revision control.~~ svn support now included with the base infrastructure of framewerk.
 
 This walkthrough demonstrates fw-revision-svn via the script template.
 
 = Prerequisites =
 
   1 [FramewerkInstall framewerk installed]
-  1 [FwRevisionSvnInstall fw-revision-svn installed]
+  1 ~~[FwRevisionSvnInstall fw-revision-svn installed]~~
+    * now included with the base infrastructure
 
 = Details =
 
