@@ -1,0 +1,27 @@
+Version 0.2.1
+  * relax dependencies for OSX
+
+Version 0.2.0
+  * netcat -> nc
+  * jscoverage integration
+
+Version 0.1.2
+  * only soft error if rhino is not installed
+  * per-browser command line arguments
+
+Version 0.1.1
+  * include $(pkglib_DATA) in EXTRA_DIST
+
+Version 0.1.0
+  * jstestdriver integration
+  * qunit integration
+
+Version 0.0.2
+  * handle no files case
+
+Version 0.0.1
+  * EXTRA_DIST jsfiles
+  * not architecture dependent by default
+
+Version 0.0.0
+  * Initial version.
