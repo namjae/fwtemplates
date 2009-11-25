@@ -14,4 +14,4 @@ if test -z "$fwb"
     exit 1
   fi
 
-"$fwb" --fw_version "0.0.0" --name fw-template-C --revision cvs --template fw-template --template_type C "$@"
+"$fwb" --fw_version "0.0.0" --name fw-template-C --revision svn --template fw-template --template_type C "$@"

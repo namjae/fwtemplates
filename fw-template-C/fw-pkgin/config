@@ -21,4 +21,6 @@ FW_PACKAGE_PROVIDES=""
 FW_PACKAGE_BUILD_DEPENDS="build-essential [!darwin-i386], pkgconfig [darwin-i386], pkg-config [!darwin-i386], libtool [!darwin-i386], libtool14 [darwin-i386]"
 FW_PACKAGE_BUILD_CONFLICTS=""
 
-FW_DUPLOAD_ARGS=${FW_DUPLOAD_ARGS-"-t dukes"}
+FW_DUPLOAD_ARGS=${FW_DUPLOAD_ARGS-"-t dukeshardy"}
+
+FW_SUBVERSION_TAG_ROOT="https://fwtemplates.googlecode.com/svn/tags/fw-template-C"
