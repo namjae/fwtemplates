@@ -1,3 +1,6 @@
+=Version 0.0.4=
+  * google code re-release
+
 =Version 0.0.3=
   * change name to Cxx from C++ ... google code doesn't like + in filenames (!)
 
