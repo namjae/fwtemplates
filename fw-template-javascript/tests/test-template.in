@@ -53,10 +53,6 @@ cp "${FW_ROOT}/share/fw/build/automake/load-config" fw.local/template/javascript
 exit 1
 chmod +x fw.local/template/javascript/load-config || exit 1
 
-cat <<EOD >> fw-pkgin/config
-FW_TEMPLATE_JAVASCRIPT_BROWSER_ARGS_firefox="-P testing"
-EOD
-
 ( cvs -n -q up | grep '^?' | grep -v fw.local ) && exit 1
 ./bootstrap || exit 1
 ( cvs -n -q up | grep '^?' | grep -v fw.local ) && exit 1
