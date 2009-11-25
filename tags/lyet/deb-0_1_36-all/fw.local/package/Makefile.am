@@ -1,4 +1,0 @@
-SUBDIRS = deb
-
-MAINTAINERCLEANFILES = \
-  Makefile.in

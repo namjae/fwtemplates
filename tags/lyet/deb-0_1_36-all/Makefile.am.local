@@ -1,3 +1,0 @@
-SUBDIRS += fw fw.local
-
-CLEANFILES += $(wildcard testmak.*)
