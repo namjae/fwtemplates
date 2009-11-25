@@ -1,0 +1,13 @@
+=Version 0.0.3=
+  * change name to Cxx from C++ ... google code doesn't like + in filenames (!)
+
+=Version 0.0.2=
+  * Build with latest framewerk
+  * make dist fix
+  * bsd make fix
+
+=Version 0.0.1=
+  * Build with latest framewerk (pick up enhancements).
+
+=Version 0.0.0=
+  * Initial version.
