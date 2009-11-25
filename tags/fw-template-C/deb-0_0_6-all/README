@@ -1,0 +1,15 @@
+fw-template-C is a C development template for framewerk.  It provides:
+
+  * automake setup: libtool and compiler setup done for you.
+
+  * pkg-config integration: pkg-config files for your project are made for 
+  you.  In addition, if any dependencies provide pkg-config files they
+  are used, generally eliminating the need for AC_CHECK_LIBS and 
+  AC_CHECK_HEADERS.
+
+  * valgrind integration: standard targets for running make check with
+  valgrind.
+
+  * coverage integration: standard configure and make check support for 
+  enabling coverage analysis.  guards against releasing packages with
+  coverage enabled.
