@@ -92,8 +92,10 @@ This is a template for revision control plugins for framewerk.  I used it to dev
 
 == fw-revision-svn ==
 
-Installing this package instructs framewerk on how to use subversion for version control.
-I use this all the time because google code is subversion based, so I have high confidence in subversion support.
+~~Installing this package instructs framewerk on how to use subversion for version control.
+I use this all the time because google code is subversion based, so I have high confidence in subversion support.~~
+
+subversion support now included in the base distribution of framewerk.
 
 = Next Steps =
 
