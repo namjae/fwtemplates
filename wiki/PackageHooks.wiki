@@ -2,6 +2,10 @@
  
 <wiki:toc max_depth="2" />
 
+= Executive Summary =
+
+Framewerk maps the RPM scriptlet interface into something that looks like the DEB package script model (excepting the absence of "error unwind" calls).  The skeleton hooks installed with a new project are hopefully sufficiently outlined to allow quick progress.
+
 = Introduction =
 
 I'm adding RPM support to framewerk.  It turns out, unsurprisingly, the package scripts have different semantics in RPM vs. DEB.  Most people will probably just develop for one or the other so they can write scripts into {{{fw-pkgin/}}} that don't work for both, no big deal.  However sometimes cross-packaging hooks need to be written (e.g., automatic [http://code.google.com/p/erlrc/ erlrc] integration into fw-template-erlang [FwTemplateErlangWalkthrough fw-template-erlang]), which is the point of the {{{make-hook}}} package method, but now I have to figure it out.
