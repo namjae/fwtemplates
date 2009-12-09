@@ -6,6 +6,15 @@ I'm adding RPM support to framewerk.  It turns out, unsurprisingly, the package 
 
 From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference] and a [http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html DEB reference], I cobbled together this understanding.
 
+= Install =
+
+|| RPM || DEB ||
+||  %pretrans of new package || - ||
+|| %pre of new package || new-preinst install ||
+|| _new package installed_ || _new package files unpacked_ ||
+|| %post of new package || - ||
+|| %posttrans of new package || postinst configure most-recently-configured-version ||
+
 = Updates =
 
 || RPM || DEB ||
