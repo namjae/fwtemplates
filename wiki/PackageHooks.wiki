@@ -1,0 +1,21 @@
+#summary Me sorting out what the differences between deb and rpm package hooks are.
+
+= Updates =
+
+From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference] and a [http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html DEB reference], I cobbled together this understanding.
+
+|| RPM || DEB ||
+||  %pretrans of new package || old-prerm upgrade new-version ||
+||  %pre of new package || new-preinst upgrade old-version ||
+|| _new package installed_ || _new package files unpacked_ ||
+|| %post of new package || - ||
+|| %preun of old package || old-postrm upgrade new-version [[#1 1]]  || 
+|| _removal of old package_ || _"old but not new" package files removed_ ||
+|| %postun of old package || - ||
+|| %posttrans of new package || postinst configure most-recently-configured-version ||
+
+= FootNotes =
+
+== 1 ==
+
+{{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.
