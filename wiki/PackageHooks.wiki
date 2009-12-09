@@ -50,6 +50,18 @@ Again the arguments are different, and the result is more painful here because k
 
 Correspondence here is really good.
 
+= Framewerk Abstraction =
+
+Right now we have the following files in {{{fw-pkgin/}}}:
+{{{
+ ls fw-pkgin/pre* fw-pkgin/post* fw-pkgin/s*
+fw-pkgin/post-install*  fw-pkgin/pre-install*  fw-pkgin/start*
+fw-pkgin/post-remove*   fw-pkgin/pre-remove*   fw-pkgin/stop*
+}}}
+The challenge is to interpret these in such a way as to have them mean about the same thing in RPM vs. DEB and not break alot of current packages (which were written prior to RPM support).
+
+Therefore, I'll think I'll make RPM look like DEB.  This basically means decoding the "installation count" argument that RPM provides and use that to emulate the DEB sum type.  In addition I'll have to do something in {{{%pretrans}}} to record the currently installed version.
+
 = Footnotes =
 
 == 1 ==
