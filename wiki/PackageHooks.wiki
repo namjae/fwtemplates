@@ -69,7 +69,7 @@ Thus, DEB script semantics continue to be the mapping
   * postrm -> post-remove
 which means that you can look for extra arguments that indicate the "exception handling" portions of the DEB package management model; these arguments will just never be encountered when the project is rendered as an RPM package.
 
-== RPM Installation Semantics ==
+== Mapped RPM Installation ==
 
 || RPM || Framewerk Mapping ||
 ||  %pretrans of new package || - ||
@@ -78,7 +78,7 @@ which means that you can look for extra arguments that indicate the "exception h
 || %post of new package || - ||
 || %posttrans of new package || post-install configure "" ||
 
-== RPM Upgrade Semantics ==
+== Mapped RPM Upgrade ==
 
 || RPM || Framewerk Mapping ||
 ||  %pretrans of new package || - ||
@@ -91,6 +91,15 @@ which means that you can look for extra arguments that indicate the "exception h
 || %posttrans of new package || (new) post-install configure previously-installed version ||
 
 Yes it's wierd that the argument to pre-remove is {{{failed-upgrade}}}, but one should be writing one's DEB pre-remove that way [[#2 2]].
+
+== Mapped RPM Remove ==
+
+|| RPM || Framewerk Mapping ||
+||  %pretrans of old package || - ||
+|| %preun of old package || pre-remove remove ||
+|| _removal of old package_ || _package files are removed_ ||
+|| %postun of old package || post-remove remove ||
+|| %posttrans of old package || - ||
 
 = Footnotes =
 
