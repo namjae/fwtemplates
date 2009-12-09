@@ -67,10 +67,10 @@ The challenge is to interpret these in such a way as to have them mean about the
 Therefore, I'll think I'll make RPM look like DEB.  This basically means decoding the "installation count" argument that RPM provides and use that to emulate the DEB sum type.  In addition I'll have to do something in {{{%pretrans}}} to record the old and new versions.
 
 Thus, DEB script semantics continue to be the mapping
-  * preinst <-> pre-install
-  * postinst <-> post-install
-  * prerm <-> pre-remove
-  * postrm <-> post-remove
+  * preinst -> pre-install
+  * postinst -> post-install
+  * prerm -> pre-remove
+  * postrm -> post-remove
 which means that you can look for extra arguments that indicate the "exception handling" portions of the DEB package management model; these arguments will just never be encountered when the project is rendered as an RPM package.
 
 == Mapped RPM Installation ==
