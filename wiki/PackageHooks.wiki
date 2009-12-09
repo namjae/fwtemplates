@@ -15,6 +15,10 @@ From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference
 || %post of new package || - ||
 || %posttrans of new package || postinst configure most-recently-configured-version ||
 
+Note the arguments are different:
+  * RPM passes an installation count to scriptlets, and does not pass previous version information.
+  * DEB passes a sum type argument to scriptlets, as well as previous version information.
+
 = Updates =
 
 || RPM || DEB ||
@@ -27,12 +31,9 @@ From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference
 || %postun of old package || - ||
 || %posttrans of new package || postinst configure most-recently-configured-version ||
 
-Correspondence here is sketchy, due to the different models: RPM basically does an install followed by an erase, whereas DEB considers the upgrade as a single operation; thus, the "post-install" ({{{%post}}} vs. {{{postinst}}}) is done in very different places in the two models.
+Correspondence here is sketchy, due to the different models: RPM {{{%postun}}} happens after the old packages' files are removed, whereas DEB {{{postrm}}} happens after the new packages' files are installed but before the old packages' files are removed.
 
-Finally the arguments are different:
-
-  * RPM passes the installation count to the scriptlets which implicitly indicates install vs. upgrade, whereas DEB uses a sum type.
-  * RPM does not pass the previous version information; recent versions of RPM can be called from scriptlets but presumably {{{rpm -q}}} will return a different result after the _new package installed_ step in the above chain.
+Again the arguments are different, and the result is more painful here because knowing previous version information is more critical for upgrade than for install (where there is no previous version) or remove (where the current version is the previous version).  Recent versions of RPM can be called from scriptlets but presumably {{{rpm -q}}} will return a different result after the _new package installed_ step in the above chain.
 
 = Footnotes =
 
