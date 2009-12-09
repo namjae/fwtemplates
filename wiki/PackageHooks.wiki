@@ -14,7 +14,9 @@ From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference
 || %postun of old package || - ||
 || %posttrans of new package || postinst configure most-recently-configured-version ||
 
-= FootNotes =
+Correspondence here is sketchy, due to the different models: RPM basically does an install followed by an erase, whereas DEB considers the upgrade as a single operation; thus, the "post-install" ({{{%pos}}}t vs. {{{postinst}}}) is done in very different places in the two models.
+
+= Footnotes =
 
 == 1 ==
 
