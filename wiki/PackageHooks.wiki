@@ -18,7 +18,7 @@ From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference
 = Updates =
 
 || RPM || DEB ||
-||  %pretrans of new package || old-prerm upgrade new-version ||
+||  %pretrans of new package || new-prerm failed-upgrade old-version[[#2 2]] ||
 ||  %pre of new package || new-preinst upgrade old-version ||
 || _new package installed_ || _new package files unpacked_ ||
 || %post of new package || - ||
@@ -39,3 +39,6 @@ Finally the arguments are different:
 == 1 ==
 
 {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.
+
+== 2 ==
+Actually {{{old-prerm upgrade new-version}}} is invoked first, but if this fails, then {{{new-preinst upgrade old-version}}} has a chance to "handle the exception".  Since RPM uses the new script for {{{%pretrans}}}, I corresponded it with {{{new-preinst}}}.
