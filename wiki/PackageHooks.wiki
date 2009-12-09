@@ -1,12 +1,16 @@
 #summary Me sorting out what the differences between deb and rpm package hooks are.
  
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 I'm adding RPM support to framewerk.  It turns out, unsurprisingly, the package scripts have different semantics in RPM vs. DEB.  Most people will probably just develop for one or the other so they can write scripts into {{{fw-pkgin/}}} that don't work for both, no big deal.  However sometimes cross-packaging hooks need to be written (e.g., automatic [http://code.google.com/p/erlrc/ erlrc] integration into fw-template-erlang [FwTemplateErlangWalkthrough fw-template-erlang]), which is the point of the {{{make-hook}}} package method, but now I have to figure it out.
 
 From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference] and a [http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html DEB reference], I cobbled together this understanding.
 
-= Install =
+= Script Correspondence =
+
+== Install ==
 
 || RPM || DEB ||
 ||  %pretrans of new package || - ||
@@ -19,7 +23,7 @@ Note the arguments are different:
   * RPM passes an installation count to scriptlets, and does not pass previous version information.
   * DEB passes a sum type argument to scriptlets, as well as previous version information.
 
-= Updates =
+== Updates ==
 
 || RPM || DEB ||
 ||  %pretrans of new package || new-prerm failed-upgrade old-version[[#2 2]] ||
@@ -35,7 +39,7 @@ Correspondence here is sketchy, due to the different models: RPM {{{%postun}}} h
 
 Again the arguments are different, and the result is more painful here because knowing previous version information is more critical for upgrade than for install (where there is no previous version) or remove (where the current version is the previous version).  Recent versions of RPM can be called from scriptlets but presumably {{{rpm -q}}} will return a different result after the _new package installed_ step in the above chain.
 
-= Remove =
+== Remove ==
 
 || RPM || DEB ||
 ||  %pretrans of old package || - ||
