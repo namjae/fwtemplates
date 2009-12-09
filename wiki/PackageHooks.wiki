@@ -19,7 +19,7 @@ Correspondence here is sketchy, due to the different models: RPM basically does 
 Finally the arguments are different:
 
   * RPM passes the installation count to the scriptlets which implicitly indicates install vs. upgrade, whereas DEB uses a sum type.
-  * RPM does not pass the previous version information; recent versions of RPM can be called from scriptlets but presumably 'rpm -q' will return a different result after the _new package installed_ step in the above chain.
+  * RPM does not pass the previous version information; recent versions of RPM can be called from scriptlets but presumably {{{rpm -q}}} will return a different result after the _new package installed_ step in the above chain.
 
 = Footnotes =
 
