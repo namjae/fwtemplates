@@ -31,7 +31,7 @@ Note the arguments are different:
 || %postun of old package || - ||
 || %posttrans of new package || postinst configure most-recently-configured-version ||
 
-Correspondence here is sketchy, due to the different models: RPM {{{%postun}}} happens after the old packages' files are removed, whereas DEB {{{postrm}}} happens after the new packages' files are installed but before the old packages' files are removed.
+Correspondence here is sketchy, due to the different models: RPM {{{%postun}}} happens after the old package files are removed, whereas DEB {{{postrm}}} happens after the new package files are installed but before the old package files are removed.
 
 Again the arguments are different, and the result is more painful here because knowing previous version information is more critical for upgrade than for install (where there is no previous version) or remove (where the current version is the previous version).  Recent versions of RPM can be called from scriptlets but presumably {{{rpm -q}}} will return a different result after the _new package installed_ step in the above chain.
 
