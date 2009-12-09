@@ -62,6 +62,34 @@ The challenge is to interpret these in such a way as to have them mean about the
 
 Therefore, I'll think I'll make RPM look like DEB.  This basically means decoding the "installation count" argument that RPM provides and use that to emulate the DEB sum type.  In addition I'll have to do something in {{{%pretrans}}} to record the currently installed version.
 
+Thus, DEB script semantics continue to be the mapping
+  * preinst -> pre-install
+  * postinst -> post-install
+  * prerm -> pre-remove
+  * postrm -> post-remove
+which means that you can look for extra arguments that indicate the "exception handling" portions of the DEB package management model; these arguments will just never be encountered when the project is rendered as an RPM package.
+
+== RPM Installation Semantics ==
+
+|| RPM || Framewerk Mapping ||
+||  %pretrans of new package || - ||
+|| %pre of new package || pre-install install ||
+|| _new package installed_ || _new package files unpacked_ ||
+|| %post of new package || - ||
+|| %posttrans of new package || post-install configure "" ||
+
+== RPM Upgrade Semantics ==
+
+|| RPM || DEB ||
+||  %pretrans of new package || - ||
+||  %pre of new package || (new) pre-remove failed-upgrade old-version[[#2 2]] && (new) pre-install upgrade old-version ||
+|| _new package installed_ || _new package files unpacked_ ||
+|| %post of new package || - ||
+|| %preun of old package || (old) post-remove upgrade new-version [[#1 1]]  || 
+|| _removal of old package_ || _"old but not new" package files removed_ ||
+|| %postun of old package || - ||
+|| %posttrans of new package || (new) post-install configure previously-installed version ||
+
 = Footnotes =
 
 == 1 ==
