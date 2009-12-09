@@ -1,8 +1,8 @@
 #summary Me sorting out what the differences between deb and rpm package hooks are.
 
-= Updates =
-
 From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference] and a [http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html DEB reference], I cobbled together this understanding.
+
+= Updates =
 
 || RPM || DEB ||
 ||  %pretrans of new package || old-prerm upgrade new-version ||
@@ -15,6 +15,11 @@ From an [http://fedoraproject.org/wiki/Packaging/ScriptletSnippets RPM reference
 || %posttrans of new package || postinst configure most-recently-configured-version ||
 
 Correspondence here is sketchy, due to the different models: RPM basically does an install followed by an erase, whereas DEB considers the upgrade as a single operation; thus, the "post-install" ({{{%post}}} vs. {{{postinst}}}) is done in very different places in the two models.
+
+Finally the arguments are different:
+
+  * RPM passes the installation count to the scriptlets which implicitly indicates install vs. upgrade, whereas DEB uses a sum type.
+  * RPM does not pass the previously installed version, and I don't think it even has a concept of most recently configured version.
 
 = Footnotes =
 
