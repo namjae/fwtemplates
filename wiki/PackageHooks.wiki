@@ -90,7 +90,7 @@ which means that you can look for extra arguments that indicate the "exception h
 || %postun of old package || - ||
 || %posttrans of new package || (new) post-install configure previously-installed version ||
 
-Yes it's wierd that the argument to pre-remove and post-remove is {{{failed-upgrade}}}, but one should be writing one's DEB pre-remove that way [[#1 1], [#2 2]].
+Yes it's wierd that the argument to pre-remove and post-remove is {{{failed-upgrade}}}, but one should be writing one's DEB hooks that way [[#1 1], [#2 2]].
 
 == Mapped RPM Remove ==
 
