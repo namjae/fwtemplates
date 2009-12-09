@@ -80,7 +80,7 @@ which means that you can look for extra arguments that indicate the "exception h
 
 == RPM Upgrade Semantics ==
 
-|| RPM || DEB ||
+|| RPM || Framewerk Mapping ||
 ||  %pretrans of new package || - ||
 ||  %pre of new package || (new) pre-remove failed-upgrade old-version[[#2 2]] && (new) pre-install upgrade old-version ||
 || _new package installed_ || _new package files unpacked_ ||
