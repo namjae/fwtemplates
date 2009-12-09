@@ -85,7 +85,7 @@ which means that you can look for extra arguments that indicate the "exception h
 ||  %pre of new package || (new) pre-remove failed-upgrade old-version && (new) pre-install upgrade old-version ||
 || _new package installed_ || _new package files unpacked_ ||
 || %post of new package || - ||
-|| %preun of old package || (old) post-remove upgrade new-version [[#1 1]]  || 
+|| %preun of old package || (new) post-remove failed-upgrade new-version [[#1 1]]  || 
 || _removal of old package_ || _"old but not new" package files removed_ ||
 || %postun of old package || - ||
 || %posttrans of new package || (new) post-install configure previously-installed version ||
@@ -105,7 +105,7 @@ Yes it's wierd that the argument to pre-remove is {{{failed-upgrade}}}, but one 
 
 == 1 ==
 
-In the DEB model {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.  The RPM model appears to force using the old {{{%postun}}}.
+In the DEB model {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.  The RPM model appears to force using the old {{{%postun}}}, but we work around this.
 
 == 2 ==
 In the DEB model, {{{old-prerm upgrade new-version}}} is invoked first, but if this fails then {{{new-prerm failed-upgrade old-version}}} has a chance to "handle the exception".  Since RPM uses the new script for {{{%pretrans}}}, I corresponded it with {{{new-prerm}}}.  In practice this means {{{old-prerm upgrade new-version}}} should just be {{{exit 1}}} if pre-remove is to do something non-trivial on upgrade.  Easiest of all: just use pre-install, since the new version is always invoked on upgrade.
