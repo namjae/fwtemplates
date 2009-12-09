@@ -60,7 +60,7 @@ fw-pkgin/post-remove*   fw-pkgin/pre-remove*   fw-pkgin/stop*
 }}}
 The challenge is to interpret these in such a way as to have them mean about the same thing in RPM vs. DEB and not break alot of current packages (which were written prior to RPM support).
 
-Therefore, I'll think I'll make RPM look like DEB.  This basically means decoding the "installation count" argument that RPM provides and use that to emulate the DEB sum type.  In addition I'll have to do something in {{{%pretrans}}} to record the currently installed version.
+Therefore, I'll think I'll make RPM look like DEB.  This basically means decoding the "installation count" argument that RPM provides and use that to emulate the DEB sum type.  In addition I'll have to do something in {{{%pretrans}}} to record the old and new versions.
 
 Thus, DEB script semantics continue to be the mapping
   * preinst -> pre-install
