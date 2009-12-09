@@ -41,4 +41,4 @@ Finally the arguments are different:
 {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.
 
 == 2 ==
-Actually {{{old-prerm upgrade new-version}}} is invoked first, but if this fails, then {{{new-preinst upgrade old-version}}} has a chance to "handle the exception".  Since RPM uses the new script for {{{%pretrans}}}, I corresponded it with {{{new-preinst}}}.
+Actually {{{old-prerm upgrade new-version}}} is invoked first, but if this fails, then {{{new-preinst upgrade old-version}}} has a chance to "handle the exception".  Since RPM uses the new script for {{{%pretrans}}}, I corresponded it with {{{new-preinst}}}.  In practice this means {{{old-prerm upgrade new-version}}} should just be {{{exit 1}}}.
