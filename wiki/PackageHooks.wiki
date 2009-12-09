@@ -105,7 +105,7 @@ Yes it's wierd that the argument to pre-remove is {{{failed-upgrade}}}, but one 
 
 == 1 ==
 
-In the DEB model {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.  The RPM model appears to force using the old %postun.
+In the DEB model {{{new-postrm failed-upgrade old-version}}} is invoked if {{{old-postrm upgrade new-version}}} fails, so one can ensure the new postrm is always called if desired.  The RPM model appears to force using the old {{{%postun}}}.
 
 == 2 ==
 In the DEB model, {{{old-prerm upgrade new-version}}} is invoked first, but if this fails then {{{new-prerm failed-upgrade old-version}}} has a chance to "handle the exception".  Since RPM uses the new script for {{{%pretrans}}}, I corresponded it with {{{new-prerm}}}.  In practice this means {{{old-prerm upgrade new-version}}} should just be {{{exit 1}}}.
