@@ -1,4 +1,4 @@
-=Version 0.0.5= [ NYR ]
+=Version 0.0.5=
   * do not set user variable CPPFLAGS (instead use AM_CPPFLAGS)
   * rpm tweaks
 
