@@ -163,7 +163,21 @@ fw-template-javascript expects an executable called {{{jslint}}} to be in the pa
 {{{
 #! /bin/sh
 
-java org.mozilla.javascript.tools.shell.Main /PATH/TO/jslint.js "$@"
+if which build-classpath >/dev/null 2>/dev/null
+  then
+    # redhat
+    LOCAL_CLASSPATH=$(build-classpath rhino)
+  else 
+    if test -f /sw/share/java/classpath
+      then
+        # fink os/x
+        LOCAL_CLASSPATH=$(cat /sw/share/java/classpath)
+      fi
+  fi
+
+# ubuntu just appears to work without anything special ...
+
+CLASSPATH="$LOCAL_CLASSPATH:$CLASSPATH" java org.mozilla.javascript.tools.shell.Main /PATH/TO/jslint.js "$@"
 }}}
 is sufficient.
 
