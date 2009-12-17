@@ -1,3 +1,7 @@
+=Version 0.0.5= [ NYR ]
+  * do not set user variable CPPFLAGS (instead use AM_CPPFLAGS)
+  * rpm tweaks
+
 =Version 0.0.4=
   * google code re-release
 
