@@ -156,6 +156,10 @@ java org.mozilla.javascript.tools.shell.Main FILENAME
 {{{
 CLASSPATH=$(cat /sw/share/java/classpath); export CLASSPATH
 }}}
+Centos (all redhat?) users can use build-classpath to set the CLASSPATH environment variable
+{{{
+CLASSPATH=$(build-classpath rhino); export CLASSPATH
+}}}
 
 === jslint integration ===
 
