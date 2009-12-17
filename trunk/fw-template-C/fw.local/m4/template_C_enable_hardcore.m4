@@ -13,6 +13,10 @@ AC_DEFUN([FW_TEMPLATE_C_ENABLE_HARDCORE],
 
   if test "x[$]FW_ENABLE_HARDCORE" = "x1"
     then
-      CPPFLAGS="$CPPFLAGS -W -Wall -Werror -Wpointer-arith -Wcast-align -Wwrite-strings -Wmissing-prototypes"
+      HARDCORECPPFLAGS="-W -Wall -Werror -Wpointer-arith -Wcast-align -Wwrite-strings -Wmissing-prototypes"
+    else
+      HARDCORECPPFLAGS=""
     fi
+
+  AC_SUBST([HARDCORECPPFLAGS])
 ])

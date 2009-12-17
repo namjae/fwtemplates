@@ -103,6 +103,7 @@ for dir in src tests
   cd "src" &&                                                   \
   fw_exec "revision/$revision/ignore-files"                     \
     config.h                                                    \
+    myprog                                                      \
     stamp-h1                                                    \
     "${name}.h"                                                 \
 ) || fatal "C/init"
@@ -111,6 +112,7 @@ for dir in src tests
   cd "tests" &&                                                 \
   fw_exec "revision/$revision/ignore-files"                     \
     "test-wrapper.sh"                                           \
+    testprog                                                    \
 ) || fatal "C/init"
 
 fw_exec "revision/$revision/ignore-files"                       \
