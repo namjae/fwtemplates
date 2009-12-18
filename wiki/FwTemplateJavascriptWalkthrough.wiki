@@ -1,5 +1,7 @@
 #summary Basic introduction to fw-template-javascript.
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 
 fw-template-javascript is the framewerk javascript development template.  It provides a few extras above the bare-bones script template that are useful for javascript development:
@@ -133,6 +135,7 @@ FW_TEMPLATE_JAVASCRIPT_CONF_EXTRA=''
 
 The extra configuration variables above the basic template are related to controlling the testing process:
   * {{{FW_TEMPLATE_JAVASCRIPT_USE_XVFB}}}: whether or not to start a [http://en.wikipedia.org/wiki/Xvfb Xvfb] server when invoking browsers for testing.  The default is "auto", which will start Xvfb if the {{{DISPLAY}}} environment variable is not set.
+    * *Note*: if you utilize firefox under Xvfb (e.g., on a remote development machine or local vmware image), you'll probably want to [http://startupmeme.com/the-coolest-firefox-aboutconfig-tricks/ toggle the about:config browser.sessionstore.enabled variable to false], in order to avoid firefox popping up a prompt under the Xvfb and hanging forever.
   * {{{FW_TEMPLATE_JAVASCRIPT_XVFB_DISPLAY}}}: what display to use if invoking Xvfb.
   * {{{FW_TEMPLATE_JAVASCRIPT_PORT}}}: what port to use if invoking jstestdriver or netcat.  The default is "auto", which will attempt to find an unused port.
   * {{{FW_TEMPLATE_JAVASCRIPT_BROWSER}}}: a comma separated list of browser executables to invoke for testing.  these have to be accessible to the local machine.
@@ -288,6 +291,8 @@ TESTS =                 \
   testmylib.js          \
   qunit-testmylib.js
 }}}
+
+*Note*: if you utilize firefox under Xvfb (e.g., on a remote development machine or local vmware image), you'll probably want to [http://startupmeme.com/the-coolest-firefox-aboutconfig-tricks/ toggle the about:config browser.sessionstore.enabled variable to false], in order to avoid firefox popping up a prompt under the Xvfb and hanging forever.
 
 === QUnit Test ===
 
