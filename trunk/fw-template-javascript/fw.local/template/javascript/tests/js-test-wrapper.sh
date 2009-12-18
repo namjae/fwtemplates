@@ -4,6 +4,20 @@ cd .. &&                                                \
 eval `fw-exec template/javascript/load-config` &&       \
 cd tests
 
+if which build-classpath >/dev/null 2>/dev/null
+  then
+    # redhat
+    LOCAL_CLASSPATH=$(build-classpath rhino)
+  else 
+    if test -f /sw/share/java/classpath
+      then
+        # fink os/x
+        LOCAL_CLASSPATH=$(cat /sw/share/java/classpath)
+      fi
+  fi
+
+# ubuntu just appears to work without anything special ...
+
 atexit () \
 {
   atexit="$1 $atexit"
@@ -110,7 +124,7 @@ EOD
                    --port "$port"                               \
                    --browser "$FW_TEMPLATE_JAVASCRIPT_BROWSER"  \
                    --tests "$1" > "${1}.jstestdriver.test.out" 2>&1 
-      cleanup_empty "${1}.jstestdriver.test.out"
+      cleanup_empty "${1}.jstestdriver.test.out" 
       egrep '^Total.*Fails: 0; Errors: 0' "${1}.jstestdriver.test.out" >/dev/null 2>&1
     else
       echo "jstestdriver not found, skipping test" 1>&2
@@ -127,7 +141,21 @@ run_browsers () \
   shift
   for browser in "$@"
     do
-      nc -l -p "$port" > "qunit-test-output-capture-$$.txt" 2>/dev/null &
+      # nc is sometimes "bsd flavor", sometimes "traditional" ...
+      # perl is always perl :)
+      perl -MIO::Socket -e '
+        $|=1;
+        $s = new IO::Socket::INET (LocalHost => "127.0.0.1",
+                                   LocalPort => $ARGV[0],
+                                   Proto => "tcp",
+                                   Listen => 1,
+                                   Reuse => 1) or die;
+        $ns = $s->accept ();
+        while (defined ($_ = <$ns>))
+          {
+            print $_;
+          }' "$port" > "qunit-test-output-capture-$$.txt" 2>/dev/null &
+      ncpid=$!
       eval atexit "'kill $! 2>/dev/null;'"
 
       eval atexit "'rm -f qunit-test-output-capture-$$.txt;'"
@@ -138,7 +166,7 @@ run_browsers () \
 
       while test ! -s "qunit-test-output-capture-$$.txt"
         do
-          kill -0 $! >/dev/null 2>/dev/null
+          kill -0 $ncpid >/dev/null 2>/dev/null
           sleep 1
         done
 
@@ -251,9 +279,9 @@ case "$command" in
      ;;
    ./*.js)
      file=${command#./}
-     if java org.mozilla.javascript.tools.shell.Main /dev/null >/dev/null 2>&1
+     if env CLASSPATH="$LOCAL_CLASSPATH:$CLASSPATH" java org.mozilla.javascript.tools.shell.Main /dev/null >/dev/null 2>&1
        then
-         java org.mozilla.javascript.tools.shell.Main "$command" "$@" > "${file}.test.out" 2>&1 
+         env CLASSPATH="$LOCAL_CLASSPATH:$CLASSPATH" java org.mozilla.javascript.tools.shell.Main "$command" "$@" > "${file}.test.out" 2>&1 
          cleanup_empty "${file}.test.out"
        else
          exit 77
