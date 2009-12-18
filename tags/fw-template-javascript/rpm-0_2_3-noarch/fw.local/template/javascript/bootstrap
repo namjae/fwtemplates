@@ -1,0 +1,61 @@
+#! /bin/sh
+
+#---------------------------------------------------------------------
+#                              bootstrap                              
+# 
+# This will be called by the template bootstrap function, which is
+# itself called by fw-bootstrap, which is in turn invoked by the
+# bootstrap executable deposited at the top of the source project.
+# It is intended for running any setup activity required prior to
+# building.
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+#                           chicken and egg                           
+#---------------------------------------------------------------------
+
+test -f "${FW_ROOT}/share/fw/sh/fw-find.sh" && fws="${FW_ROOT}/share/fw/sh/fw-find.sh"
+test -f "fw/sh/fw-find.sh" && fws="fw/sh/fw-find.sh"
+test -f "fw.local/sh/fw-find.sh" && fws="fw.local/sh/fw-find.sh"
+test ! -z "$fws" || {
+  echo "javascript/bootstrap: fatal: can't locate fw-find.sh" 1>&2
+  exit 1
+}
+
+. "$fws"
+
+#---------------------------------------------------------------------
+#                              routines                               
+#---------------------------------------------------------------------
+
+fw_source "javascript/bootstrap" "sh/bootstrap-util.sh"
+fw_source "javascript/bootstrap" "sh/fw-exec.sh"
+fw_source "javascript/bootstrap" "sh/parse-args.sh"
+fw_source "javascript/bootstrap" "sh/validate-args.sh"
+
+#---------------------------------------------------------------------
+#                                main                                 
+#---------------------------------------------------------------------
+
+parse_args "javascript/bootstrap" "$@"
+
+validate_args "javascript/bootstrap" "revision" ""
+
+for dir in . src tests
+  do
+    for x in Makefile_dot_am            \
+             configure.ac               \
+             js-test-wrapper.sh         \
+             jquery-1.3.2.js            \
+             testrunner-2009-09-13.js
+      do
+        target=`echo "$x" | perl -pe 's/_dot_am/.am/;'`
+
+        bootstrap_link_optional "template/javascript/$dir/$x"   \
+                                "$dir"                          \
+                                "$target"                       \
+        || fatal "javascript/bootstrap"
+      done
+  done
+
+fw_exec "build/automake/bootstrap" "$@"
