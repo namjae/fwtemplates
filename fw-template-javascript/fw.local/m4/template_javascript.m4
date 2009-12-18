@@ -32,7 +32,21 @@ AC_DEFUN([FW_TEMPLATE_JAVASCRIPT],
 
   AC_MSG_CHECKING([for working rhino installation])
 
-  if java org.mozilla.javascript.tools.shell.Main /dev/null >/dev/null 2>&1
+  if which build-classpath >/dev/null 2>/dev/null
+    then
+      # redhat
+      LOCAL_CLASSPATH=$(build-classpath rhino)
+    else 
+      if test -f /sw/share/java/classpath
+        then
+          # fink os/x
+          LOCAL_CLASSPATH=$(cat /sw/share/java/classpath)
+        fi
+    fi
+  
+  # ubuntu just appears to work without anything special ...
+
+  if env CLASSPATH="$LOCAL_CLASSPATH:$CLASSPATH" java org.mozilla.javascript.tools.shell.Main /dev/null >/dev/null 2>&1
     then
       AC_MSG_RESULT([yes])
     else

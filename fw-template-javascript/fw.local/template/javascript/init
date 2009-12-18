@@ -105,7 +105,7 @@ for dir in src tests
 (
   cd fw-pkgin &&                                                \
   perl -i -pe 's/FW_PACKAGE_ARCHITECTURE_DEPENDENT="1"/FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"/' config
-  perl -i -pe 's/FW_PACKAGE_BUILD_DEPENDS=""/FW_PACKAGE_BUILD_DEPENDS="firefox [!darwin-i386], xvfb [!darwin-i386]"/' config
+  perl -i -pe 's/FW_PACKAGE_BUILD_DEPENDS=""/FW_PACKAGE_BUILD_DEPENDS="firefox [!darwin-i386], xvfb [!darwin-i386] | xorg-x11-server-Xvfb [!darwin-i386]"/' config
 ) || fatal "javascript/init"
 
 (
