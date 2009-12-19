@@ -1,0 +1,25 @@
+SUBDIRS =
+
+jstestdriver-%:
+	@touch $@
+
+CLEANFILES =			\
+  $(wildcard jstestdriver-*)	\
+  $(wildcard *.test.out)
+
+MAINTAINERCLEANFILES =          \
+  Makefile.am                   \
+  Makefile.in                   \
+  jquery-1.3.2.js		\
+  js-test-wrapper.sh		\
+  testrunner-2009-09-13.js
+
+TESTS_ENVIRONMENT = ./js-test-wrapper.sh
+
+EXTRA_DIST =                    \
+  js-test-wrapper.sh           	\
+  $(wildcard *.js)
+
+include $(top_srcdir)/fw/build/automake/check-shell.am
+include $(top_srcdir)/fw/build/automake/gnu-make-check.am
+include $(top_srcdir)/tests/Makefile.am.local

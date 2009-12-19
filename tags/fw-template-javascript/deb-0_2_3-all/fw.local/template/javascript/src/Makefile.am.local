@@ -1,0 +1,22 @@
+# put whatever (auto)make commands here, they will be included from Makefile.am
+#
+pkglibdir=$(libdir)/@FW_PACKAGE_NAME@
+
+pkglib_DATA =				\
+  @FW_PACKAGE_NAME@.js			\
+  @FW_PACKAGE_NAME@-uncompressed.js
+
+jsfiles := $(filter-out $(pkglib_DATA), $(wildcard *.js))
+
+@FW_PACKAGE_NAME@-uncompressed.js: $(jsfiles)
+	@cat /dev/null $^ > $@
+
+check_DATA =				\
+  $(patsubst %.js, .%.js_ok, $(jsfiles))
+
+CLEANFILES +=				\
+  $(pkglib_DATA)
+
+EXTRA_DIST +=				\
+  $(jsfiles)				\
+  $(pkglib_DATA)
