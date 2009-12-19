@@ -1,0 +1,6 @@
+bootstrap fails if libtool is too old a version, but this is not detected nicely
+figure out some way to skip f77/cxx libtool setup (?)
+filter out unwanted pkg-config somehow
+parse includes in make-pkgconfig-template
+
+BUG: missing ignores: depcomp, config.sub, and ltmain.sh in /
