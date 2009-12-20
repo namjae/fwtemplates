@@ -333,7 +333,7 @@ File: configure.ac.local        Status: Up-to-date
    Sticky Options:      (none)
 
    Existing Tags:
-        deb-0_0_0-darwin_i386           (revision: 1.1)
+        deb-0_0_0-all           (revision: 1.1)
 }}}
 Combining the repository tag and the build package, it's possible to recreate the conditions under which the package was built.  This is useful for trying to find difficult-to-reproduce bugs.
 
