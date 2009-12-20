@@ -1,5 +1,7 @@
 #summary Basic introduction to framewerk.
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 Framewerk ships with support for:
