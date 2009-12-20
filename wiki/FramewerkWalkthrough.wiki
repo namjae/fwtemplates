@@ -141,6 +141,16 @@ These variables affect how packages (and dist tarballs) are built.  For instance
 
 Note some dependencies are added for you automatically by the template and are not listed explicitly.  For instance a build dependency on framewerk is automatically generated in this case. [[#3 3]]
 
+== Packaging Hooks ==
+
+Other important files in {{{fw-pkgin}}} are the packaging hooks
+{{{
+% ls fw-pkgin
+Makefile.am.local  post-install*  pre-install*  start*
+config             post-remove*   pre-remove*   stop*
+}}}
+These are hopefully self-documenting; basically they act like debian hooks (thus start/stop currently do nothing but confuse).  For details on how rpm is made to look like debian, check out [PackageHooks the package hooks wiki page].
+
 == Build the project ==
 
 All framewerk projects build the same way.[[#15 15]]
