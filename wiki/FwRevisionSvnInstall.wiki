@@ -1,4 +1,5 @@
 #summary Install howto for fw-revision-svn
+#labels Deprecated
 
 = Introduction =
 
