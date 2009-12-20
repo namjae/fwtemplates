@@ -1,5 +1,7 @@
-#summary History and Design Goals
 #labels Featured,Phase-Design
+ #summary History and Design Goals
+
+<wiki:toc max_depth="2" />
 
 Want to just start installing?  Check out the [FramewerkInstall install howto].
 
@@ -39,7 +41,7 @@ Templates might define processes which involve interacting with the revision con
    * make sure I am up-to-date with the repository if I am releasing a non-test package, and
    * tag the repository with a tag generated from the package name, architecture, and package version.
 
-The interface to the revision control system is abstracted out so that it can be made to work with cvs, subversion, perforce, etc.  In practice right now only cvs and subversion are supported, so probably the abstraction is not sufficient.
+The interface to the revision control system is abstracted out so that it can be made to work with cvs, subversion, perforce, mercurial, git, etc.  In practice right now only cvs and subversion are supported, so probably the abstraction is not sufficient.
 
 == Packaging system ==
 
@@ -50,13 +52,13 @@ Templates might define processes which involve interacting with the packaging sy
    * make a package, or
    * upload a package to an archive.
 
-The interface to the packaging system is abstracted out so that it can be made to work with debian, rpm, etc.  In practice right now only debian is supported (using [http://packages.debian.org/unstable/devel/dupload dupload] to interact with the archive), so probably the abstraction is not sufficient.
+The interface to the packaging system is abstracted out so that it can be made to work with debian, rpm, etc.  Right now debian and rpm are supported; since I did debian first, basically all the configuration is debian syntax and debian style with framewerk translating to the rpm equivalent.
 
 = Packages =
 
 == framewerk ==
 
-This is the base of the system.  It provides several key components: build/automake, package/deb, revision/cvs, template/fw-template, template/fw-build, and template/script.  It also provides the key executables that define the framework: fw-init, fw-bootstrap, fw-exec, and fw-package.
+This is the base of the system.  It provides several key components: build/automake, package/deb, package/rpm, revision/cvs, revision/svn, template/fw-template, template/fw-build, and template/script.  It also provides the key executables that define the framework: fw-init, fw-bootstrap, fw-exec, and fw-package.
 
 template/fw-template is a template for making new templates.  I used it to make all the templates listed here, so I'm gaining confidence in it.
 
@@ -80,15 +82,17 @@ I've done a couple of projects with it (e.g., [http://code.google.com/p/fuserl f
 
 == fw-template-Cxx ==
 
-This is derived from fw-template-C.  It doesn't do much more, except set up the C++ compiler.  There is more that could be done here; I know there are alot of autoconf macros that try to get around the various differences in C++ installations (e.g., std::cout or just cout?; iostream.h or iostream?).  However I mostly use an up-to-date g++, because I can't stand to read about crazy advanced techniques and then try them out only to have them fail.  (Also I've given up on C++ in favor of Erlang).
+This is derived from fw-template-C.  It doesn't do much more, except set up the C++ compiler.  There is more that could be done here; I know there are alot of autoconf macros that try to get around the various differences in C++ installations (e.g., std::cout or just cout?; iostream.h or iostream?).  However I mostly use an up-to-date g++, because I can't stand to read about crazy advanced techniques and then try them out only to have them fail.  (Also I've mostly given up on C++ in favor of Erlang).
+
+Does it work?  Well, I've used framewerk to package external projects written in C++ using it if the didn't already have debian packages available; and I've done small C++ projects with it.
 
 == fw-template-erlang ==
 
-This is an Erlang development template for framewerk.  As I am just learning Erlang, this is not as polished as fw-template-c, because I don't have years of experience with how I like projects to work.  However it is coming along: I have [http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html eunit], [http://www.erlang.org/doc/man/cover.html cover], and [http://www.erlang.org/doc/apps/edoc/index.html edoc] integration now; the template also generates an OTP compliant [http://www.erlang.org/doc/design_principles/applications.html#7.3 application resource file] via scanning the source.  I use this daily at my job as do several other people so I have the highest confidence in the stability of this template, if not the strategies it prescribes.
+This is an Erlang development template for framewerk.  It is coming along: I have [http://svn.process-one.net/contribs/trunk/eunit/doc/overview-summary.html eunit], [http://www.erlang.org/doc/man/cover.html cover], and [http://www.erlang.org/doc/apps/edoc/index.html edoc] integration now; the template also generates an OTP compliant [http://www.erlang.org/doc/design_principles/applications.html#7.3 application resource file] via scanning the source; and automatically integrates with [http://http://code.google.com/p/erlrc/ erlrc].  I use this daily at my job as do several other people so I have the highest confidence in the stability of this template, if not the strategies it prescribes.
 
 == fw-template-revision ==
 
-This is a template for revision control plugins for framewerk.  I used it to develop fw-revision-svn.  
+This is a template for revision control plugins for framewerk.  I used it to develop fw-revision-svn.  I then deprecated fw-revision-svn because I needed to pull svn support into the base to get the code onto google code's repository.  However the exercise gives me reason to believe fw-template-revision is good to go.
 
 == fw-revision-svn ==
 
@@ -96,6 +100,10 @@ This is a template for revision control plugins for framewerk.  I used it to dev
 I use this all the time because google code is subversion based, so I have high confidence in subversion support.~~
 
 subversion support now included in the base distribution of framewerk.
+
+== fw-revision-javascript ==
+
+I did this recently because of some javascript gigs I had.  The main value adds are integrating yuicompressor, qunit, and jscoverage; the latter two helping reduce my defect rate substantially.  Check out the [FwTemplateJavascriptWalkthrough walkthrough] for more info.
 
 = Next Steps =
 
