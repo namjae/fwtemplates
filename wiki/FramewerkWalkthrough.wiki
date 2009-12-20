@@ -433,42 +433,42 @@ Now you can install templates to extend the power of framewerk.
 
 = Footnotes =
 
-== 1 ==
+=== 1 ===
 Alternatively, if you are too young to remember cvs, you can initialize the project without revision control.
 {{{
 % fw-init --name mynorevproject --template script --revision none
 }}}
 
-== 2 ==
+=== 2 ===
 In practice, the only other revision control system to be ported to the framewerk API is subversion, which is not that different than cvs.  So maybe the abstraction is not abstract enough.
 
-== 3 ==
+=== 3 ===
 For the truly curious, you can see how the template is modifying the config file by running
 {{{
 % fw-exec template/script/load-config
 }}}
 in the root directory of the project.
 
-== 4 ==
+=== 4 ===
 Technically speaking this only required for templates which use automake to build.  Right now, however, that is all of them.
 
-== 5 ==
+=== 5 ==
 It does pass a version number to fw-bootstrap so that, in theory, framewerk has a chance to upgrade it when it is run.
 
-== 6 ==
+=== 6 ===
 There needs to be a whole wiki page about this feature, but here's a quick note instead.
 Any file located in {{{fw/path/basename}}} relative to the root directory of your project can be overridden by a file {{{fw.local/path/basename}}} of the same name under {{{fw.local}}} in your root directory.  So for instance you could override the way the script template loads the config file by creating a {{{fw.local/template/script/load-config}}} file.  This escape hatch is here so that in case framewerk is getting in your way you can deal with it.
 
-== 7 ==
+=== 7 ===
 The framewerk philosophy is to try to do the right thing by default but be able to be overridden if necessary.  So for {{{Makefile.am.local}}} and {{{configure.ac.local}}} files, if you for some reason can't work with the installed {{{Makefile.am}}} and {{{configure.ac}}} files and their include strategy, you can create your own {{{Makefile.am}}} and/or {{{configure.ac}}} and check them into your project.  If framewerk sees that you have these files, it will not link against the installed versions.  Note the disadvantage of doing this is that you no longer get your project automatically updated when framewerk is upgraded, so it should only be done when necessary.
 
-== 8 ==
+=== 8 ===
 Which is weird because that's what automake said about make and autoconf.
 
-== 9 ==
+=== 9 ===
 Assuming the prefix is {{{/usr}}}.  {{{/usr}}} is the default prefix for framewerk projects, but can be overridden, e.g. via the {{{--prefix}}} argument to {{{configure}}}.
 
-== 10 ==
+=== 10 ===
 I haven't actually written a package to support any other package type, so it's probable that the abstraction is not good enough.
 
 If for some reason you think framewerk is autodetecting your package type incorrectly you can force it via the {{{FW_NATIVE_PACKAGE_TYPE}}} environment variable when running configure, e.g., 
@@ -476,26 +476,26 @@ If for some reason you think framewerk is autodetecting your package type incorr
 % FW_NATIVE_PACKAGE_TYPE="deb" ./configure
 }}}
 
-== 11 ==
+=== 11 ===
 If you try this when the native package type is 'none', it just does nothing.
 
-== 12 ==
+=== 12 ===
 It is possible to skip running {{{make check}}} by setting the environment variable {{{FW_SKIP_TESTS}}}, e.g.,
 {{{
 % env FW_SKIP_TESTS="1" make package
 }}}
 but this can be a nasty habit.
 
-== 13 ==
+=== 13 ===
 At least for all templates based upon the automake build system, which is currently all of them.
 
-== 14 ==
+=== 14 ===
 At our company we have a package which installs an {{{/etc/dupload.conf}}} which knows how to talk to our package repository and makes that repository the default, and then we list that package in our build dependencies.  In addition for my personal work I put a {{{.dupload.conf}}} in my home directory which contains a definition for my personal package archive called 'myarchive', and then I use {{{FW_DUPLOAD_ARGS="-t myarchive"}}} in {{{fw-pkgin/config}}} to cause that entry to be used by dupload.
 
-== 15 ==
+=== 15 ===
 When building from the source code repository, that is.  {{{make dist}}} tarballs are tweaked so that they [#Releasing_a_tarball build just like vanilla automake projects].
 
-== 16 ==
+=== 16 ===
 If you see something like:
 {{{
 fw requires GNU make to build, you are using bsd make
