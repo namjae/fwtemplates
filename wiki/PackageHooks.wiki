@@ -4,7 +4,7 @@
 
 = Executive Summary =
 
-Framewerk maps the RPM scriptlet interface into something that looks like the DEB package script model (excepting the absence of "error unwind" calls).  The skeleton hooks installed with a new project are hopefully sufficiently outlined to allow quick progress.
+Framewerk maps the RPM scriptlet interface into something that looks like the DEB package script model (excepting the absence of "error unwind" calls; which are technically feasible, so maybe someday I should implement them).  The skeleton hooks installed with a new project are hopefully sufficiently outlined to allow quick progress.
 
 = Introduction =
 
