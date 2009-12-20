@@ -347,6 +347,8 @@ Framewerk supports the {{{make dist}}} family of targets.  The distribution tarb
 }}}
 so that consumers of dist tarballs remain blissfully aware of framewerk.  Templates initialize the project in a state such that dist tarballs build correctly otherwise the template has a bug.  However for files added to the project sometimes [http://www.delorie.com/gnu/docs/automake/automake_91.html autoconf dist directives] are required to ensure placement in the dist tarball.
 
+Building an rpm package is a great way to test the dist tarball, since rpmbuild is supplied the dist tarball to build the package (thus, if it is broken, the rpm package will fail to build).
+
 = Bells and whistles =
 
 This section describes interesting bits and bobs of framewerk.
