@@ -440,8 +440,9 @@ Congratulations, you've made it through the framewerk walkthrough.  Hopefully yo
 Now you can install templates to extend the power of framewerk.
 
   * [FwTemplateCInstall fw-template-c]: for C development.
+  * [FwTemplateCPPInstall fw-template-cxx]: for C++ development.
   * [FwTemplateErlangInstall fw-template-erlang]: for Erlang development.
-  * [FwRevisionSvnInstall fw-revision-svn]: for subversion support.
+  * [FwTemplateJavascriptInstall fw-template-javascript]: for Javascript development.
 
 = Footnotes =
 
