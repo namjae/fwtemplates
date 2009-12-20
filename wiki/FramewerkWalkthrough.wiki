@@ -5,7 +5,9 @@
 Framewerk ships with support for:
   * automake build
   * cvs revision control
+  * svn revision control
   * debian packaging
+  * rpm packaging
   * script template
 This particular combination of features is packed into the initial tarball because framewerk is self-building so this was the set of things I needed to get going.
 
