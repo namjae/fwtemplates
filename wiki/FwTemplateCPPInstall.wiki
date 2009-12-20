@@ -14,7 +14,7 @@ Prerequisites:
   1. [FwTemplateCInstall fw-template-c]
   1. working C++ development setup.
 
-Go to the [http://code.google.com/p/fwtemplates/downloads/list?can=2&q=fw-template-c*.tar.gz&colspec=Filename+Summary+Uploaded+Size+DownloadCount downloads section] and grab the latest {{{.tar.gz}}} file.
+Go to the [http://code.google.com/p/fwtemplates/downloads/list?can=2&q=fw-template-cxx*.tar.gz&colspec=Filename+Summary+Uploaded+Size+DownloadCount downloads section] and grab the latest {{{.tar.gz}}} file.
 
 Unpack the tarball, then run configure and make check.
 {{{
