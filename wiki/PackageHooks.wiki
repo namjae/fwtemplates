@@ -1,4 +1,4 @@
-  #summary Me sorting out what the differences between deb and rpm package hooks are.
+#summary Me sorting out what the differences between deb and rpm package hooks are.
  
 <wiki:toc max_depth="2" />
 
