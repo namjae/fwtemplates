@@ -105,6 +105,114 @@ Yes it's wierd that the argument to pre-remove and post-remove is {{{failed-upgr
 || %postun of old package || post-remove remove ||
 || %posttrans of old package || - ||
 
+= Gory Details =
+
+In framewerk 2.0.1 I implement the hook correspondence with the following spec file hooks:
+
+== %pretrans ==
+The %pretrans hook records the currently installed version of the package (if any) to TMPDIR, and renders some of the actual scripts from the package to TMPDIR.  The latter is done because rpm uses the old %preun and %postun hooks on upgrade, whereas we want to use the new ones.
+{{{
+%pretrans
+set +e
+rpm -q "$FW_PACKAGE_NAME" --queryformat '%{VERSION}' | grep -v 'not installed' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".old_version
+set -e
+printf "%s" "$FW_PACKAGE_VERSION" > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".new_version
+cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreinst
+$preinst
+_RPMEOF
+chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreinst
+cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostinst
+$postinst
+_RPMEOF
+chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostinst
+cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreremove
+$preremove
+_RPMEOF
+chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreremove
+cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostremove
+$postremove
+_RPMEOF
+chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostremove
+exit 0
+}}}
+
+== %pre ==
+
+The %pre hook uses the installation count to determine if this is a fresh install, and if so invokes the new pre-install handler; otherwise (for an upgrade) it invokes the new pre-remove handler followed by the new pre-install handler.
+{{{
+set -e
+if test "\$1" -eq 1
+  then
+    \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreinst install
+  else
+    \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreremove failed-upgrade "\`cat \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".old_version\`" && \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpreinst upgrade "\`cat \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".old_version\`"
+  fi
+
+exit 0
+}}}
+
+== %post ==
+
+%post does not cleanly correspond to the debian hook model, so it is unused, except for a call to ldconfig (just in case).
+{{{
+%post -p /sbin/ldconfig
+}}}
+
+== %preun ==
+
+%preun checks the installation count, and if the package is being removed it invokes the old pre-remove hook; otherwise (for an upgrade it invokes the new post-remove.
+{{{
+%preun
+set -e
+if test "\$1" -eq 0
+  then
+    cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpreremove
+$preremove
+_RPMEOF
+    chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpreremove
+
+    \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpreremove remove
+  else
+    \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostremove failed-upgrade "\`cat \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".new_version\`"
+  fi
+
+exit 0
+}}}
+
+== %postun ==
+
+%postun checks the installation count, and if the packaged is being removed it invokes the old post-remove; otherwise (for an upgrade), it does nothing (the %preun handles this case, due to debian defining "post" relative to the installation of the new package; rpm defines "post" relative to removal of the old package).  A call to ldconfig is thrown in for good measure.
+{{{
+%postun
+set -e
+if test "\$1" -eq 0
+  then
+    cat <<'_RPMEOF' > \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpostremove
+$postremove
+_RPMEOF
+    chmod +x \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpostremove
+
+    \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".oldpostremove remove
+    rm -f \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME"*
+  else
+    true
+  fi
+
+/sbin/ldconfig
+exit 0
+}}}
+
+== %posttrans ==
+
+%posttrans invokes the configure phase of the post-install hook.  rpm will only call a %posttrans if the package is still installed at the end of the transaction (so package removals do not invoke this, only installs or upgrades).
+{{{
+%posttrans
+set -e
+\${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".newpostinst configure "\`cat \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME".old_version\`"
+rm -f \${TMPDIR:=/tmp}/."$FW_PACKAGE_NAME"*
+exit 0
+}}}
+
 = Footnotes =
 
 == 1 ==
