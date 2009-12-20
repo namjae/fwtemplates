@@ -151,7 +151,7 @@ config             post-remove*   pre-remove*   stop*
 }}}
 These are hopefully self-documenting; basically they act like debian hooks (thus start/stop currently do nothing but confuse).  For details on how rpm is made to look like debian, check out [PackageHooks the package hooks wiki page].
 
-For the purposes of this walkthough, you can ignore the packaging hooks; the initially created versions do nothing.
+For the purposes of this walkthough, you can ignore the packaging hooks: the initially created versions do nothing.
 
 == Build the project ==
 
