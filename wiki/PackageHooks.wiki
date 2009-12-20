@@ -71,7 +71,9 @@ Thus, DEB script semantics continue to be the mapping
   * postinst -> post-install
   * prerm -> pre-remove
   * postrm -> post-remove
-which means that you can look for extra arguments that indicate the "exception handling" portions of the DEB package management model; these arguments will just never be encountered when the project is rendered as an RPM package (for now anyway; if I feel inspired I could change the rpm package spec to emulate the exception handling portions of the DEB model).
+which means that you can look for extra arguments that indicate the "exception handling" portions of the DEB package management model; these arguments will just never be encountered when the project is rendered as an
+RPM package (for now anyway; if I feel inspired I could change the rpm package spec to emulate the exception
+handling portions of the DEB model).
 
 == Mapped RPM Installation ==
 
