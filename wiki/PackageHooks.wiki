@@ -160,7 +160,7 @@ exit 0
 
 == %preun ==
 
-%preun checks the installation count, and if the package is being removed it invokes the old pre-remove hook; otherwise (for an upgrade it invokes the new post-remove.
+%preun checks the installation count, and if the package is being removed it invokes the old pre-remove hook; otherwise (for an upgrade) it invokes the new post-remove.
 {{{
 %preun
 set -e
