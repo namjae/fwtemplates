@@ -55,7 +55,7 @@ cp `env PATH="../../../fw/bin:$PATH" which fw-package` fw/bin
 
 # disable the addition of fw-template-C to the BUILD_DEPENDS since it 
 # will not be installed at this point
-cp "${testsdir}/share/fw/build/automake/load-config" fw/template/C/ || \
+cp -f "${testsdir}/share/fw/build/automake/load-config" fw/template/C/ || \
 exit 1
 chmod +x fw/template/C/load-config || exit 1
 
