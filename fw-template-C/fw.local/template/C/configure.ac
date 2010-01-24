@@ -1,5 +1,10 @@
 sinclude([ac-init.generated])
 
+dnl work around lack of support for sinclude in latest libtoolize
+ifelse([
+AC_INIT
+], [], [])
+
 AM_INIT_AUTOMAKE([tar-ustar])
 
 AM_MAINTAINER_MODE
