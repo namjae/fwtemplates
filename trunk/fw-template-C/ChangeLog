@@ -1,3 +1,6 @@
+Version 0.0.8 [ NYR ]
+  * deal with latest libtoolize funny business
+
 Version 0.0.7
   * do not set user variable CPPFLAGS (instead use AM_CPPFLAGS)
   * rpm tweaks
