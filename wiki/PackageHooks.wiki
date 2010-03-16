@@ -91,7 +91,7 @@ handling portions of the DEB model).
 ||  %pre of new package || (new) pre-remove failed-upgrade old-version && (new) pre-install upgrade old-version ||
 || _new package installed_ || _new package files unpacked_ ||
 || %post of new package || - ||
-|| %preun of old package || (new) post-remove failed-upgrade new-version [[#1 1]]  || 
+|| %preun of old package || (new) post-remove failed-upgrade old-version [[#1 1]]  || 
 || _removal of old package_ || _"old but not new" package files removed_ ||
 || %postun of old package || - ||
 || %posttrans of new package || (new) post-install configure previously-installed version ||
