@@ -1,7 +1,0 @@
-#! /bin/sh
-
-which rpm >/dev/null 2>/dev/null
-
-test $? = 0 || exit 1
-
-rpm -q rpm 2>/dev/null  | grep '^rpm-' >/dev/null
