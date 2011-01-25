@@ -1,3 +1,4 @@
+memcheck/leakcheck should depend upon check in top level dir in case source is not built
 bootstrap fails if libtool is too old a version, but this is not detected nicely
 figure out some way to skip f77/cxx libtool setup (?)
 filter out unwanted pkg-config somehow
