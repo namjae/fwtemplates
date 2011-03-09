@@ -1,7 +1,0 @@
-TESTS =			\
-  jstestdriver-all	\
-  testmylib.js		\
-  qunit-testmylib.js
-
-clean-local:
-	-rm -rf jscoverage*
