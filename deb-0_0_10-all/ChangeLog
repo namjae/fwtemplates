@@ -1,0 +1,40 @@
+Version 0.0.10
+  * tweaks to build on later os/x
+
+Version 0.0.9
+  * No license, the web page claimed new BSD but a COPYING file wasn't in
+  place with the license, so talked to Paul about it, then added it.
+
+Version 0.0.8
+  * deal with latest libtoolize funny business
+
+Version 0.0.7
+  * do not set user variable CPPFLAGS (instead use AM_CPPFLAGS)
+  * rpm tweaks
+
+Version 0.0.6
+  * google code re-release
+
+Version 0.0.5
+  * fix missing ignore-files 
+  * fix missing clean files
+  * don't include loadable modules in generated pkgconfig
+
+Version 0.0.4
+  * Build with latest framewerk.
+  * bsd make fix
+  * make dist fix
+  * add helpful comments to fw-pkgin/config
+  * fix --disable-hardcore
+
+Version 0.0.3
+  * Build with latest framewerk.
+
+Version 0.0.2
+  * Add dependencies
+
+Version 0.0.1
+  * Have make-pkgconfig-template warn (not fail) on unknown directories.
+
+Version 0.0.0
+  * Initial version.
