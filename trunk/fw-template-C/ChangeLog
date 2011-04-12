@@ -1,3 +1,6 @@
+Version 0.0.10 [NYR]
+  * tweaks to build on later os/x
+
 Version 0.0.9
   * No license, the web page claimed new BSD but a COPYING file wasn't in
   place with the license, so talked to Paul about it, then added it.
