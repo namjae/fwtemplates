@@ -14,7 +14,7 @@ FW_PACKAGE_ARCHITECTURE_DEPENDENT="0"
 # 
 # For other packaging systems, the syntax is translated for you.
 
-FW_PACKAGE_DEPENDS="gcc | fink (>= 0.0.0), pkgconfig (>= 0.9.0) | pkg-config (>= 0.9.0) | fink (>= 0.0.0), libtool | libtool14 | fink (>= 0.0.0)"
+FW_PACKAGE_DEPENDS="gcc | fink (>= 0.0.0), pkgconfig (>= 0.9.0) | pkg-config (>= 0.9.0) | fink (>= 0.0.0), libtool | libtool2 | libtool14 | fink (>= 0.0.0)"
 FW_PACKAGE_CONFLICTS=""
 FW_PACKAGE_PROVIDES=""
 
