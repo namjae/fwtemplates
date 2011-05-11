@@ -2,7 +2,7 @@
 # environment variable FW_PACKAGE_DEFAULT_MAINTAINER if non-empty
 
 FW_PACKAGE_NAME="fw-template-cxx"
-FW_PACKAGE_VERSION="0.0.8"
+FW_PACKAGE_VERSION="0.0.9"
 FW_PACKAGE_MAINTAINER="Paul Mineiro <paul-fw@mineiro.com>"
 FW_PACKAGE_SHORT_DESCRIPTION="C++ template for framewerk."
 FW_PACKAGE_DESCRIPTION="`cat README`"
@@ -23,7 +23,7 @@ FW_PACKAGE_BUILD_CONFLICTS=""
 
 FW_SUBVERSION_TAG_ROOT="https://fwtemplates.googlecode.com/svn/tags/fw-template-Cxx"
 
-FW_DUPLOAD_ARGS=${FW_DUPLOAD_ARGS-"-t dukeshardy"}
+FW_DUPLOAD_ARGS=${FW_DUPLOAD_ARGS-"-t dukeslucid"}
 
 # scp+createrepo is used for submitting rpm packages to a package archive
 # The FW_RPM_REPO_USER, FW_RPM_REPO_HOST, FW_RPM_REPO_BASEDIR,

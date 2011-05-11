@@ -61,11 +61,6 @@ for dir in src tests
         chmod +w "$dir/$x" || fatal "Cxx/init"
       done
 
-    for x in testprog.c myprog.c mylib.c mylib.h
-      do
-	rm -f "$dir/$x" || fatal "Cxx/init"
-      done
-
     for x in testprog.cc myprog.cc mylib.cc mylib.hh
       do
         fw_find "template/Cxx/$dir/$x" file
