@@ -1,0 +1,33 @@
+=Version 0.0.9=
+  * don't remove files from filesystem before removing from version control
+
+=Version 0.0.8=
+  * tweaks to build on latest os/x.
+
+=Version 0.0.7=
+  * No license, the web page claimed new BSD but a COPYING file wasn't in
+  place with the license, so talked to Paul about it, then added it.
+
+=Version 0.0.6=
+  * work around latest libtoolize funny business
+
+=Version 0.0.5=
+  * do not set user variable CPPFLAGS (instead use AM_CPPFLAGS)
+  * rpm tweaks
+
+=Version 0.0.4=
+  * google code re-release
+
+=Version 0.0.3=
+  * change name to Cxx from C++ ... google code doesn't like + in filenames (!)
+
+=Version 0.0.2=
+  * Build with latest framewerk
+  * make dist fix
+  * bsd make fix
+
+=Version 0.0.1=
+  * Build with latest framewerk (pick up enhancements).
+
+=Version 0.0.0=
+  * Initial version.
