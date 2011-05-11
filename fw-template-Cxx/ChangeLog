@@ -1,3 +1,6 @@
+=Version 0.0.9=
+  * don't remove files from filesystem before removing from version control
+
 =Version 0.0.8=
   * tweaks to build on latest os/x.
 
