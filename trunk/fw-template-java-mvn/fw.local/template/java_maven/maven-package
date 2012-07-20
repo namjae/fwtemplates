@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use Cwd;
 use XML::Simple;
 use Data::Dumper;
 use Getopt::Long;
@@ -36,38 +37,12 @@ sub read_xml_file
   return XMLin ($xml);
 }
 
-sub make_package
-{
-  my ($pkg_prefix) = @_;
-  # detect that we've probably built the package
-  if (-f "target/$pkg_prefix.jar")
-    {
-      # create fw directories
-      `test -d fw-pkgout || mkdir fw-pkgout`;
-      `test -d fw-pkgtmp || mkdir fw-pkgtmp`;
-      `cd fw-pkgtmp && ln -sf ../target/$pkg_prefix.jar .`;
-      `cd fw-pkgtmp && ln -sf ../pom.xml $pkg_prefix.pom`;
-      `cd fw-pkgtmp && md5sum $pkg_prefix.jar | cut -f1 -d' ' > $pkg_prefix.jar.md5`;
-      `cd fw-pkgtmp && md5sum $pkg_prefix.pom | cut -f1 -d' ' > $pkg_prefix.pom.md5`;
-      `cd fw-pkgtmp && sha1sum $pkg_prefix.jar | cut -f1 -d' ' > $pkg_prefix.jar.sha1`;
-      `cd fw-pkgtmp && sha1sum $pkg_prefix.pom | cut -f1 -d' ' > $pkg_prefix.pom.sha1`;
-      `cd fw-pkgtmp && tar chvfz ../fw-pkgout/$pkg_prefix.tar.gz $pkg_prefix.*`;
-      `rm -rf fw-pkgtmp`;
-    }
-  else
-    {
-      print "ERROR: jar has not been made";
-      exit 1;
-    }
-}
-
 my $data = read_xml_file ("./pom.xml");
 
 my $version = $data->{'version'};
 my $name    = $data->{'artifactId'};
 
 my $pkg_prefix = "$name-$version";
-my $tar_file   = "$pkg_prefix.tar.gz";
 
 # construct tag
 (my $tag_version = $version) =~ tr [\.] [_];
@@ -100,39 +75,17 @@ if (system ("fw-exec", "revision/$revision_opt/check-for-tag",
       }
   }
 
-unless (-f "fw-pkgout/$tar_file")
-  {
-    make_package ($pkg_prefix);
-  }
-
 if ($release_opt eq "yes")
   {
-    my $repo_host = "codex.pasadena.openx.org";
-    my $repo_user = "mavenrepo";
-    my $repo_path = "/var/www/html/codex.openx.org/maven2";
-
-    # construct the path for the remote side
-    my $group_path = $data->{'groupId'};
-    $group_path =~ tr [\.] [\/];
-    my $path = join ("/", ($repo_path,
-                           $group_path,
-                           $data->{'name'},
-                           $data->{'version'}));
-
     system ("fw-exec", "revision/$revision_opt/tag",
             "--tag", "$tag", "--template", "script") == 0
       or die "ERROR: creating tag '$tag' failed: $?";
 
-    my $ssh_host = $repo_user."@".$repo_host;
-    system ("ssh", $ssh_host, "mkdir -p $path") == 0
-      or die "ERROR: unable to create remote path [$path]: $?";
-
-    system ("scp", "fw-pkgout/$tar_file", $ssh_host.":".$path) == 0
-      or die "ERROR: unable to scp files to repo: $?";
-
-    my $cmd = "cd $path && tar xvfz $tar_file && rm -f $tar_file";
-    system ("ssh", $ssh_host, $cmd) == 0
-      or die "ERROR: unable to untar remote files: $?";
-}
+    system ("mvn", "-Dmaven.repo.local=" . cwd() . "/repository",
+            "-Dmaven.test.skip=true", "deploy") == 0
+      or die "ERROR: unable to deploy to Maven repo: $?";
+  }
 
 0;
+
+
