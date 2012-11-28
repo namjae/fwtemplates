@@ -46,8 +46,8 @@ bootstrap_link_optional "template/java_maven/pom2fw"   \
                         "pom2fw"                       \
 || fatal "java_maven/bootstrap"
 
+fw_exec "build/automake/bootstrap" "$@"
+
 fw_find "template/java_maven/maven-package" maven_package
 cp -f "$maven_package" "./create-package" \
 || fatal "java_maven/bootstrap"
-
-fw_exec "build/automake/bootstrap" "$@"

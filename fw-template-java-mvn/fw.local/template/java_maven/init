@@ -49,8 +49,7 @@ fw_exec "build/automake/init" "$@" || fatal "java_mvn/init"
 
 parse_args "java_maven/init" "$@"
 
-validate_args "java_maven/init" "groupId artifactId version" ""
-
+validate_args "java_maven/init" "groupId version" ""
 
 fw_exec "revision/$revision/ignore-files"       \
   '.classpath'                                  \
@@ -61,22 +60,25 @@ fw_exec "revision/$revision/ignore-files"       \
   'target'                                      \
   '*.tar.gz'                                    \
   '*.tgz'                                       \
+  'configure.ac'				\
+  'Makefile.am'					\
+  'pom2fw'					\
 || fatal "java_mvn/init"
 
 fw_find "template/java_maven/Makefile_dot_am_template" makefile
 
 cp -f "$makefile" "./Makefile.am.local" \
-|| fatal "java_maven/bootstrap"
+|| fatal "java_maven/init"
 
 mvn archetype:generate					\
   -DarchetypeGroupId=org.apache.maven.archetypes 	\
   -DarchetypeArtifactId=maven-archetype-quickstart	\
   -DgroupId=${groupId} 					\
-  -DartifactId=${artifactId}				\
+  -DartifactId=${name}				\
   -Dversion=${version}					\
   -DinteractiveMode=false				\
-|| fatal  "java_maven/bootstrap"
+|| fatal  "java_maven/init"
 
-(mv ./${artifactId}/* . && rm -rf ./${artifactId} ) \
-|| fatal "java_maven/bootstrap"
+(mv ./${name}/* . && rm -rf ./${name} ) \
+|| fatal "java_maven/init"
 

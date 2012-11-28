@@ -27,10 +27,12 @@ rm -rf megatmp
 { 
   mkdir megatmp &&
   cd megatmp &&
-  env FW_ROOT="$testsdir"                               \
-  fw-init --name tmp                                    \
+  env FW_ROOT="$testsdir"                               
+  fw-init --name "tmp"					\
           --revision none                               \
-          --template "java_maven"      
+          --template "java_maven"            			\
+          --groupId "tmpGroupId"			\
+          --version "0"			
 } || exit 1
 cd tmp
 rm -f fw
