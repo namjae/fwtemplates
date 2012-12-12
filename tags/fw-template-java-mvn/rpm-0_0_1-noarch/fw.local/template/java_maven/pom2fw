@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use XML::Simple;
+use Data::Dumper;
+use Getopt::Long;
+
+my $version_opt  = 0;
+my $fullname_opt = 0;
+my $artifact_opt = 0;
+
+GetOptions ("version" => \$version_opt,
+            "fullname"=> \$fullname_opt,
+            "artifact"=> \$artifact_opt,
+           );
+
+sub read_xml_file
+{
+  my ($file_name) = @_;
+  my $xml = undef;
+  open FROM, "< $file_name";
+  my (@lines) = <FROM>;
+  foreach my $line (@lines)
+    {
+      $xml .= $line;
+    }
+  close FROM;
+  return XMLin ($xml);
+}
+
+my $data = read_xml_file ("./pom.xml");
+
+if ($version_opt)
+{
+  print $data->{'version'} . "\n";
+}
+elsif ($fullname_opt)
+{
+  my $tmp_name = $data->{'groupId'}.".".$data->{'artifactId'};
+  $tmp_name =~ s/\./-/g;
+  print $tmp_name . "\n";
+}
+elsif ($artifact_opt)
+{
+  print $data->{'artifactId'}."\n";
+}
+
+0;

@@ -1,0 +1,91 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Cwd;
+use XML::Simple;
+use Data::Dumper;
+use Getopt::Long;
+
+my $build_opt      = undef;
+my $package_opt    = undef;
+my $revision_opt   = undef;
+my $release_opt    = undef;
+my $ldd_opt        = undef;
+my $ldd_args_opt   = undef;
+my $libexecdir_opt = undef;
+
+GetOptions ("build=s"      => \$build_opt,
+            "package=s"    => \$package_opt,
+            "revision=s"   => \$revision_opt,
+            "release=s"    => \$release_opt,
+            "ldd=s"        => \$ldd_opt,
+            "ldd_args=s"   => \$ldd_args_opt,
+            "libexecdir=s" => \$libexecdir_opt);
+
+sub read_xml_file
+{
+  my ($file_name) = @_;
+  my $xml = undef;
+  open FROM, "< $file_name";
+  my (@lines) = <FROM>;
+  foreach my $line (@lines)
+    {
+      $xml .= $line;
+    }
+  close FROM;
+  return XMLin ($xml);
+}
+
+my $data = read_xml_file ("./pom.xml");
+
+my $version = $data->{'version'};
+my $name    = $data->{'artifactId'};
+
+my $pkg_prefix = "$name-$version";
+
+# construct tag
+(my $tag_version = $version) =~ tr [\.] [_];
+my $tag = "mvn-$tag_version-noarch";
+
+if (system ("fw-exec", "revision/$revision_opt/check-up-to-date") != 0)
+  {
+    if ($release_opt eq "yes")
+      {
+        die "ERROR: cannot release package in this state, ",
+            "local project is not up to date: $?";
+      }
+    else
+      {
+        warn "WARNING: local project is not up to date: $?";
+      }
+  }
+
+if (system ("fw-exec", "revision/$revision_opt/check-for-tag",
+            "--tag", "$tag", "--template", "script") != 0)
+  {
+    if ($release_opt eq "yes")
+      {
+        die "ERROR: cannot release package in this state, ",
+            "tag '$tag' already exists: $?";
+      }
+    else
+      {
+        warn "WARNING: tag '$tag' already exists: $?";
+      }
+  }
+
+if ($release_opt eq "yes")
+  {
+    system ("fw-exec", "revision/$revision_opt/tag",
+            "--tag", "$tag", "--template", "script") == 0
+      or die "ERROR: creating tag '$tag' failed: $?";
+
+    system ("mvn", "-Dmaven.repo.local=" . cwd() . "/repository",
+            "-Dmaven.test.skip=true", "deploy") == 0
+      or die "ERROR: unable to deploy to Maven repo: $?";
+  }
+
+0;
+
+
