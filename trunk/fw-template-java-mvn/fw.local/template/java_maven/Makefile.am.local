@@ -3,8 +3,7 @@ javamvntemplatedir = $(prefix)/share/fw/template/@FW_TEMPLATE_TEMPLATE_TYPE@
 
 dist_javamvntemplate_DATA = 		\
   Makefile_dot_am			\
-  configure.ac				\
-  Makefile_dot_am_template		
+  configure.ac
 
 dist_javamvntemplate_SCRIPTS = \
   pom2fw \

@@ -46,6 +46,16 @@ bootstrap_link_optional "template/java_maven/pom2fw"   \
                         "pom2fw"                       \
 || fatal "java_maven/bootstrap"
 
+for x in Makefile_dot_am     \
+         configure.ac
+ do
+   target=`echo "$x" | perl -pe 's/_dot_am/.am/;'`
+   bootstrap_link_optional "template/java_maven/$x" \
+                           "."                      \
+                           "$target"                \
+   || fatal "java_maven/bootstrap"
+done 
+
 fw_exec "build/automake/bootstrap" "$@"
 
 fw_find "template/java_maven/maven-package" maven_package

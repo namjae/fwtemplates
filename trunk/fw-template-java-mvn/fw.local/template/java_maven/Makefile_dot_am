@@ -1,3 +1,27 @@
 include $(top_srcdir)/fw/build/automake/Makefile_dot_am
 
-SUBDIRS += src 
+MAVEN_CMD=mvn -Dmaven.repo.local=`pwd`/repository
+
+maven_artifacts= \
+  target/@FW_PACKAGE_NAME@-@FW_PACKAGE_VERSION@.jar
+
+all: target/@FW_PACKAGE_NAME@-@FW_PACKAGE_VERSION@.jar
+
+%.jar: pom.xml
+	$(MAVEN_CMD) package -Dmaven.test.skip=true
+
+EXTRA_DIST += pom.xml
+
+check: pom.xml
+	test ${MAKELEVEL} -ne 0 || $(MAVEN_CMD) test
+
+check-%: pom.xml
+	test ${MAKELEVEL} -ne 0 || $(MAVEN_CMD) -Dtest="$*" test
+
+clean:
+	$(MAVEN_CMD) clean
+
+MAINTAINERCLEANFILES += Makefile.in
+
+maintainer-clean-local:: clean
+	rm -f @FW_PACKAGE_NAME@-*
